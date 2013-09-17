@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+bckp_dir="~/.dots.`date +%Y%m%d_%H%M`"
+mkdir "${bckp_dir}"
+
+files="`ls . | grep -v README.md`"
+for f in $files; do
+	if [ "${f}" != "." ] && [ "${f}" != ".." ]; then
+		if [ -e "~/.${f}" ]; then
+			echo "bckp ~/.${f} >>> ${bckp_dir}"
+			mv "~/.${f}" "${bckp_dir}"
+		fi;
+		echo "link $(pwd)/${f} >>> ~/.${f}"
+		ln -s $(pwd)/"${f}" ~/."${f}"
+	fi;
+done
+
