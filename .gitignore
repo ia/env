@@ -1,0 +1,3 @@
+.bzrignore
+gdb/log.commands
+gdb/log.output
