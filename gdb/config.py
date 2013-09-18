@@ -113,6 +113,7 @@ def custom_prompt(current_prompt = None):
     print "val = %s" % value[5]
     print "val = %s" % value[6]
     print ""
+    return "\033[01;31m gdb.py>\033[0m "
 
 gdb.prompt_hook = custom_prompt
 ####    ####    ####    ####    ####    ####    ####    ####

@@ -19,9 +19,21 @@ set logging overwrite off
 set logging on
 
 # print settings - http://sourceware.org/gdb/onlinedocs/gdb/Print-Settings.html
+set print address on
+set print symbol-filename on
+set print max-symbolic-offset 0
+set print symbol on
 set print array on
 set print array-indexes on
+set print elements 0
+set print frame-arguments 0
+set print repeats 8
 set print pretty on
 set print union on
+set print demangle on
+set print asm-demangle on
+set demangle-style auto
+set print object on
+set print static-members on
 set print vtbl on
 
