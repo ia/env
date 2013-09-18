@@ -26,7 +26,7 @@ set print symbol on
 set print array on
 set print array-indexes on
 set print elements 0
-set print frame-arguments 0
+set print frame-arguments all
 set print repeats 8
 set print pretty on
 set print union on
