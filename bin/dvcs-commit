@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$@" ]; then
+	echo "dvcs: nothing to commit"
+else
+	bzr commit  -m "${@}" || (echo "dvcs: bzr: committing error"; false) || exit 1
+	git commit -am "${@}" || (echo "dvcs: git: committing error"; false) || exit 1
+fi
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+bzr status || (echo "dvcs: bzr: pushing error"; false) || exit 1
+git status || (echo "dvcs: git: pushing error"; false) || exit 1
+
