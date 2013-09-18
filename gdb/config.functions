@@ -1,0 +1,17 @@
+
+# gdb config file with custom routine functions
+
+define reverse-record
+	break _start
+	break main
+	run
+	record
+	continue
+	continue
+	reverse-continue
+end
+document reverse-record
+Syntax: reverse-init [function]
+| Init record process for reverse execution using `function' as start point (main by default).
+end
+
