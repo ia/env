@@ -37,3 +37,7 @@ set print object on
 set print static-members on
 set print vtbl on
 
+# record settings for reverse execution - http://www.sourceware.org/gdb/wiki/ProcessRecord/Tutorial
+set record insn-number-max 1000000
+set record stop-at-limit on
+

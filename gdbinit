@@ -8,6 +8,9 @@ set $USE_OPT_ARCH_ARM         = 0
 # force to use 64 bit architecture
 set $USE_OPT_ARCH_64B         = 1
 
+# enable config with custom aliases for gdb commands
+set $USE_CONFIG_ALIASES       = 1
+
 # enable config with custom generic gdb settings
 set $USE_CONFIG_SETTINGS      = 1
 
