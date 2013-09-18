@@ -1,7 +1,10 @@
 
+# python source file for implementation of custom python/gdb api/functions routine
+
 import gdb
 
-# file with python code sections for gdb api routine
+# each separate code section starts with and and by:
+####    ####    ####    ####    ####    ####    ####    ####
 
 ####    ####    ####    ####    ####    ####    ####    ####
 # print struct values recursively

@@ -1,4 +1,6 @@
 
+# gdb config file with custom routine aliases
+
 alias -a prevn  = reverse-next
 alias -a prevni = reverse-nexti
 alias -a prevs  = reverse-step

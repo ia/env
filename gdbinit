@@ -1,5 +1,5 @@
 
-# init internal global gdb variables for flexible config setup
+# internal global gdb variables for flexible config setup
 
 # some external tools like cgdb is not friendly to term escape color codes
 set $USE_OPT_COLORS           = 1
@@ -23,6 +23,6 @@ set $USE_CONFIG_PYTHON        = 1
 # enable epic config from reverse.put.as
 set $USE_CONFIG_REVERSEPUTAS  = 1
 
-# initialization of modular gdb config files based on variables above; TODO: cgdb configs management
+# initialization of modular gdb config files based on variables above; TODO: cgdb configs management, config.colors for color management
 source ~/.gdb/config.init
 
