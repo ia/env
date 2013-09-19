@@ -1,6 +1,10 @@
 
 # gdb config file with custom routine aliases
 
+# aliases for custom gdb functions
+alias -a pst = print-struct
+
+# aliases for internal gdb functions
 alias -a prevn  = reverse-next
 alias -a prevni = reverse-nexti
 alias -a prevs  = reverse-step

@@ -7,9 +7,6 @@ if $USE_OPT_COLORS          == 1
 	# enable colors values
 end
 
-if $USE_CONFIG_ALIASES      == 1
-	source ~/.gdb/config.aliases
-end
 if $USE_CONFIG_SETTINGS     == 1
 	source ~/.gdb/config.settings
 end
@@ -21,5 +18,8 @@ if $USE_CONFIG_PYTHON       == 1
 end
 if $USE_CONFIG_REVERSEPUTAS == 1
 	source ~/.gdb/config.reverseputas
+end
+if $USE_CONFIG_ALIASES      == 1
+	source ~/.gdb/config.aliases
 end
 

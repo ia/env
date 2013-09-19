@@ -61,9 +61,7 @@ Location: python extension config file'''
 	
 	
 	def __init__(self):
-		super(PrintStruct, self).__init__(
-			'print-struct',
-			gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+		super(PrintStruct, self).__init__('print-struct', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
 		
 		
 	def invoke(self, arg, from_tty):
