@@ -10,7 +10,7 @@ import gdb
 #    print struct values recursively
 # based on great advice:
 #  http://stackoverflow.com/questions/16787289/gdb-python-parsing-structures-each-field-and-print-them-with-proper-value-if
-
+# TODO: FIXME: char management
 def is_container(v):
 	c = v.type.code
 	return (c == gdb.TYPE_CODE_STRUCT or c == gdb.TYPE_CODE_UNION)
@@ -18,8 +18,7 @@ def is_container(v):
 def is_pointer(v):
 	return (v.type.code == gdb.TYPE_CODE_PTR)
 
-def print_struct_follow_pointers(s, level_limit = -1, level = 0):
-	indent = '\t' * level
+def print_struct(s, level_limit = -1, level = 0):
 	
 	if not is_container(s):
 		gdb.write('%s %x\n' % (s.type, s))
@@ -29,6 +28,7 @@ def print_struct_follow_pointers(s, level_limit = -1, level = 0):
 		gdb.write('%s { ... },\n' % (s.type,))
 		return
 	
+	indent = '\t' * level
 	gdb.write('%s {\n' % (s.type,))
 	for k in s.type.keys():
 		v = s[k]
@@ -42,22 +42,29 @@ def print_struct_follow_pointers(s, level_limit = -1, level = 0):
 				continue
 			else:
 				gdb.write(' -> ')
-			print_struct_follow_pointers(v1, level_limit, level + 1)
+			print_struct(v1, level_limit, level + 1)
 		elif is_container(v):
 			gdb.write('%s %s: ' % (indent, k))
-			print_struct_follow_pointers(v, level_limit, level + 1)
+			print_struct(v, level_limit, level + 1)
 		else:
 			gdb.write('%s %s: %s,\n' % (indent, k, v))
 	gdb.write('%s},\n' % (indent,))
 
-class PrintStructFollowPointers(gdb.Command):
-	'''
-	print-struct-follow-pointers [/LEVEL_LIMIT] STRUCT-VALUE
-	'''
+
+class PrintStruct(gdb.Command):
+	
+	
+	'''Print structure displaying its elements of pointers recursively
+print-struct [/LEVEL_LIMIT] STRUCT-VALUE
+
+Location: python extension config file'''
+	
+	
 	def __init__(self):
-		super(PrintStructFollowPointers, self).__init__(
-			'print-struct-follow-pointers',
+		super(PrintStruct, self).__init__(
+			'print-struct',
 			gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+		
 		
 	def invoke(self, arg, from_tty):
 		s = arg.find('/')
@@ -76,16 +83,16 @@ class PrintStructFollowPointers(gdb.Command):
 				try:
 					limit = int(digits)
 				except ValueError:
-					raise gdb.GdbError(PrintStructFollowPointers.__doc__)
+					raise gdb.GdbError(PrintStruct.__doc__)
 				(expr, limit) = (arg[end:], limit)
 		try:
 			v = gdb.parse_and_eval(expr)
 		except gdb.error, e:
 			raise gdb.GdbError(e.message)
-		
-		print_struct_follow_pointers(v, limit)
+		print_struct(v, limit)
 
-PrintStructFollowPointers()
+
+PrintStruct()
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
