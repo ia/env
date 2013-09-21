@@ -2,8 +2,16 @@
 # python source file for implementation of custom python/gdb api/functions routine
 
 import gdb
+import os
 
 # each separate code section starts with and and by:
+####    ####    ####    ####    ####    ####    ####    ####
+
+####    ####    ####    ####    ####    ####    ####    ####
+#    global color setup
+GDB_PROMPT = ""
+COLOR_FG_RED_BD = "\033[01;31m"
+COLOR_CLS = "\033[0m"
 ####    ####    ####    ####    ####    ####    ####    ####
 
 ####    ####    ####    ####    ####    ####    ####    ####
@@ -95,34 +103,127 @@ PrintStruct()
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
+#    internal helper functions for getting gdb context information from runtime
+
+
+def get_value(var = None, fmt = "", t = int):
+	'''get python value from gdb variable'''
+	if var is None:
+		return t(0);
+	try:
+		svalue = gdb.execute("p%s %s" % (fmt, var), False, True)
+		r = ( svalue[ svalue.rfind(" = ") + 2 : -1 ] )
+		if var == "__LINE__":
+			# workaround for "print __LINE__" gdb issue
+			r = r.replace("0x", "")
+		r = r.strip(" ")
+		if var == "__func__" or var == "__FILE__":
+			r = r.strip('"')
+		#else:
+			# preserve strip for function names just in case
+	except:
+		pass
+		r = 0
+	return t(r)
+
+
+def get_ctx_file(path = "full"):
+	'''get string value with the path to the current context source file'''
+	if is_running() == 0:
+		return ""
+	r = get_value("__FILE__", "", str)
+	if r == "0":
+		r = ""
+	if path != "full":
+		r = os.path.basename(r)
+	return r
+
+
+def get_ctx_func():
+	'''get string value with the function name in the current context'''
+	r = get_value("__func__", "", str)
+	if r == "0":
+		r = ""
+	return r
+
+
+def get_ctx_line_s(n = None):
+	'''get string value with the n-th source code line in the current context'''
+	if n is None or n == 0:
+		r = ""
+	else:
+		try:
+			r = gdb.execute("list %s,%s" % (n, n), False, True)
+		except:
+			pass
+			r = ""
+	return r
+
+
+def get_ctx_line_n():
+	'''get python string value with the source code line number in the current context'''
+	if is_running() == 1:
+		r = get_value("__LINE__", "", str)
+	else:
+		r = ""
+	return r
+
+
+def get_ctx_line_n_define():
+	svalue = gdb.execute("info macro __LINE__", False, True)
+	try:
+		ret = (svalue[ svalue.rfind("#define __LINE__") : -1 ].split())[2]
+	except:
+		pass
+		ret = 0
+	return ret
+
+
+def get_location():
+	'''get string value with the instruction address in the current context'''
+	#TODO: FIXME
+	svalue = gdb.execute("display/i $pc", False, True)
+
+
+def is_running():
+	'''get application run status in the current context'''
+	if get_ctx_func() == "":
+		r = 0
+	else:
+		r = 1
+	return r
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
 #    user defined prompt experiments
 # http://stackoverflow.com/questions/6103887/how-do-i-access-the-registers-with-python-in-gdb
 # https://sourceware.org/gdb/onlinedocs/gdb/Prompt.html
 # https://sourceware.org/gdb/onlinedocs/gdb/gdb_002eprompt.html#gdb_002eprompt
 # https://sourceware.org/gdb/onlinedocs/gdb/Basic-Python.html
-
 # http://www.cinsk.org/wiki/Debugging_with_GDB:_How_to_create_GDB_Commands_in_Python
 
-def custom_prompt(current_prompt = None):
-	print "test"
-	print current_prompt
-#	value = ""
-	value = gdb.execute("print $USE_OPT_COLORS", False, True)
-#	print gdb.parameter("print $USE_OPT_COLORS")
-#	print v[2]
-#	sym, r = gdb.lookup_symbol("$USE_OPT_COLORS")
-#	print sym.Value
-#	print gdb.selected_frame().read_var("$USE_OPT_COLORS")
-	print "val = %s" % value[0]
-	print "val = %s" % value[1]
-	print "val = %s" % value[2]
-	print "val = %s" % value[3]
-	print "val = %s" % value[4]
-	print "val = %s" % value[5]
-	print "val = %s" % value[6]
-	print ""
-	return "\033[01;31m gdb.py>\033[0m "
 
-gdb.prompt_hook = custom_prompt
+def prompt_hook(prompt = None):
+	global GDB_PROMPT
+	if GDB_PROMPT == "":
+		GDB_PROMPT = prompt
+	use_colors = get_value("$USE_OPT_COLORS", "/d")
+	use_sprompt = get_value("$USE_OPT_SMARTPROMPT", "/d")
+	if use_colors == 1:
+		if use_sprompt:
+			if is_running():
+				sprompt = "%s: %s(): %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), GDB_PROMPT)
+				r = "%s%s%s" % (COLOR_FG_RED_BD, sprompt, COLOR_CLS)
+			else:
+				r = "%s%s%s" % (COLOR_FG_RED_BD, GDB_PROMPT, COLOR_CLS)
+		else:
+			r = "%s%s%s" % (COLOR_FG_RED_BD, GDB_PROMPT, COLOR_CLS)
+	else:
+		r = GDB_PROMPT
+	return r
+
+gdb.prompt_hook = prompt_hook
 ####    ####    ####    ####    ####    ####    ####    ####
+
 

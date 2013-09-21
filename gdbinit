@@ -7,6 +7,8 @@ set $USE_OPT_COLORS           = 1
 set $USE_OPT_ARCH_ARM         = 0
 # force to use 64 bit architecture
 set $USE_OPT_ARCH_64B         = 1
+# using custom smart dynamic prompt with additional information
+set $USE_OPT_SMARTPROMPT      = 1
 
 # enable config with custom generic gdb settings
 set $USE_CONFIG_SETTINGS      = 1
