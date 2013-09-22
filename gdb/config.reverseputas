@@ -68,22 +68,22 @@
 #
 
 # __________________gdb options_________________
-
+# TODO: FIXME: move custom set variables to gdbinit
 # set to 1 to have ARM target debugging as default, use the "arm" command to switch inside gdb
 set $ARM = 0
 # set to 0 if you have problems with the colorized prompt - reported by Plouj with Ubuntu gdb 7.2
-#set $COLOUREDPROMPT = 0
+#set $COLOUREDPROMPT = $USE_OPT_COLORS
 # Colour the first line of the disassembly - default is green, if you want to change it search for
 # SETCOLOUR1STLINE and modify it :-)
-set $SETCOLOUR1STLINE = 0
+#set $SETCOLOUR1STLINE = $USE_OPT_COLORS
 # set to 0 to remove display of objectivec messages (default is 1)
 set $SHOWOBJECTIVEC = 1
 # set to 0 to remove display of cpu registers (default is 1)
 set $SHOWCPUREGISTERS = 1
 # set to 1 to enable display of stack (default is 0)
-set $SHOWSTACK = 0
+set $SHOWSTACK = 1
 # set to 1 to enable display of data window (default is 0)
-set $SHOWDATAWIN = 0
+set $SHOWDATAWIN = 1
 # set to 0 to disable coloured display of changed registers
 set $SHOWREGCHANGES = 1
 # set to 1 so skip command to execute the instruction at the new location
@@ -115,9 +115,9 @@ set width 0
 set $SHOW_CONTEXT = 1
 set $SHOW_NEST_INSN = 0
 
-set $CONTEXTSIZE_STACK = 6
-set $CONTEXTSIZE_DATA  = 8
-set $CONTEXTSIZE_CODE  = 8
+set $CONTEXTSIZE_STACK = 4
+set $CONTEXTSIZE_DATA  = 4
+set $CONTEXTSIZE_CODE  = 4
 
 # __________________end gdb options_________________
 #
@@ -145,8 +145,7 @@ set $COLOR_CPUFLAGS = $RED
 # this is ugly but there's no else if available :-(
 define color
  if $USE_OPT_COLORS == 1
-#	echo \033[0m
-# else
+
  	# BLACK
  	if $arg0 == 0
  		echo \033[30m
@@ -2129,7 +2128,8 @@ define context
     color_reset
     set $context_i = $CONTEXTSIZE_CODE
     if ($context_i > 0)
-        if ($SETCOLOUR1STLINE == 1)	
+#        if ($SETCOLOUR1STLINE == 1)	
+        if ($USE_OPT_COLORS == 1)	
 	        color $GREEN
             if ($ARM == 1)
                 x/i $pc | $cpsr.t
@@ -3122,7 +3122,7 @@ define hook-stop
     if ($SHOW_CONTEXT > 0)
         context
     end
-    if ($SHOW_NEST_INSN > 0)
+    if ($SHOW_NEST_INSN == 1)
         set $x = $_nest
         while ($x > 0)
             printf "\t"
