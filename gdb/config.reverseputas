@@ -72,7 +72,7 @@
 # set to 1 to have ARM target debugging as default, use the "arm" command to switch inside gdb
 set $ARM = 0
 # set to 0 if you have problems with the colorized prompt - reported by Plouj with Ubuntu gdb 7.2
-set $COLOUREDPROMPT = 1
+#set $COLOUREDPROMPT = 0
 # Colour the first line of the disassembly - default is green, if you want to change it search for
 # SETCOLOUR1STLINE and modify it :-)
 set $SETCOLOUR1STLINE = 0
@@ -97,7 +97,7 @@ set $ARMOPCODES = 1
 # x86 disassembly flavor: 0 for Intel, 1 for AT&T
 set $X86FLAVOR = 0
 # use colorized output or not
-set $USECOLOR = 1
+#set $USECOLOR = $USE_OPT_COLORS
 # to use with remote KDP
 set $KDP64BITS = -1
 set $64BITS = 0
@@ -144,9 +144,9 @@ set $COLOR_CPUFLAGS = $RED
 
 # this is ugly but there's no else if available :-(
 define color
- if $USECOLOR == 0
-	echo \033[0m
- else
+ if $USE_OPT_COLORS == 1
+#	echo \033[0m
+# else
  	# BLACK
  	if $arg0 == 0
  		echo \033[30m
@@ -190,11 +190,15 @@ define color
 end
 
 define color_reset
-	echo \033[0m
+	if $USE_OPT_COLORS == 1
+		echo \033[0m
+	end
 end
 
 define color_bold
-	echo \033[1m
+	if $USE_OPT_COLORS == 1
+		echo \033[1m
+	end
 end
 
 define color_underline
