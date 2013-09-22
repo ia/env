@@ -1,0 +1,6 @@
+
+# alias to run cgdb must be looks like this:
+# $ alias cgdb = 'cgdb -- -x ~/.cgdbinit'
+
+set $USE_OPT_CGDB = 1
+
