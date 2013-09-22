@@ -129,7 +129,7 @@ def get_value(var = None, fmt = "", t = int):
 
 def get_ctx_file(path = "full"):
 	'''get string value with the path to the current context source file'''
-	if is_running() == 0:
+	if not is_running():
 		return ""
 	r = get_value("__FILE__", "", str)
 	if r == "0":
@@ -162,7 +162,7 @@ def get_ctx_line_s(n = None):
 
 def get_ctx_line_n():
 	'''get python string value with the source code line number in the current context'''
-	if is_running() == 1:
+	if is_running():
 		r = get_value("__LINE__", "", str)
 	else:
 		r = ""
@@ -172,26 +172,53 @@ def get_ctx_line_n():
 def get_ctx_line_n_define():
 	svalue = gdb.execute("info macro __LINE__", False, True)
 	try:
-		ret = (svalue[ svalue.rfind("#define __LINE__") : -1 ].split())[2]
+		r = (svalue[ svalue.rfind("#define __LINE__") : -1 ].split())[2]
 	except:
 		pass
-		ret = 0
-	return ret
+		r = 0
+	return r
 
 
-def get_location():
+def get_ctx_address():
 	'''get string value with the instruction address in the current context'''
-	#TODO: FIXME
-	svalue = gdb.execute("display/i $pc", False, True)
+	if is_running():
+		try:
+			svalue = gdb.execute("x/i $pc", False, True)
+			r = (svalue.split())[1]
+		except:
+			pass
+			r = ""
+	else:
+		r = ""
+	return r
 
 
 def is_running():
 	'''get application run status in the current context'''
 	if get_ctx_func() == "":
-		r = 0
+		r = False
 	else:
-		r = 1
+		r = True
 	return r
+
+def is_cgdb(var = None):
+	'''get cgdb instance status'''
+	# had to duplicate get_value() due to broken python support in CGDB
+	if var is None:
+		return False
+	try:
+		svalue = gdb.execute("p%s %s" % ("/d", var), False, True)
+		r = ( svalue[ svalue.rfind(" = ") + 2 : -1 ] )
+		r = r.strip(" ")
+		r = r.strip('"')
+		if r == "1":
+			r = True
+	except:
+		pass
+		r = False
+	return r
+
+#	return get_value("$USE_OPT_CGDB", "/d", str)
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
@@ -205,25 +232,30 @@ def is_running():
 
 
 def prompt_hook(prompt = None):
+	'''custom prompt hook'''
+	if is_cgdb("$USE_OPT_CGDB"):
+		# terribly implement in CGDB
+		return None
 	global GDB_PROMPT
+	global COLOR_FG_RED_BD
+	global COLOR_CLS
 	if GDB_PROMPT == "":
 		GDB_PROMPT = prompt
 	use_colors = get_value("$USE_OPT_COLORS", "/d")
 	use_sprompt = get_value("$USE_OPT_SMARTPROMPT", "/d")
 	if use_colors == 1:
-		if use_sprompt:
-			if is_running():
-				sprompt = "%s: %s(): %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), GDB_PROMPT)
-				r = "%s%s%s" % (COLOR_FG_RED_BD, sprompt, COLOR_CLS)
-			else:
-				r = "%s%s%s" % (COLOR_FG_RED_BD, GDB_PROMPT, COLOR_CLS)
-		else:
-			r = "%s%s%s" % (COLOR_FG_RED_BD, GDB_PROMPT, COLOR_CLS)
+		color_fg_red_bd = COLOR_FG_RED_BD
+		color_cls = COLOR_CLS
 	else:
-		r = GDB_PROMPT
-	return r
+		color_fg_red_bd = ""
+		color_cls = ""
+	if use_sprompt and is_running():
+		# set a format string for custom smart prompt
+		p = " %s | %s(): %s @ %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), get_ctx_address(), GDB_PROMPT)
+	else:
+		p = GDB_PROMPT
+	return "%s%s%s" % (color_fg_red_bd, p, color_cls)
 
 gdb.prompt_hook = prompt_hook
 ####    ####    ####    ####    ####    ####    ####    ####
-
 
