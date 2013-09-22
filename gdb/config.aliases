@@ -3,6 +3,7 @@
 
 # aliases for custom gdb functions
 alias -a pst = print-struct
+alias -a pm  = print-macro
 
 # aliases for internal gdb functions
 alias -a prevn  = reverse-next

@@ -3,6 +3,7 @@
 
 import gdb
 import os
+import string
 
 # each separate code section starts with and and by:
 ####    ####    ####    ####    ####    ####    ####    ####
@@ -20,44 +21,92 @@ COLOR_CLS    = "\033[0m"
 # based on great advice:
 #  http://stackoverflow.com/questions/16787289/gdb-python-parsing-structures-each-field-and-print-them-with-proper-value-if
 # TODO: FIXME: char management
+
+
+def is_smart_radix():
+	r = get_value("$USE_OPT_SMARTRADIX", "/d")
+	if r == 1:
+		r = True
+	else:
+		r = False
+	return r
+
+
+def set_radix(v):
+	try:
+		gdb.execute("set radix %s" % v, False, False)
+	except:
+		pass
+		return
+
+
 def is_container(v):
 	c = v.type.code
 	return (c == gdb.TYPE_CODE_STRUCT or c == gdb.TYPE_CODE_UNION)
 
+
 def is_pointer(v):
 	return (v.type.code == gdb.TYPE_CODE_PTR)
 
-def print_struct(s, level_limit = -1, level = 0):
-	
+
+def is_char(v):
+	return (str(v.type) == "char")
+
+
+def get_typevalue(v):
+	if not is_smart_radix():
+		return ""
+	c = v.type.code
+	if ((str(v.type) == "char") or (c == gdb.TYPE_CODE_CHAR)):
+		svalue = str(unichr(v))
+		printset = set(string.printable)
+		isprintable = set(svalue).issubset(printset)
+		if isprintable:
+			return " // ['%s']" % svalue
+	elif c == gdb.TYPE_CODE_INT:
+		return " // [%d]" % int(v)
+	elif c == gdb.TYPE_CODE_BOOL:
+		if bool(v):
+			return " // [T]"
+		else:
+			return " // [F]"
+	elif c == gdb.TYPE_CODE_FLT:
+		return " // [%f]" % float(v)
+	return ""
+
+
+def print_struct(s, level_limit = -1, level = 1):
 	if not is_container(s):
 		gdb.write('%s %x\n' % (s.type, s))
 		return
-	
 	if level >= level_limit:
-		gdb.write('%s { ... },\n' % (s.type,))
+		gdb.write('%s {...},\n' % (s.type,))
 		return
-	
 	indent = '\t' * level
-	gdb.write('%s {\n' % (s.type,))
+	if level > 1:
+		gdb.write(' {\n')
+	else:
+		gdb.write('struct %s {\n' % (s.type,))
 	for k in s.type.keys():
 		v = s[k]
 		if is_pointer(v):
-			gdb.write('%s %s: %s' % (indent, k, v))
+			gdb.write('%s%s%s = %s;' % (indent, v.type, k, v))
 			try:
 				v1 = v.dereference()
 				v1.fetch_lazy()
 			except gdb.error:
-				gdb.write(',\n')
+				gdb.write('\n')
 				continue
+			if not is_char(v1):
+				print_struct(v1, level_limit, level + 1)
 			else:
-				gdb.write(' -> ')
-			print_struct(v1, level_limit, level + 1)
+				gdb.write('\n')
 		elif is_container(v):
 			gdb.write('%s %s: ' % (indent, k))
 			print_struct(v, level_limit, level + 1)
 		else:
-			gdb.write('%s %s: %s,\n' % (indent, k, v))
-	gdb.write('%s},\n' % (indent,))
+			gdb.write('%s%s %s = %s;%s\n' % (indent, v.type, k, v, get_typevalue(v)))
+	gdb.write('%s};\n' % (indent.replace('\t','', 1)))
 
 
 class PrintStruct(gdb.Command):
@@ -71,8 +120,8 @@ Location: python extension config file'''
 	
 	def __init__(self):
 		super(PrintStruct, self).__init__('print-struct', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
-		
-		
+	
+	
 	def invoke(self, arg, from_tty):
 		s = arg.find('/')
 		if s == -1:
@@ -82,7 +131,7 @@ Location: python extension config file'''
 				(expr, limit) = (arg, 3)
 			else:
 				i = s + 1
-				for (i, c) in enumerate(arg[s+1:], s + 1):
+				for (i, c) in enumerate(arg[s + 1:], s + 1):
 					if not c.isdigit():
 						break
 				end = i
@@ -96,10 +145,58 @@ Location: python extension config file'''
 			v = gdb.parse_and_eval(expr)
 		except gdb.error, e:
 			raise gdb.GdbError(e.message)
+		if not is_smart_radix():
+			set_radix("10.")
 		print_struct(v, limit)
+		if not is_smart_radix():
+			set_radix("0x10")
 
 
 PrintStruct()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
+class PrintMacro(gdb.Command):
+	
+	
+	'''Print macro information
+print-macro macro
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintMacro, self).__init__('print-macro', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		try:
+			svalue = gdb.execute("info macro %s" % arg, False, True)
+		except:
+			pass
+			return
+		input_clean = svalue.replace("Defined at ", "")
+		# gdb.execute won't tell about macro existence, so check using its output
+		if svalue == input_clean:
+			return
+		define_index = input_clean.rfind("\n#define")
+		define_line = input_clean[define_index+1::].replace("\n", "\\n")
+		prefix_line = input_clean[0:define_index]
+		input_words = input_clean.split("\n")
+		define_file = input_words[0]
+		includes = input_words[1:-1]
+		includes.reverse()
+		l = len(includes)
+		for e in range(l):
+			includes[e] = includes[e].replace("  included at ", "")
+		for e in range(1, l):
+			print "%s%s" % ('\t' * (e - 1), includes[e])
+		print "%s%s" % ('\t' * e, define_file)
+		print "%s%s" % ('\t' * (e + 1), define_line.rstrip("\\n"))
+
+
+PrintMacro()
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
@@ -199,6 +296,7 @@ def is_running():
 	else:
 		r = True
 	return r
+
 
 def is_cgdb(var = None):
 	'''get cgdb instance status'''
