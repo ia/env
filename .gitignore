@@ -2,3 +2,4 @@
 .bzrignore
 gdb/log.commands
 gdb/log.output
+cgdb/readline_history.txt
