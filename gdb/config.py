@@ -9,9 +9,10 @@ import os
 
 ####    ####    ####    ####    ####    ####    ####    ####
 #    global color setup
-GDB_PROMPT = ""
-COLOR_FG_RED_BD = "\033[01;31m"
-COLOR_CLS = "\033[0m"
+GDB_PROMPT   = ""
+COLOR_RED    = "\033[31m"
+COLOR_RED_BD = "\033[01;31m"
+COLOR_CLS    = "\033[0m"
 ####    ####    ####    ####    ####    ####    ####    ####
 
 ####    ####    ####    ####    ####    ####    ####    ####
@@ -233,24 +234,25 @@ def prompt_hook(prompt = None):
 		# terribly implement in CGDB
 		return None
 	global GDB_PROMPT
-	global COLOR_FG_RED_BD
+	global COLOR_RED
+	global COLOR_RED_BD
 	global COLOR_CLS
 	if GDB_PROMPT == "":
 		GDB_PROMPT = prompt
 	use_colors = get_value("$USE_OPT_COLORS", "/d")
 	use_sprompt = get_value("$USE_OPT_SMARTPROMPT", "/d")
 	if use_colors == 1:
-		color_fg_red_bd = COLOR_FG_RED_BD
+		color_red_bd = COLOR_RED_BD
 		color_cls = COLOR_CLS
 	else:
-		color_fg_red_bd = ""
+		color_red_bd = ""
 		color_cls = ""
 	if use_sprompt and is_running():
 		# set a format string for custom smart prompt
 		p = " %s | %s(): %s @ %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), get_ctx_address(), GDB_PROMPT)
 	else:
 		p = GDB_PROMPT
-	return "%s%s%s" % (color_fg_red_bd, p, color_cls)
+	return "%s%s%s" % (color_red_bd, p, color_cls)
 
 gdb.prompt_hook = prompt_hook
 ####    ####    ####    ####    ####    ####    ####    ####
