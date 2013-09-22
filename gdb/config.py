@@ -119,8 +119,6 @@ def get_value(var = None, fmt = "", t = int):
 		r = r.strip(" ")
 		if var == "__func__" or var == "__FILE__":
 			r = r.strip('"')
-		#else:
-			# preserve strip for function names just in case
 	except:
 		pass
 		r = 0
@@ -217,8 +215,6 @@ def is_cgdb(var = None):
 		pass
 		r = False
 	return r
-
-#	return get_value("$USE_OPT_CGDB", "/d", str)
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
@@ -258,4 +254,5 @@ def prompt_hook(prompt = None):
 
 gdb.prompt_hook = prompt_hook
 ####    ####    ####    ####    ####    ####    ####    ####
+
 
