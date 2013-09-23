@@ -2,7 +2,6 @@
 # gdb config file with minimal basic useful settings
 
 # color prompt
-#set prompt \033[01;31m >\033[0m\ 
 set prompt \ > 
 
 # enable history

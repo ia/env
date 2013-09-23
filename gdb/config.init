@@ -1,8 +1,6 @@
 
 # gdb config file for management additional gdb config files
 
-source ~/.gdb/gdbinit
-
 if $USE_CONFIG_SETTINGS     == 1
 	source ~/.gdb/config.settings
 end

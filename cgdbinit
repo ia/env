@@ -2,6 +2,8 @@
 # alias to run cgdb must be looks like this:
 # $ alias cgdb = 'cgdb -- -x ~/.cgdbinit'
 
+# set custom prompt for CGDB
+set prompt \ > 
 # tell to another configs about CGDB
 set $USE_OPT_CGDB = 1
 # force to disable escape color codes due to CGDB cannot into colors

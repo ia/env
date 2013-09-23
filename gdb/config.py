@@ -24,8 +24,7 @@ COLOR_CLS    = "\033[0m"
 
 
 def is_smart_radix():
-	r = get_value("$USE_OPT_SMARTRADIX", "/d")
-	if r == 1:
+	if is_opt("$USE_OPT_SMARTRADIX"):
 		r = True
 	else:
 		r = False
@@ -86,7 +85,7 @@ def print_struct(s, level_limit = -1, level = 1):
 	if level > 1:
 		gdb.write(' {\n')
 	else:
-		gdb.write('struct %s {\n' % (s.type,))
+		gdb.write('struct %s {\n' % s.type)
 	for k in s.type.keys():
 		v = s[k]
 		if is_pointer(v):
@@ -204,10 +203,10 @@ PrintMacro()
 #    internal helper functions for getting gdb context information from runtime
 
 
-def get_value(var = None, fmt = "", t = int):
+def get_value(var = None, fmt = ""):
 	'''get python value from gdb variable'''
 	if var is None:
-		return t(0);
+		return ""
 	try:
 		svalue = gdb.execute("p%s %s" % (fmt, var), False, True)
 		r = ( svalue[ svalue.rfind(" = ") + 2 : -1 ] )
@@ -219,28 +218,24 @@ def get_value(var = None, fmt = "", t = int):
 			r = r.strip('"')
 	except:
 		pass
-		r = 0
-	return t(r)
+		r = ""
+	return r
 
 
 def get_ctx_file(path = "full"):
 	'''get string value with the path to the current context source file'''
 	if not is_running():
 		return ""
-	r = get_value("__FILE__", "", str)
-	if r == "0":
-		r = ""
-	if path != "full":
-		r = os.path.basename(r)
+	r = get_value("__FILE__")
+	if r != "":
+		if path != "full":
+			r = os.path.basename(r)
 	return r
 
 
 def get_ctx_func():
 	'''get string value with the function name in the current context'''
-	r = get_value("__func__", "", str)
-	if r == "0":
-		r = ""
-	return r
+	return get_value("__func__")
 
 
 def get_ctx_line_s(n = None):
@@ -259,7 +254,7 @@ def get_ctx_line_s(n = None):
 def get_ctx_line_n():
 	'''get python string value with the source code line number in the current context'''
 	if is_running():
-		r = get_value("__LINE__", "", str)
+		r = get_value("__LINE__")
 	else:
 		r = ""
 	return r
@@ -277,30 +272,39 @@ def get_ctx_line_n_define():
 
 def get_ctx_address():
 	'''get string value with the instruction address in the current context'''
-	if is_running():
-		try:
-			svalue = gdb.execute("x/i $pc", False, True)
-			r = (svalue.split())[1]
-		except:
-			pass
-			r = ""
-	else:
+	try:
+		svalue = gdb.execute("x/i $pc", False, True)
+		r = (svalue.split())[1]
+	except:
+		pass
 		r = ""
 	return r
 
 
+def get_ctx_location():
+	try:
+		svalue = gdb.execute("backtrace", False, True)
+		loc_line = svalue.split("\n")
+		loc = loc_line[0].split()
+		return loc[-1], loc[1]
+	except:
+		pass
+		r = ""
+		return r, r
+
+
 def is_running():
 	'''get application run status in the current context'''
-	if get_ctx_func() == "":
+	if get_ctx_address() == "":
 		r = False
 	else:
 		r = True
 	return r
 
 
-def is_cgdb(var = None):
+def is_opt(var = None):
 	'''get cgdb instance status'''
-	# had to duplicate get_value() due to broken python support in CGDB
+	# had to duplicate get_value() due to crappy python support in CGDB
 	if var is None:
 		return False
 	try:
@@ -328,9 +332,6 @@ def is_cgdb(var = None):
 
 def prompt_hook(prompt = None):
 	'''custom prompt hook'''
-	if is_cgdb("$USE_OPT_CGDB"):
-		# terribly implement in CGDB
-		return None
 	global GDB_PROMPT
 	global COLOR_RED
 	global COLOR_RED_BD
@@ -339,7 +340,7 @@ def prompt_hook(prompt = None):
 		GDB_PROMPT = prompt
 	use_colors = get_value("$USE_OPT_COLORS", "/d")
 	use_sprompt = get_value("$USE_OPT_SMARTPROMPT", "/d")
-	if use_colors == 1:
+	if use_colors and not is_opt("$USE_OPT_CGDB"):
 		color_red_bd = COLOR_RED_BD
 		color_cls = COLOR_CLS
 	else:
@@ -347,7 +348,13 @@ def prompt_hook(prompt = None):
 		color_cls = ""
 	if use_sprompt and is_running():
 		# set a format string for custom smart prompt
-		p = " %s | %s(): %s @ %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), get_ctx_address(), GDB_PROMPT)
+		if is_opt("$USE_OPT_CGDB"):
+			p = " @ %s%s" % ( get_ctx_address(), GDB_PROMPT)
+		else:
+			file_line, function = get_ctx_location()
+			p = " %s | %s() @ %s%s" % ( file_line, function, get_ctx_address(), GDB_PROMPT)
+		# line won't work with old gcc versions:
+		#  p = " %s | %s(): %s @ %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), get_ctx_address(), GDB_PROMPT)
 	else:
 		p = GDB_PROMPT
 	return "%s%s%s" % (color_red_bd, p, color_cls)
