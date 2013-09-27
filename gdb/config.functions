@@ -1,6 +1,7 @@
 
 # gdb config file with custom routine functions
 
+
 define reverse-record
 	break _start
 	break main
@@ -14,4 +15,21 @@ document reverse-record
 Syntax: reverse-init [function]
 | Init record process for reverse execution using `function' as start point (main by default).
 end
+
+
+define break-main
+	break main
+	commands
+		printf " main ("
+		printf "\targc = %d [0x%X]\n", argc, argc
+		printf "\targv = 0x%016lX\n", argv
+		printf "\targv[0] = \"%s\" @ [0x%016lX]\n", argv[0], argv[0]
+		printf " )\n"
+	end
+end
+document break-main
+Syntax: break-main
+| Set breakpoint in main and print argc, argv and argv[0] on hit.
+end
+
 
