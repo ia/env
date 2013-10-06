@@ -33,3 +33,63 @@ Syntax: break-main
 end
 
 
+define set-target-arm32
+	set $64BITS              = 0
+	set $ARM                 = 1
+	set $ARM_STRUCT          = 1
+	set $ARM_ANDROID         = 0
+	set $USE_OPT_ARM_OPCODES = 0
+end
+document set-target-arm32
+Syntax: set-target-arm32
+| Set target options
+end
+
+
+define set-target-arm32_android
+	set $64BITS              = 0
+	set $ARM                 = 1
+	set $ARM_STRUCT          = 0
+	set $ARM_ANDROID         = 1
+	set $USE_OPT_ARM_OPCODES = 0
+	set architecture armv5te
+end
+document set-target-arm32_android
+Syntax: set-target-arm32_android
+| Set target options
+end
+
+
+define set-target-arm64
+	set $64BITS              = 1
+	set $ARM                 = 1
+	set $ARM_STRUCT          = 1
+	set $ARM_ANDROID         = 0
+	set $USE_OPT_ARM_OPCODES = 0
+end
+document set-target-arm64
+Syntax: set-target-arm64
+| Set target options
+end
+
+
+define set-target-x86_32
+	set $64BITS              = 0
+	set $ARM                 = 0
+end
+document set-target-x86_32
+Syntax: set-target-x86_32
+| Set target options
+end
+
+
+define set-target-x86_64
+	set $64BITS              = 1
+	set $ARM                 = 0
+end
+document set-target-x86_64
+Syntax: set-target-x86_64
+| Set target options
+end
+
+

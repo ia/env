@@ -70,7 +70,8 @@
 # __________________gdb options_________________
 # TODO: FIXME: move custom set variables to gdbinit
 # set to 1 to have ARM target debugging as default, use the "arm" command to switch inside gdb
-set $ARM = 0
+set $ARM = $USE_OPT_ARCH_ARM
+set $ARM_STRUCT = 1
 # set to 0 if you have problems with the colorized prompt - reported by Plouj with Ubuntu gdb 7.2
 #set $COLOUREDPROMPT = $USE_OPT_COLORS
 # Colour the first line of the disassembly - default is green, if you want to change it search for
@@ -80,10 +81,10 @@ set $ARM = 0
 set $SHOWOBJECTIVEC = 1
 # set to 0 to remove display of cpu registers (default is 1)
 set $SHOWCPUREGISTERS = 1
-# set to 1 to enable display of stack (default is 0)
-set $SHOWSTACK = 1
-# set to 1 to enable display of data window (default is 0)
-set $SHOWDATAWIN = 1
+# set to 1 to enable display of stack (default is 0); TODO: FIXME: add opt/f
+set $SHOWSTACK = 0
+# set to 1 to enable display of data window (default is 0); TODO: FIXME: add opt/f
+set $SHOWDATAWIN = 0
 # set to 0 to disable coloured display of changed registers
 set $SHOWREGCHANGES = 1
 # set to 1 so skip command to execute the instruction at the new location
@@ -136,7 +137,7 @@ set $WHITE = 7
 
 # CHANGME: If you want to modify the "theme" change the colors here
 #  or just create a ~/.gdbinit.local and set these variables there
-set $COLOR_REGNAME = $GREEN
+set $COLOR_REGNAME = $MAGENTA
 set $COLOR_REGVAL = $BLACK
 set $COLOR_REGVAL_MODIFIED  = $RED
 set $COLOR_SEPARATOR = $BLUE
@@ -799,26 +800,30 @@ define regarm
 		color $COLOR_REGVAL
 	end
 	printf " 0x%08X  ", $r10
-	# R11
-	color $COLOR_REGNAME
-	printf "R11:"
-	if ($r11 != $oldr11 && $SHOWREGCHANGES == 1)
-		color $COLOR_REGVAL_MODIFIED
-	else
-		color $COLOR_REGVAL
+	if ($ARM_ANDROID == 0)
+		# R11
+		color $COLOR_REGNAME
+		printf "R11:"
+		if ($r11 != $oldr11 && $SHOWREGCHANGES == 1)
+			color $COLOR_REGVAL_MODIFIED
+		else
+			color $COLOR_REGVAL
+		end
+		printf " 0x%08X ", $r11
+		dumpjump
 	end
-	printf " 0x%08X ", $r11
-	dumpjump
 	printf "\n"
-	# R12
-	color $COLOR_REGNAME
-	printf "  R12:"
-	if ($r12 != $oldr12 && $SHOWREGCHANGES == 1)
-		color $COLOR_REGVAL_MODIFIED
-	else
-		color $COLOR_REGVAL
+	if ($ARM_ANDROID == 0)
+		# R12
+		color $COLOR_REGNAME
+		printf "  R12:"
+		if ($r12 != $oldr12 && $SHOWREGCHANGES == 1)
+			color $COLOR_REGVAL_MODIFIED
+		else
+			color $COLOR_REGVAL
+		end
+		printf " 0x%08X", $r12
 	end
-	printf " 0x%08X", $r12
 	printf "  "
 	# SP
 	color $COLOR_REGNAME
@@ -828,7 +833,11 @@ define regarm
 	else
 		color $COLOR_REGVAL
 	end
-	printf " 0x%08X  ", $sp
+	if ($ARM_ANDROID == 1)
+		printf "  0x%08X  ", $sp
+	else
+		printf " 0x%08X  ", $sp
+	end
 	# LR
 	color $COLOR_REGNAME
 	printf "LR:"
@@ -837,7 +846,11 @@ define regarm
 	else
 		color $COLOR_REGVAL
 	end
-	printf "  0x%08X  ", $lr
+	if ($ARM_ANDROID == 1)
+		printf " 0x%08X  ", $lr
+	else
+		printf "  0x%08X  ", $lr
+	end
 	# PC
 	color $COLOR_REGNAME
 	printf "PC:"
@@ -846,7 +859,9 @@ define regarm
 	color_bold
 	color_underline
 	color $COLOR_CPUFLAGS
-	flags
+	if ($ARM_ANDROID == 0)
+		flags
+	end
 	color_reset
 	printf "\n"
 end
@@ -2128,7 +2143,7 @@ define context
 	if ($context_i > 0)
 		if ($USE_OPT_COLORS == 1)
 			color $GREEN
-			if ($ARM == 1)
+			if ($ARM_STRUCT == 0)
 				x/i $pc | $cpsr.t
 			else
 				x/i $pc
@@ -3054,10 +3069,12 @@ define hook-stop
 	end
 	# Display instructions formats
 	if $ARM == 1
-		if $ARMOPCODES == 1
-			set arm show-opcode-bytes 1
-		else
-			set arm show-opcode-bytes 0
+		if $USE_OPT_ARM_OPCODES == 1
+			if $ARMOPCODES == 1
+				set arm show-opcode-bytes 1
+			else
+				set arm show-opcode-bytes 0
+			end
 		end
 	else
 		if $X86FLAVOR == 0
@@ -3565,10 +3582,12 @@ end
 
 
 define arm
-	if $ARMOPCODES == 1
-		set arm show-opcode-bytes 1
-	else
-		set arm show-opcode-bytes 1
+	if $USE_OPT_ARM_OPCODES == 1
+		if $ARMOPCODES == 1
+			set arm show-opcode-bytes 1
+		else
+			set arm show-opcode-bytes 0
+		end
 	end
 	set $ARM = 1
 end

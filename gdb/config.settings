@@ -23,6 +23,7 @@ set print address on
 set print symbol-filename on
 set print max-symbolic-offset 0
 set print symbol on
+set print symbol-filename on
 set print array on
 set print array-indexes on
 set print elements 0

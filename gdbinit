@@ -5,6 +5,8 @@
 set $USE_OPT_COLORS           = 1
 # force to use arm architecture
 set $USE_OPT_ARCH_ARM         = 0
+# use show-opcode-bytes option for ARM
+set $USE_OPT_ARM_OPCODES      = 0
 # force to use 64 bit architecture
 set $USE_OPT_ARCH_64B         = 1
 # using custom smart dynamic prompt with additional information

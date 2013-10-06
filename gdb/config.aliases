@@ -3,11 +3,14 @@
 
 # aliases for custom gdb functions
 alias -a pst = print-struct
-alias -a pm  = print-macro
+alias -a pma = print-macro
 
 # aliases for internal gdb functions
 alias -a prevn  = reverse-next
 alias -a prevni = reverse-nexti
 alias -a prevs  = reverse-step
 alias -a prevsi = reverse-stepi
+
+# aliases for common gdb functions
+alias -a exit = quit
 
