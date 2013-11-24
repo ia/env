@@ -4,6 +4,7 @@
 import gdb
 import os
 import string
+import time
 
 # each separate code section starts with and and by:
 ####    ####    ####    ####    ####    ####    ####    ####
@@ -318,6 +319,83 @@ def is_opt(var = None):
 		pass
 		r = False
 	return r
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
+class PrintTrace(gdb.Command):
+	
+	
+	'''Print trace information
+print-trace
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintTrace, self).__init__('print-trace', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		print get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n())
+
+
+PrintTrace()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
+class RunTrace(gdb.Command):
+	
+	
+	'''Run application in trace mode
+run-trace-log
+
+Location: python extension config file'''
+	
+	# TODO: FIXME: arg, error output, clean code
+	def __init__(self):
+		super(RunTrace, self).__init__('run-trace-log', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+	
+	def trace(self, f, n = 0):
+		trace_line = get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
+		f.write(trace_line)
+		#f.write(get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n()))
+		f.flush()
+		
+	def invoke(self, arg, from_tty):
+		#print "arg:", arg
+		#print os.path.expanduser("~") + "/.gdb/log.trace"
+		try:
+			print gdb.execute("break main", False, True)
+		except:
+			print "error: can"
+			return
+		try:
+			print gdb.execute("run " + arg, False, True)
+		except:
+			print "error: can't run"
+			return
+		try:
+			l = open(os.path.expanduser("~") + "/.gdb/log.trace", "w+")
+		except:
+			print "error: can't open trace file for writing"
+			return
+		self.trace(l, 1)
+		self.trace(l)
+		while is_running():
+#			self.trace(l)
+			try:
+				gdb.execute("step", False, True)
+				#print gdb.execute("step", False, True)
+				self.trace(l)
+				#time.sleep(1)
+			except:
+				pass
+		l.close()
+
+
+RunTrace()
 ####    ####    ####    ####    ####    ####    ####    ####
 
 

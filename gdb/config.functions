@@ -93,3 +93,14 @@ Syntax: set-target-x86_64
 end
 
 
+define run-trace
+	break main
+	run $arg0
+	run-trace-log
+end
+document run-trace
+Syntax: run-trace
+| Trace code path in file (~/.gdb/log.trace).
+end
+
+
