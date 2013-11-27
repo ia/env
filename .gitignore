@@ -1,5 +1,4 @@
 .bzr
 .bzrignore
-gdb/log.commands
-gdb/log.output
+gdb/log.*
 cgdb/readline_history.txt

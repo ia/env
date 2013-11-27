@@ -72,6 +72,7 @@
 # set to 1 to have ARM target debugging as default, use the "arm" command to switch inside gdb
 set $ARM = $USE_OPT_ARCH_ARM
 set $ARM_STRUCT = 1
+set $ARM_ANDROID = 0
 # set to 0 if you have problems with the colorized prompt - reported by Plouj with Ubuntu gdb 7.2
 #set $COLOUREDPROMPT = $USE_OPT_COLORS
 # Colour the first line of the disassembly - default is green, if you want to change it search for

@@ -223,6 +223,18 @@ def get_value(var = None, fmt = ""):
 	return r
 
 
+def get_ctx_location():
+	try:
+		svalue = gdb.execute("backtrace", False, True)
+		loc_line = svalue.split("\n")
+		loc = loc_line[0].split()
+		return loc[-1], loc[1]
+	except:
+		pass
+		r = ""
+		return r, r
+
+
 def get_ctx_file(path = "full"):
 	'''get string value with the path to the current context source file'''
 	if not is_running():
@@ -236,7 +248,9 @@ def get_ctx_file(path = "full"):
 
 def get_ctx_func():
 	'''get string value with the function name in the current context'''
-	return get_value("__func__")
+	r1, f = get_ctx_location()
+	return f
+	#return get_value("__func__")
 
 
 def get_ctx_line_s(n = None):
@@ -280,18 +294,6 @@ def get_ctx_address():
 		pass
 		r = ""
 	return r
-
-
-def get_ctx_location():
-	try:
-		svalue = gdb.execute("backtrace", False, True)
-		loc_line = svalue.split("\n")
-		loc = loc_line[0].split()
-		return loc[-1], loc[1]
-	except:
-		pass
-		r = ""
-		return r, r
 
 
 def is_running():
@@ -357,7 +359,12 @@ Location: python extension config file'''
 	def __init__(self):
 		super(RunTrace, self).__init__('run-trace-log', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
 	
-	def trace(self, f, n = 0):
+	def trace(self, f, stack, n = 0):
+		if ((stack is not None) and (stack != get_ctx_func())):
+	#		f.write(stack + "()" + " ====>>>> " + get_ctx_func() + "()\n")
+			f.write(get_ctx_func() + "()" + " <<<<==== " + stack + "()\n")
+#			trace_line = stack + " <<<<>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
+#		else:
 		trace_line = get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
 		f.write(trace_line)
 		#f.write(get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n()))
@@ -381,14 +388,17 @@ Location: python extension config file'''
 		except:
 			print "error: can't open trace file for writing"
 			return
-		self.trace(l, 1)
-		self.trace(l)
+		self.trace(l, None, 1)
+#		stack = get_ctx_func()
+		self.trace(l, None)
+		stack = ""
 		while is_running():
 #			self.trace(l)
 			try:
+				stack = get_ctx_func()
 				gdb.execute("step", False, True)
 				#print gdb.execute("step", False, True)
-				self.trace(l)
+				self.trace(l, stack)
 				#time.sleep(1)
 			except:
 				pass
