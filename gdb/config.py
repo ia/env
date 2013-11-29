@@ -1,10 +1,12 @@
 
 # python source file for implementation of custom python/gdb api/functions routine
 
+import sys
 import gdb
 import os
 import string
 import time
+import argparse
 
 # each separate code section starts with and and by:
 ####    ####    ####    ####    ####    ####    ####    ####
@@ -351,13 +353,13 @@ class RunTrace(gdb.Command):
 	
 	
 	'''Run application in trace mode
-run-trace-log
+run-trace
 
 Location: python extension config file'''
 	
 	# TODO: FIXME: arg, error output, clean code
 	def __init__(self):
-		super(RunTrace, self).__init__('run-trace-log', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+		super(RunTrace, self).__init__('run-trace', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
 	
 	def trace(self, f, stack, n = 0):
 		if ((stack is not None) and (stack != get_ctx_func())):
@@ -366,13 +368,58 @@ Location: python extension config file'''
 #			trace_line = stack + " <<<<>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
 #		else:
 		trace_line = get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
+#		print trace_line
 		f.write(trace_line)
 		#f.write(get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n()))
 		f.flush()
 		
 	def invoke(self, arg, from_tty):
-		#print "arg:", arg
+		print "ARGARG:", arg.strip('"')
+#		a_app = arg.split()[0]
+#		print "a_app: ", a_app
+		print "app: ", arg.find('--')
+		print "args: ", arg[1:arg.find('--')]
+		print "appargs: ", arg[arg.find('--')+2:-1]
+#		print "app_bin: ", arg[arg.find('--')+2:-1].split()[0]
+		
+		my_args = arg[1:arg.find('--')]
+		app_bin = arg[arg.find('--')+2:-1].split()[0]
+		app_args = ' '.join(arg[arg.find('--')+2:-1].split()[1:])
+		print "my_args: ", my_args
+		print "app_bin: ", app_bin
+		print "app_args: ", app_args
+		print "10"
+		print sys.argv
+		print "20"
+		self.argv = my_args
+#		print "app_args: ", arg[arg.split().find(app_bin):-1]
+	#	sys.exit(1)
 		#print os.path.expanduser("~") + "/.gdb/log.trace"
+		print 1
+		parser = argparse.ArgumentParser(description='process run-trace options')
+		print 2
+		parser.add_argument('-f', '--file',
+				dest = 'filename',
+				metavar='FILE',
+				default = "/dev/stdout",
+				type = str,
+				help = "write trace to FILE (stdout by default)")
+		
+		parser.add_argument("-s", "--sleep",
+				dest = "sleep",
+				metavar = "INT",
+				default = 0,
+				type = float,
+				help = "sleep timeout between traces (0 by default)")
+		
+#		args = parser.parse_args(my_args.split())
+		
+		print "arg:", arg
+		sys.exit(1)
+		if args.filename is not None and args.filename != "":
+			fname = options.filename
+		else:
+			fname = "/dev/stdout"
 		try:
 			print gdb.execute("break main", False, True)
 		except:
@@ -384,7 +431,8 @@ Location: python extension config file'''
 			print "error: can't run"
 			return
 		try:
-			l = open(os.path.expanduser("~") + "/.gdb/log.trace", "w+")
+#			l = open(os.path.expanduser("~") + "/.gdb/log.trace", "w+")
+			l = open("/dev/stdout", "w+")
 		except:
 			print "error: can't open trace file for writing"
 			return
@@ -399,7 +447,8 @@ Location: python extension config file'''
 				gdb.execute("step", False, True)
 				#print gdb.execute("step", False, True)
 				self.trace(l, stack)
-				#time.sleep(1)
+				if args.sleep is not None and args.sleep != 0:
+					time.sleep(args.sleep)
 			except:
 				pass
 		l.close()

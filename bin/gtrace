@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+gdb_dir="/home/ia/Devel/sandbox/gdb/gdb-7.6.1"
+#${gdb_dir}/gdb/gdb --data-directory=${gdb_dir}/gdb/data-directory $@
+
+if [ "${#}" -lt "1" ]; then
+	echo "Usage: ${0} [options] -- app [args]"
+	exit 1
+fi;
+
+app="`echo ${@} | awk -F '--' '{print $2}' | awk '{print $1}'`"
+app_args="`echo ${@} | awk -F '-- ' '{print $2}' | sed 's,'"${app}"',,'`"
+echo "sh app: ${app}"
+echo "sh args: ${app_args}"
+echo "sh @: ${@}"
+if [ -n "${app_args}" ]; then
+	gdb_args="--args '"${app_args}"'"
+else
+	gdb_args=""
+fi;
+#shift
+args=\"$@\"
+
+
+echo -e "\tstarting: \t${app} ${app_args}"
+#echo -e "\tstarting: \t${@}"
+
+#CMD="gdb ${app} -ex 'run-trace \"${@}\"' -ex "quit""
+#echo "${CMD}"
+#${CMD}
+
+#gdb ${app} -ex 'run-trace '"${args}"'' -ex quit
+${gdb_dir}/gdb/gdb --data-directory=${gdb_dir}/gdb/data-directory ${app} -ex 'run-trace '"${args}"'' -ex quit
+#gdb hello -ex 'run-trace "-f def -- hello abc"' -ex quit
+
+#gdb ${app} -ex 'run-trace '${@}'' -ex "quit"
+
+#gdb -q --batch \
+#	"${app}" \
+#	-ex "set logging file /dev/null" \
+#	-ex "set logging redirect on" \
+#	-ex "run-trace ${args}" \
+#	-ex "quit"
+
+echo -e "\tstopping: \t${app} ${app_args}"
+#echo -e "\tstopping: \t${@}"
+
