@@ -1,8 +1,8 @@
 
 # python source file for implementation of custom python/gdb api/functions routine
 
-import sys
 import gdb
+import sys
 import os
 import string
 import time
@@ -255,13 +255,13 @@ def get_ctx_func():
 	#return get_value("__func__")
 
 
-def get_ctx_line_s(n = None):
+def get_ctx_line_s(n = 0):
 	'''get string value with the n-th source code line in the current context'''
 	if n is None or n == 0:
 		r = ""
 	else:
 		try:
-			r = gdb.execute("list %s,%s" % (n, n), False, True)
+			r = gdb.execute("list %s,%s" % (str(n), str(n)), False, True)
 		except:
 			pass
 			r = ""
@@ -349,25 +349,30 @@ PrintTrace()
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
-class RunTrace(gdb.Command):
+class RunTraceHelper(gdb.Command):
 	
 	
-	'''Run application in trace mode
-run-trace
+	'''Run application in trace mode from external script
+run-trace-helper
 
 Location: python extension config file'''
 	
-	# TODO: FIXME: arg, error output, clean code
+	# TODO: FIXME: arg, error output, clean code, routine: get line/function/file properly
 	def __init__(self):
-		super(RunTrace, self).__init__('run-trace', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+		super(RunTraceHelper, self).__init__('run-trace-helper', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
 	
 	def trace(self, f, stack, n = 0):
+		print "1"
 		if ((stack is not None) and (stack != get_ctx_func())):
+			print "2"
 	#		f.write(stack + "()" + " ====>>>> " + get_ctx_func() + "()\n")
 			f.write(get_ctx_func() + "()" + " <<<<==== " + stack + "()\n")
 #			trace_line = stack + " <<<<>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
 #		else:
-		trace_line = get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
+		print "3"
+		trace_line = " ====>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(int(get_ctx_line_n()) - int(n)))
+		print "4"
+	#	trace_line = " ====>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():"
 #		print trace_line
 		f.write(trace_line)
 		#f.write(get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n()))
@@ -377,9 +382,9 @@ Location: python extension config file'''
 		print "ARGARG:", arg.strip('"')
 #		a_app = arg.split()[0]
 #		print "a_app: ", a_app
-		print "app: ", arg.find('--')
-		print "args: ", arg[1:arg.find('--')]
-		print "appargs: ", arg[arg.find('--')+2:-1]
+	#	print "app: ", arg.find('--')
+	#	print "args: ", arg[1:arg.find('--')]
+	#	print "appargs: ", arg[arg.find('--')+2:-1]
 #		print "app_bin: ", arg[arg.find('--')+2:-1].split()[0]
 		
 		my_args = arg[1:arg.find('--')]
@@ -388,16 +393,16 @@ Location: python extension config file'''
 		print "my_args: ", my_args
 		print "app_bin: ", app_bin
 		print "app_args: ", app_args
-		print "10"
-		print sys.argv
-		print "20"
-		self.argv = my_args
+	#	print "10"
+#		print sys.argv
+#		print "20"
+	#	self.argv = my_args
 #		print "app_args: ", arg[arg.split().find(app_bin):-1]
 	#	sys.exit(1)
 		#print os.path.expanduser("~") + "/.gdb/log.trace"
-		print 1
-		parser = argparse.ArgumentParser(description='process run-trace options')
-		print 2
+	#	print 1
+		parser = argparse.ArgumentParser(description='process run-trace-helper options')
+	#	print 2
 		parser.add_argument('-f', '--file',
 				dest = 'filename',
 				metavar='FILE',
@@ -412,29 +417,53 @@ Location: python extension config file'''
 				type = float,
 				help = "sleep timeout between traces (0 by default)")
 		
-#		args = parser.parse_args(my_args.split())
+		parser.add_argument('-d', '--directory',
+				dest = 'srcdir',
+				metavar='DIRECTORY',
+				default = None,
+				type = str,
+				help = "directory with sources")
 		
-		print "arg:", arg
-		sys.exit(1)
+		parser.add_argument('-v', '--verbose',
+				dest = 'verbose',
+#				metavar='BOOL',
+				default = False,
+				action = "store_true",
+#				type = bool,
+				help = "print verbose information")
+		args = parser.parse_args(my_args.split())
+		
+	#	print "arg:", arg
 		if args.filename is not None and args.filename != "":
-			fname = options.filename
+			fname = args.filename
 		else:
 			fname = "/dev/stdout"
+		if args.verbose is not None and args.verbose == True:
+			print "Using file for saving trace log:", fname
+			print "Using sleep timeout:", args.sleep
+			print "Using src/ directory:", args.srcdir
+		if args.srcdir is not None and args.srcdir != "":
+			try:
+				print gdb.execute("directory " + args.srcdir, False, True)
+			except:
+				print "ERROR: GDB: python: run-trace-helper: directory " + args.srcdir
+				return
 		try:
 			print gdb.execute("break main", False, True)
 		except:
-			print "error: can"
+			print "ERROR: GDB: python: run-trace-helper: break main"
 			return
 		try:
-			print gdb.execute("run " + arg, False, True)
+			print gdb.execute("run " + app_args, False, True)
 		except:
-			print "error: can't run"
+			print "ERROR: GDB: python: run-trace-helper: run", app_bin
 			return
 		try:
 #			l = open(os.path.expanduser("~") + "/.gdb/log.trace", "w+")
-			l = open("/dev/stdout", "w+")
+#			l = open("/dev/stdout", "w+")
+			l = open(fname, "w+")
 		except:
-			print "error: can't open trace file for writing"
+			print "ERROR: GDB: python: run-trace-helper: can't open trace file for writing log:", fname
 			return
 		self.trace(l, None, 1)
 #		stack = get_ctx_func()
@@ -454,7 +483,7 @@ Location: python extension config file'''
 		l.close()
 
 
-RunTrace()
+RunTraceHelper()
 ####    ####    ####    ####    ####    ####    ####    ####
 
 

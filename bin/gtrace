@@ -29,17 +29,25 @@ echo -e "\tstarting: \t${app} ${app_args}"
 #echo "${CMD}"
 #${CMD}
 
-#gdb ${app} -ex 'run-trace '"${args}"'' -ex quit
-${gdb_dir}/gdb/gdb --data-directory=${gdb_dir}/gdb/data-directory ${app} -ex 'run-trace '"${args}"'' -ex quit
+# working:
+#gdb ${app} -ex 'run-trace-helper '"${args}"'' -ex quit
+
+#${gdb_dir}/gdb/gdb --data-directory=${gdb_dir}/gdb/data-directory ${app} -ex 'run-trace '"${args}"'' -ex quit
 #gdb hello -ex 'run-trace "-f def -- hello abc"' -ex quit
 
 #gdb ${app} -ex 'run-trace '${@}'' -ex "quit"
 
+gdb -q --batch \
+	"${app}" \
+	-ex "set logging file /dev/null" \
+	-ex "set logging redirect on" \
+	-ex 'run-trace-helper '"${args}"'' \
+	-ex "quit"
+
 #gdb -q --batch \
 #	"${app}" \
-#	-ex "set logging file /dev/null" \
-#	-ex "set logging redirect on" \
-#	-ex "run-trace ${args}" \
+#	-ex "set logging off" \
+#	-ex 'run-trace-helper '"${args}"'' \
 #	-ex "quit"
 
 echo -e "\tstopping: \t${app} ${app_args}"
