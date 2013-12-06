@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-gdb_dir="/home/ia/Devel/sandbox/gdb/gdb-7.6.1"
-#${gdb_dir}/gdb/gdb --data-directory=${gdb_dir}/gdb/data-directory $@
+#gdb_dir=
+#gdb_cmd="${gdb_dir}/gdb/gdb --data-directory=${gdb_dir}/gdb/data-directory"
+gdb_cmd=gdb
 
 if [ "${#}" -lt "1" ]; then
 	echo "Usage: ${0} [options] -- app [args]"
@@ -37,8 +38,14 @@ echo -e "\tstarting: \t${app} ${app_args}"
 
 #gdb ${app} -ex 'run-trace '${@}'' -ex "quit"
 
-gdb -q --batch \
-	"${app}" \
+#gdb "${app}" \
+#	-ex 'run-trace-helper '"${args}"'' \
+#	-ex "quit"
+
+echo "${gdb_cmd}"
+#${gdb_cmd}
+#exit 0
+${gdb_cmd} -q --batch "${app}" \
 	-ex "set logging file /dev/null" \
 	-ex "set logging redirect on" \
 	-ex 'run-trace-helper '"${args}"'' \

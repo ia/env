@@ -362,16 +362,16 @@ Location: python extension config file'''
 		super(RunTraceHelper, self).__init__('run-trace-helper', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
 	
 	def trace(self, f, stack, n = 0):
-		print "1"
+	#	print "1"
 		if ((stack is not None) and (stack != get_ctx_func())):
-			print "2"
+#			print "2"
 	#		f.write(stack + "()" + " ====>>>> " + get_ctx_func() + "()\n")
 			f.write(get_ctx_func() + "()" + " <<<<==== " + stack + "()\n")
 #			trace_line = stack + " <<<<>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
 #		else:
-		print "3"
+#		print "3"
 		trace_line = " ====>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(int(get_ctx_line_n()) - int(n)))
-		print "4"
+#		print "4"
 	#	trace_line = " ====>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():"
 #		print trace_line
 		f.write(trace_line)
@@ -436,8 +436,10 @@ Location: python extension config file'''
 	#	print "arg:", arg
 		if args.filename is not None and args.filename != "":
 			fname = args.filename
+			self.is_flush = False
 		else:
 			fname = "/dev/stdout"
+			self.is_flush = True
 		if args.verbose is not None and args.verbose == True:
 			print "Using file for saving trace log:", fname
 			print "Using sleep timeout:", args.sleep
