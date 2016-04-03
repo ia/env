@@ -3,8 +3,6 @@
 # python 3.x source file for implementation of custom python/gdb api/functions routine
 
 
-from __future__ import print_function
-
 import gdb
 
 import os
