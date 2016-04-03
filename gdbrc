@@ -8,7 +8,7 @@ set $USE_OPT_ARCH_ARM         = 0
 # use show-opcode-bytes option for ARM
 set $USE_OPT_ARM_OPCODES      = 0
 # force to use 64 bit architecture
-set $USE_OPT_ARCH_64B         = 1
+set $USE_OPT_ARCH_64B         = 0
 # using custom smart dynamic prompt with additional information
 set $USE_OPT_SMARTPROMPT      = 1
 # using radix setting dynamically
@@ -24,7 +24,7 @@ set $USE_CONFIG_FUNCTIONS     = 1
 set $USE_CONFIG_PYTHON        = 1
 
 # enable epic config from reverse.put.as
-set $USE_CONFIG_REVERSEPUTAS  = 1
+set $USE_CONFIG_REVERSEPUTAS  = 0
 
 # enable config with custom aliases for gdb commands
 set $USE_CONFIG_ALIASES       = 1
