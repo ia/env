@@ -462,6 +462,41 @@ RunTraceHelper()
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
+class PrintDisasm(gdb.Command):
+	
+	
+	'''Print disassemble information
+print-disasm
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintDisasm, self).__init__('print-disasm', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		global COLOR_RED_BD
+		global COLOR_RED
+		global COLOR_CLS
+		try:
+			svalue = gdb.execute("disassemble %s" % arg, False, True)
+		except:
+			pass
+			return
+		for line in svalue.splitlines():
+			if (line.find('=> ', 0, 3) == -1):
+				print('    ', line)
+			else:
+				line = line + COLOR_CLS
+				print(line.replace('=> ', COLOR_RED_BD + '   ===> ' + COLOR_CLS + COLOR_RED))
+
+
+PrintDisasm()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
 #    user defined prompt experiments
 # http://stackoverflow.com/questions/6103887/how-do-i-access-the-registers-with-python-in-gdb
 # https://sourceware.org/gdb/onlinedocs/gdb/Prompt.html
