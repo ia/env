@@ -1,10 +1,6 @@
 
 # gdb config file with custom routine aliases
 
-# aliases for custom gdb functions
-alias -a pst = print-struct
-alias -a pma = print-macro
-
 # aliases for internal gdb functions
 alias -a prevn  = reverse-next
 alias -a prevni = reverse-nexti
@@ -13,4 +9,12 @@ alias -a prevsi = reverse-stepi
 
 # aliases for common gdb functions
 alias -a exit = quit
+
+# aliases for custom python based gdb functions
+if $USE_CONFIG_PYTHON == 1
+	alias -a pst = print-struct
+	alias -a pma = print-macro
+	alias -a asm = print-disasm
+	alias -a disasm = print-disasm
+end
 
