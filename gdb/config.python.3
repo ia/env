@@ -1,15 +1,16 @@
 
+
 # python 3.x source file for implementation of custom python/gdb api/functions routine
 
+
 import gdb
-import sys
+
 import os
-import string
+import sys
 import time
+import string
 import argparse
 
-# each separate code section starts with and and by:
-####    ####    ####    ####    ####    ####    ####    ####
 
 ####    ####    ####    ####    ####    ####    ####    ####
 #    global color setup
@@ -18,6 +19,7 @@ COLOR_RED    = "\033[31m"
 COLOR_RED_BD = "\033[01;31m"
 COLOR_CLS    = "\033[0m"
 ####    ####    ####    ####    ####    ####    ####    ####
+
 
 ####    ####    ####    ####    ####    ####    ####    ####
 #    print struct values recursively
@@ -357,52 +359,30 @@ run-trace-helper
 
 Location: python extension config file'''
 	
+	
 	# TODO: FIXME: arg, error output, clean code, routine: get line/function/file properly
 	def __init__(self):
 		super(RunTraceHelper, self).__init__('run-trace-helper', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
 	
+	
 	def trace(self, f, stack, n = 0):
-	#	print "1"
 		if ((stack is not None) and (stack != get_ctx_func())):
-#			print "2"
-	#		f.write(stack + "()" + " ====>>>> " + get_ctx_func() + "()\n")
 			f.write(get_ctx_func() + "()" + " <<<<==== " + stack + "()\n")
-#			trace_line = stack + " <<<<>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(get_ctx_line_n()) - n)
-#		else:
-#		print "3"
 		trace_line = " ====>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():" + get_ctx_line_s(int(int(get_ctx_line_n()) - int(n)))
-#		print "4"
-	#	trace_line = " ====>>>> " + get_ctx_file('') + ":" + get_ctx_func() + "():"
-#		print trace_line
 		f.write(trace_line)
-		#f.write(get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n()))
 		f.flush()
-		
+	
+	
 	def invoke(self, arg, from_tty):
-		print "ARGARG:", arg.strip('"')
-#		a_app = arg.split()[0]
-#		print "a_app: ", a_app
-	#	print "app: ", arg.find('--')
-	#	print "args: ", arg[1:arg.find('--')]
-	#	print "appargs: ", arg[arg.find('--')+2:-1]
-#		print "app_bin: ", arg[arg.find('--')+2:-1].split()[0]
-		
+		print "ARG:", arg.strip('"')
 		my_args = arg[1:arg.find('--')]
 		app_bin = arg[arg.find('--')+2:-1].split()[0]
 		app_args = ' '.join(arg[arg.find('--')+2:-1].split()[1:])
 		print "my_args: ", my_args
 		print "app_bin: ", app_bin
 		print "app_args: ", app_args
-	#	print "10"
-#		print sys.argv
-#		print "20"
-	#	self.argv = my_args
-#		print "app_args: ", arg[arg.split().find(app_bin):-1]
-	#	sys.exit(1)
-		#print os.path.expanduser("~") + "/.gdb/log.trace"
-	#	print 1
+		
 		parser = argparse.ArgumentParser(description='process run-trace-helper options')
-	#	print 2
 		parser.add_argument('-f', '--file',
 				dest = 'filename',
 				metavar='FILE',
@@ -426,14 +406,11 @@ Location: python extension config file'''
 		
 		parser.add_argument('-v', '--verbose',
 				dest = 'verbose',
-#				metavar='BOOL',
 				default = False,
 				action = "store_true",
-#				type = bool,
 				help = "print verbose information")
-		args = parser.parse_args(my_args.split())
 		
-	#	print "arg:", arg
+		args = parser.parse_args(my_args.split())
 		if args.filename is not None and args.filename != "":
 			fname = args.filename
 			self.is_flush = False
@@ -461,22 +438,17 @@ Location: python extension config file'''
 			print "ERROR: GDB: python: run-trace-helper: run", app_bin
 			return
 		try:
-#			l = open(os.path.expanduser("~") + "/.gdb/log.trace", "w+")
-#			l = open("/dev/stdout", "w+")
 			l = open(fname, "w+")
 		except:
 			print "ERROR: GDB: python: run-trace-helper: can't open trace file for writing log:", fname
 			return
 		self.trace(l, None, 1)
-#		stack = get_ctx_func()
 		self.trace(l, None)
 		stack = ""
 		while is_running():
-#			self.trace(l)
 			try:
 				stack = get_ctx_func()
 				gdb.execute("step", False, True)
-				#print gdb.execute("step", False, True)
 				self.trace(l, stack)
 				if args.sleep is not None and args.sleep != 0:
 					time.sleep(args.sleep)
@@ -521,8 +493,8 @@ def prompt_hook(prompt = None):
 		else:
 			file_line, function = get_ctx_location()
 			p = " %s | %s() @ %s%s" % ( file_line, function, get_ctx_address(), GDB_PROMPT)
-		# line won't work with old gcc versions:
-		#  p = " %s | %s(): %s @ %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), get_ctx_address(), GDB_PROMPT)
+			# line won't work with old gcc versions:
+			#  p = " %s | %s(): %s @ %s%s" % ( get_ctx_file("base"), get_ctx_func(), get_ctx_line_n(), get_ctx_address(), GDB_PROMPT)
 	else:
 		p = GDB_PROMPT
 	return "%s%s%s" % (color_red_bd, p, color_cls)
