@@ -16,8 +16,8 @@ define reverse-record
 	reverse-continue
 end
 document reverse-record
-Syntax: reverse-init [function]
-| Init record process for reverse execution using `function' as start point (main by default).
+Syntax: reverse-record
+| Init record process for reverse execution using main() as start point.
 end
 
 
