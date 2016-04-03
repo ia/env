@@ -11,7 +11,7 @@ if $USE_CONFIG_PYTHON       == 1
 	source ~/.gdb/config.py
 end
 if $USE_CONFIG_REVERSEPUTAS == 1
-	source ~/.gdb/config.reverseputas
+	source ~/.gdb/config.reverseputas.20160403
 end
 if $USE_CONFIG_ALIASES      == 1
 	source ~/.gdb/config.aliases
