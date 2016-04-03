@@ -1,34 +1,58 @@
 
-# internal global gdb variables for flexible config setup
+# ~/.gdbinit
 
-# enable term escape color codes
+## getting started
+
+### build:
+
+#### $ sudo apt-get install gnat-4.9 texinfo expect dejagnu gcj-jdk gfortran libisl-dev python3-dev
+#### $ cd /path/to/gdb-VERSION
+#### $ ./configure  --build=x86_64-linux-gnu  --enable-targets=all  --with-python=/usr/bin/python3
+#### $ make
+
+### run:
+
+#### $ GDB_DIR=/path/to/gdb-VERSION
+#### $ GDB_CFG=/path/to/gdbrc
+#### $ "${GDB_DIR}"/gdb/gdb  --data-directory="${GDB_DIR}"/gdb/data-directory  -x "${GDB_CFG}"  -q  $@
+#### $ "${GDB_DIR}"/gdb/gdbserver/gdbserver  $@
+
+## internal global gdb variables for flexible config setup
+
+#### enable term escape color codes:
 set $USE_OPT_COLORS           = 1
-# force to use arm architecture
+
+#### force to use arm architecture:
 set $USE_OPT_ARCH_ARM         = 0
-# use show-opcode-bytes option for ARM
+
+#### use show-opcode-bytes option for ARM:
 set $USE_OPT_ARM_OPCODES      = 0
-# force to use 64 bit architecture
+
+#### force to use 64 bit architecture:
 set $USE_OPT_ARCH_64B         = 0
-# using custom smart dynamic prompt with additional information
+
+#### using custom smart dynamic prompt with additional information:
 set $USE_OPT_SMARTPROMPT      = 1
-# using radix setting dynamically
+
+#### using radix setting dynamically:
 set $USE_OPT_SMARTRADIX       = 1
 
-# enable config with custom generic gdb settings
+#### enable config with custom generic gdb settings:
 set $USE_CONFIG_SETTINGS      = 1
 
-# enable config with custom basic gdb hooks and functions
+#### enable config with custom basic gdb hooks and functions:
 set $USE_CONFIG_FUNCTIONS     = 1
 
-# enable config with custom python/gdb helper routine
+#### enable config with custom python/gdb helper routine:
 set $USE_CONFIG_PYTHON        = 1
 
-# enable epic config from reverse.put.as
+#### enable epic config from reverse.put.as:
 set $USE_CONFIG_REVERSEPUTAS  = 0
 
-# enable config with custom aliases for gdb commands
+#### enable config with custom aliases for gdb commands:
 set $USE_CONFIG_ALIASES       = 1
 
-# initialization of modular gdb config files based on variables above; TODO: config.colors for color management
+##### initialization of modular gdb config files based on variables above
+##### TODO: config.colors for color management
 source ~/.gdb/config.init
 
