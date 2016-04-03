@@ -42,3 +42,7 @@ set print vtbl on
 set record insn-number-max 1000000
 set record stop-at-limit on
 
+# screen settings - https://sourceware.org/gdb/onlinedocs/gdb/Screen-Size.html
+set height unlimited
+set width unlimited
+
