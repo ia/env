@@ -3,6 +3,8 @@
 # python 3.x source file for implementation of custom python/gdb api/functions routine
 
 
+from __future__ import print_function
+
 import gdb
 
 import os
@@ -147,7 +149,7 @@ Location: python extension config file'''
 				(expr, limit) = (arg[end:], limit)
 		try:
 			v = gdb.parse_and_eval(expr)
-		except gdb.error, e:
+		except gdb.error as e:
 			raise gdb.GdbError(e.message)
 		if not is_smart_radix():
 			set_radix("10.")
@@ -195,9 +197,9 @@ Location: python extension config file'''
 		for e in range(l):
 			includes[e] = includes[e].replace("  included at ", "")
 		for e in range(1, l):
-			print "%s%s" % ('\t' * (e - 1), includes[e])
-		print "%s%s" % ('\t' * e, define_file)
-		print "%s%s" % ('\t' * (e + 1), define_line.rstrip("\\n"))
+			print(("%s%s") % ('\t' * (e - 1), includes[e]))
+		print(("%s%s") % ('\t' * e, define_file))
+		print(("%s%s") % ('\t' * (e + 1), define_line.rstrip("\\n")))
 
 
 PrintMacro()
@@ -343,7 +345,7 @@ Location: python extension config file'''
 	
 	
 	def invoke(self, arg, from_tty):
-		print get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n())
+		print(get_ctx_file('') + ":", get_ctx_func() + "():", get_ctx_line_s(get_ctx_line_n()))
 
 
 PrintTrace()
@@ -374,13 +376,13 @@ Location: python extension config file'''
 	
 	
 	def invoke(self, arg, from_tty):
-		print "ARG:", arg.strip('"')
+		print("ARG:", arg.strip('"'))
 		my_args = arg[1:arg.find('--')]
 		app_bin = arg[arg.find('--')+2:-1].split()[0]
 		app_args = ' '.join(arg[arg.find('--')+2:-1].split()[1:])
-		print "my_args: ", my_args
-		print "app_bin: ", app_bin
-		print "app_args: ", app_args
+		print("my_args: ", my_args)
+		print("app_bin: ", app_bin)
+		print("app_args: ", app_args)
 		
 		parser = argparse.ArgumentParser(description='process run-trace-helper options')
 		parser.add_argument('-f', '--file',
@@ -418,29 +420,29 @@ Location: python extension config file'''
 			fname = "/dev/stdout"
 			self.is_flush = True
 		if args.verbose is not None and args.verbose == True:
-			print "Using file for saving trace log:", fname
-			print "Using sleep timeout:", args.sleep
-			print "Using src/ directory:", args.srcdir
+			print("Using file for saving trace log:", fname)
+			print("Using sleep timeout:", args.sleep)
+			print("Using src/ directory:", args.srcdir)
 		if args.srcdir is not None and args.srcdir != "":
 			try:
-				print gdb.execute("directory " + args.srcdir, False, True)
+				print(gdb.execute("directory " + args.srcdir, False, True))
 			except:
-				print "ERROR: GDB: python: run-trace-helper: directory " + args.srcdir
+				print("ERROR: GDB: python: run-trace-helper: directory " + args.srcdir)
 				return
 		try:
-			print gdb.execute("break main", False, True)
+			print(gdb.execute("break main", False, True))
 		except:
-			print "ERROR: GDB: python: run-trace-helper: break main"
+			print("ERROR: GDB: python: run-trace-helper: break main")
 			return
 		try:
-			print gdb.execute("run " + app_args, False, True)
+			print(gdb.execute("run " + app_args, False, True))
 		except:
-			print "ERROR: GDB: python: run-trace-helper: run", app_bin
+			print("ERROR: GDB: python: run-trace-helper: run", app_bin)
 			return
 		try:
 			l = open(fname, "w+")
 		except:
-			print "ERROR: GDB: python: run-trace-helper: can't open trace file for writing log:", fname
+			print("ERROR: GDB: python: run-trace-helper: can't open trace file for writing log:", fname)
 			return
 		self.trace(l, None, 1)
 		self.trace(l, None)
