@@ -1,5 +1,9 @@
 
-# gdb config file with custom routine functions
+
+# gdb config file with custom routine functions #
+
+
+## tiny helpers ##
 
 
 define reverse-record
@@ -31,6 +35,9 @@ document break-main
 Syntax: break-main
 | Set breakpoint in main and print argc, argv and argv[0] on hit.
 end
+
+
+## target switches ##
 
 
 define set-target-arm32
@@ -102,5 +109,13 @@ end
 #Syntax: run-trace
 #| Trace code path in file (~/.gdb/log.trace).
 #end
+
+
+## command hooks ##
+
+
+define hook-quit
+	set confirm off
+end
 
 
