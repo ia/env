@@ -8,7 +8,7 @@ if $USE_CONFIG_FUNCTIONS    == 1
 	source ~/.gdb/config.functions
 end
 if $USE_CONFIG_PYTHON       == 1
-	source ~/.gdb/config.python.3
+	source ~/.gdb/config.py
 end
 if $USE_CONFIG_REVERSEPUTAS == 1
 	source ~/.gdb/config.reverseputas.20160403
