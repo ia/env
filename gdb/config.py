@@ -17,6 +17,12 @@ import argparse
 GDB_PROMPT   = ""
 COLOR_RED    = "\033[31m"
 COLOR_RED_BD = "\033[01;31m"
+COLOR_GREEN    = "\033[32m"
+COLOR_GREEN_BD    = "\033[01;32m"
+COLOR_YELLOW    = "\033[33m"
+COLOR_YELLOW_BD    = "\033[01;33m"
+COLOR_CYAN    = "\033[36m"
+COLOR_CYAN_BD    = "\033[01;36m"
 COLOR_CLS    = "\033[0m"
 ####    ####    ####    ####    ####    ####    ####    ####
 
@@ -300,6 +306,21 @@ def get_ctx_address():
 	return r
 
 
+def get_ctx_frame_n():
+	'''get int value with the number of the current frame'''
+	r = ""
+	try:
+		svalue = gdb.execute("info frame", False, True)
+		for l in svalue.splitlines():
+			if l.startswith("Stack level "):
+				i = l.rfind(',')
+				r = '#' + l[12:i]
+			break
+	except:
+		pass
+	return r
+
+
 def is_running():
 	'''get application run status in the current context'''
 	if get_ctx_address() == "":
@@ -493,6 +514,43 @@ Location: python extension config file'''
 
 
 PrintDisasm()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
+class PrintFrames(gdb.Command):
+	
+	
+	'''Print frames information
+print-frames
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintFrames, self).__init__('print-frames', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		global COLOR_RED_BD
+		global COLOR_RED
+		global COLOR_CLS
+		n = get_ctx_frame_n()
+		if n == "":
+			return
+		try:
+			svalue = gdb.execute("backtrace %s" % arg, False, True)
+		except:
+			pass
+			return
+		for line in svalue.splitlines():
+			if (line.startswith(n)):
+				print("   " + COLOR_YELLOW_BD + "===>" + COLOR_CLS + " " + COLOR_CYAN + line + COLOR_CLS)
+			else:
+				print("        " + line)
+
+
+PrintFrames()
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
