@@ -6,6 +6,7 @@ alias -a prevn  = reverse-next
 alias -a prevni = reverse-nexti
 alias -a prevs  = reverse-step
 alias -a prevsi = reverse-stepi
+alias -a taa = thread apply all
 
 # aliases for common gdb functions
 alias -a exit = quit
