@@ -16,5 +16,6 @@ if $USE_CONFIG_PYTHON == 1
 	alias -a pst = print-struct
 	alias -a pma = print-macro
 	alias -a disasm = print-disasm
+	alias -a st = print-frames
 end
 
