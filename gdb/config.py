@@ -543,11 +543,13 @@ Location: python extension config file'''
 		except:
 			pass
 			return
+		print()
 		for line in svalue.splitlines():
 			if (line.startswith(n)):
 				print("   " + COLOR_YELLOW_BD + "===>" + COLOR_CLS + " " + COLOR_CYAN + line + COLOR_CLS)
 			else:
 				print("        " + line)
+		print()
 
 
 PrintFrames()
