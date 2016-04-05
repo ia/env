@@ -17,5 +17,6 @@ if $USE_CONFIG_PYTHON == 1
 	alias -a pma = print-macro
 	alias -a disasm = print-disasm
 	alias -a st = print-frames
+	alias -a pg = print-pager
 end
 
