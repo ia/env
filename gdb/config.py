@@ -13,17 +13,23 @@ import argparse
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
+#    global env setup
+GDB_PAGER  = "less"
+GDB_PROMPT = ""
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
 #    global color setup
-GDB_PROMPT   = ""
-COLOR_RED    = "\033[31m"
-COLOR_RED_BD = "\033[01;31m"
-COLOR_GREEN    = "\033[32m"
-COLOR_GREEN_BD    = "\033[01;32m"
+COLOR_RED       = "\033[31m"
+COLOR_RED_BD    = "\033[01;31m"
+COLOR_GREEN     = "\033[32m"
+COLOR_GREEN_BD  = "\033[01;32m"
 COLOR_YELLOW    = "\033[33m"
-COLOR_YELLOW_BD    = "\033[01;33m"
-COLOR_CYAN    = "\033[36m"
-COLOR_CYAN_BD    = "\033[01;36m"
-COLOR_CLS    = "\033[0m"
+COLOR_YELLOW_BD = "\033[01;33m"
+COLOR_CYAN      = "\033[36m"
+COLOR_CYAN_BD   = "\033[01;36m"
+COLOR_CLS       = "\033[0m"
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
@@ -553,6 +559,34 @@ Location: python extension config file'''
 
 
 PrintFrames()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
+class PrintPager(gdb.Command):
+# based on excellent idea from http://stackoverflow.com/a/31846851
+	
+	
+	'''Print using pager
+print-pager
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintPager, self).__init__('print-pager', gdb.COMMAND_SUPPORT, gdb.COMPLETE_COMMAND, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		global GDB_PAGER
+		try:
+			os.popen(GDB_PAGER,"w").write(gdb.execute(arg, False, True))
+		except:
+			pass
+			return
+
+
+PrintPager()
 ####    ####    ####    ####    ####    ####    ####    ####
 
 
