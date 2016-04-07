@@ -591,6 +591,46 @@ PrintPager()
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
+class PrintVersion(gdb.Command):
+# based on excellent idea from http://stackoverflow.com/a/31846851
+	
+	
+	'''Print version information
+print-version
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintVersion, self).__init__('print-version', gdb.COMMAND_STATUS, gdb.COMPLETE_NONE, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		try:
+			ver_gdb = gdb.execute("show version", False, True)
+			ver_cfg = gdb.execute("show configuration", False, True)
+		except:
+			pass
+			return
+		print(ver_gdb.splitlines()[0])
+		print("python " + sys.version.splitlines()[0].split()[0] + ' ' + sys.version.splitlines()[1])
+		for l in ver_cfg.splitlines():
+			if l.startswith("This"): # or l.startswith('("Rel'):
+				continue
+			elif l.startswith("   configure"):
+				print(l.replace("   configure", "configure   "))
+			elif l == '':
+				break
+			else:
+				print(l)
+		#print()
+
+
+PrintVersion()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
 #    user defined prompt experiments
 # http://stackoverflow.com/questions/6103887/how-do-i-access-the-registers-with-python-in-gdb
 # https://sourceware.org/gdb/onlinedocs/gdb/Prompt.html
