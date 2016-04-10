@@ -347,6 +347,16 @@ def get_ctx_stack_n():
 	return int(b.splitlines()[-1].split(" ")[0].replace("#",""))
 
 
+def get_breakpoints_n():
+	'''get int value with the number of the current break points'''
+	try:
+		bs = gdb.breakpoints()
+	except gdb.error as e:
+		raise gdb.GdbError(e.message)
+		return -1
+	return len(bs)
+
+
 def is_running():
 	'''get application run status in the current context'''
 	if get_ctx_address() == "":
