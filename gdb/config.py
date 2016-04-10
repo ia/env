@@ -312,6 +312,16 @@ def get_ctx_address():
 	return r
 
 
+def get_ctx_pid():
+	'''get int value with PID of the current debugee process'''
+	try:
+		p = gdb.selected_inferior().pid
+	except gdb.error as e:
+		raise gdb.GdbError(e.message)
+		return 0
+	return p
+
+
 def get_ctx_frame_n():
 	'''get int value with the number of the current frame'''
 	r = ""
