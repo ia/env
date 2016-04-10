@@ -34,6 +34,15 @@ COLOR_CLS       = "\033[0m"
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
+#    global indent setup
+# http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
+INDENT_NEST  = '└'
+INDENT_LINE  = '─'
+INDENT_ARROW = '►'
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
 #    print struct values recursively
 # based on great advice:
 #  http://stackoverflow.com/questions/16787289/gdb-python-parsing-structures-each-field-and-print-them-with-proper-value-if
