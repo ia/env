@@ -592,7 +592,6 @@ PrintPager()
 
 ####    ####    ####    ####    ####    ####    ####    ####
 class PrintVersion(gdb.Command):
-# based on excellent idea from http://stackoverflow.com/a/31846851
 	
 	
 	'''Print version information
@@ -615,7 +614,7 @@ Location: python extension config file'''
 		print(ver_gdb.splitlines()[0])
 		print("python " + sys.version.splitlines()[0].split()[0] + ' ' + sys.version.splitlines()[1])
 		for l in ver_cfg.splitlines():
-			if l.startswith("This"): # or l.startswith('("Rel'):
+			if l.startswith("This"):
 				continue
 			elif l.startswith("   configure"):
 				print(l.replace("   configure", "configure   "))
