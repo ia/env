@@ -622,7 +622,7 @@ Location: python extension config file'''
 				break
 			else:
 				print(l)
-		#print()
+		print()
 
 
 PrintVersion()
