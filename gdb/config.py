@@ -357,6 +357,22 @@ def get_breakpoints_n():
 	return len(bs)
 
 
+def del_breakpoints():
+	'''delete all currently enabled break points'''
+	try:
+		bs = gdb.breakpoints()
+	except gdb.error as e:
+		raise gdb.GdbError(e.message)
+		return -1
+	try:
+		for b in bs:
+			b.delete()
+	except gdb.error as e:
+		raise gdb.GdbError(e.message)
+		return -1
+	return 0
+
+
 def is_running():
 	'''get application run status in the current context'''
 	if get_ctx_address() == "":
