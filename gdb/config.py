@@ -327,6 +327,16 @@ def get_ctx_frame_n():
 	return r
 
 
+def get_ctx_stack_n():
+	'''get int value with the number of the current call stack length'''
+	try:
+		b = gdb.execute("backtrace", False, True)
+	except gdb.error as e:
+		raise gdb.GdbError(e.message)
+		return -1
+	return int(b.splitlines()[-1].split(" ")[0].replace("#",""))
+
+
 def is_running():
 	'''get application run status in the current context'''
 	if get_ctx_address() == "":
