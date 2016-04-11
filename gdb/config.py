@@ -376,6 +376,11 @@ def get_ctx_args():
 	return r
 
 
+def get_ctx_trace_line():
+	'''get line to trace the current context'''
+	return get_ctx_func() + ' ' + get_ctx_args() + ' @ ' + get_ctx_file("") + ':' + get_ctx_line_n()
+
+
 def get_breakpoints_n():
 	'''get int value with the number of the current break points'''
 	try:
