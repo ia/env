@@ -643,6 +643,37 @@ PrintFrames()
 
 
 ####    ####    ####    ####    ####    ####    ####    ####
+class PrintTraceCtx(gdb.Command):
+	
+	
+	'''Print trace context information
+print-trace-ctx
+
+Location: python extension config file'''
+	
+	
+	def __init__(self):
+		super(PrintTraceCtx, self).__init__('print-trace-ctx', gdb.COMMAND_DATA, gdb.COMPLETE_SYMBOL, False)
+	
+	
+	def invoke(self, arg, from_tty):
+		global INDENT_NEST
+		global INDENT_LINE
+		global INDENT_ARROW
+		i = get_ctx_stack_n()
+		if i < 0:
+			return
+		elif i > 0:
+			print('   |' + '\t' * i + INDENT_NEST + INDENT_LINE * 4 + INDENT_ARROW + ' ' + get_ctx_trace_line())
+		else:
+			print('  ' + get_ctx_trace_line())
+		return
+
+PrintTraceCtx()
+####    ####    ####    ####    ####    ####    ####    ####
+
+
+####    ####    ####    ####    ####    ####    ####    ####
 class PrintPager(gdb.Command):
 # based on excellent idea from http://stackoverflow.com/a/31846851
 	
