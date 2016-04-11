@@ -356,6 +356,26 @@ def get_ctx_stack_n():
 	return int(b.splitlines()[-1].split(" ")[0].replace("#",""))
 
 
+def get_ctx_args():
+	'''get string with arguments for the current context'''
+	try:
+		args = gdb.execute("info args", False, True)
+	except gdb.error as e:
+		raise gdb.GdbError(e.message)
+		return ""
+	r = '('
+	for a in args.splitlines():
+		if a.startswith("No arguments."):
+			r += 'void'
+			break
+		elif a == args.splitlines()[-1]:
+			r += a
+		else:
+			r += a + ', '
+	r += ')'
+	return r
+
+
 def get_breakpoints_n():
 	'''get int value with the number of the current break points'''
 	try:
