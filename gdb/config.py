@@ -36,8 +36,8 @@ COLOR_CLS       = "\033[0m"
 ####    ####    ####    ####    ####    ####    ####    ####
 #    global indent setup
 # http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&unicodeinhtml=dec
-INDENT_NEST  = '└'
-INDENT_LINE  = '─'
+INDENT_NEST  = ''  # '└'
+INDENT_LINE  = '-' # '─'
 INDENT_ARROW = '►'
 ####    ####    ####    ####    ####    ####    ####    ####
 
