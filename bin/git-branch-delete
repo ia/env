@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+
+test -n "${1}" || exit 1
+
+git  branch  -D  "${1}"
+git  push  origin  -d  "${1}"
+
