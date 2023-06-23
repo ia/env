@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# set -x
+set -e
+
+
+# Info: generates source code tags (exuberant-ctags & cscope & gnu global)
+#    in the directory .tags inside target source directory (current PWD dir)
+
+# Usage:
+# $ cd /source/code/
+# $ mktags
+# (may take some time)
+
+# Result: absolute-path generated vim-compatible tag files
+#    in .tags directory of /source/code
+
+# Automagical usage with (g)vim - see `v' helper startup script
+
+
+# source code dir to tag
+SDIR="${PWD}"
+
+# pre-config
+TDIR_NAME=".tags"
+TDIR="${SDIR}"/"${TDIR_NAME}"
+
+### main
+
+# prep dir
+rm -rf "${TDIR}"
+mkdir "${TDIR}"
+
+# ctags
+ctags  --tag-relative=yes  -R  --c++-kinds=+p  --fields=+iaS  --extra=+q  -f "${TDIR}"/tags  "${SDIR}"
+
+# cscope
+find  "${SDIR}"  -type f  |  grep -v  "/\."  >  "${TDIR}"/cscope.files
+cscope  -i  "${TDIR}"/cscope.files  -R  -b  -q  -f "${TDIR}"/cscope.out
+
+# gtags
+find  "${SDIR}"  |  grep -v  "/\."  |  gtags  -q  "${TDIR}"  -
+
+# set gtags opts
+export GPATH="${TDIR}"/GPATH
+export GRTAGS="${TDIR}"/GRTAGS
+export GTAGS="${TDIR}"/GTAGS
+export GTAGSROOT="${SDIR}"
+export GTAGSDBPATH="${TDIR}"
+
+echo "OK"
