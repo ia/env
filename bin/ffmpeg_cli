@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+
+set -e
+test "${DBG}" = "1" && set -x
+
+
+usage()
+{
+	echo -e "\n ${0} - helper script to simplify basic ffmpeg routine for human beings\n"
+	echo -e " Current options:"
+	echo -e "  FILE info - print media info about FILE"
+	echo -e "  FILE copy OUTPUT [ac3] 0 [1...N] - copy N streams (absolute addressing - use info to see all streams) from FILE to OUTPUT;\n\t ac3 flag converts audio stream for OUTPUT to ac3"
+	echo ""
+	echo ""
+	echo -e " Samples:"
+	echo -e "  ${0} input.mkv  info\n\t - dump media info\n"
+	echo -e "  ${0} input.mkv  copy  output.mkv  0  1\n\t - copy streams 0 and 1 from input.mkv to output.mkv\n"
+	echo -e "  ${0} input.mkv  copy  output.mkv  ac3  0  4\n\t - copy streams 0 and 4 from input.mkv to output.mkv with converting audio stream to ac3 for output.mkv\n"
+}
+
+
+info()
+{
+	ffmpeg -i "${@}" 2>&1 | grep -v "At least one output file must be specified" | sed 's,Stream,\n\n    ====>>>> Stream,'
+	echo -e "\n"
+	echo -e "    ====>>>> '${@}'"
+	echo -e "\n"
+}
+
+
+copy()
+{
+	input="${1}"
+	shift
+
+	output="${1}"
+	shift
+
+	if [ "${1}" = "ac3" ]; then
+		audio="-acodec ac3  -c:a:0 ac3  -b:a  960k"
+		shift
+	else
+		audio="-acodec copy"
+	fi;
+
+	maps=""
+	for s in ${@}; do
+		maps="${maps} -map 0:${s}"
+	done;
+
+	echo ""
+	echo "====>>>> ffmpeg  -i \"${input}\" \
+  ${maps} \
+  -vcodec copy \
+  -scodec copy \
+  ${audio} \
+  ${output}"
+	echo ""
+}
+
+
+# MAIN
+
+
+action="${2}"
+if [ "${action}" = "info" ] || [ "${action}" = "copy" ]; then
+	input="${1}"
+	shift
+	shift
+	${action}  "${input}"  "${@}"
+#	if [ "${action}" = "info" ]; then
+#		echo ${action}  ${input}
+#		${action}  "${input}"
+#	else
+#		${action}  ${input}  ${@}
+#	fi;
+else
+	usage
+fi;
+
+
+exit 0
+
+
