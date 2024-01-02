@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+usage()
+{
+	echo " Supported commands:"
+	echo "    clone-repo username/reponame"
+	echo "    clone-wiki username/reponame"
+	echo "    update-all"
+	echo "    list-all"
+	echo ""
+	exit 1
+}
+
+clone-repo()
+{
+	test -z "$1" && usage
+	git clone git@ssh.github.com:$1.git
+}
+
+clone-wiki()
+{
+	test -z "$1" && usage
+	git clone git@ssh.github.com:$1.wiki.git
+}
+
+update-all()
+{
+	cd ~/devel/src/git
+	repos="`ls .`"
+	for r in $repos; do
+		cd $r
+		test -d ".git" && git checkout master && git pull
+		cd ..
+	done;
+}
+
+list-all()
+{
+	cd ~/devel/src/git
+	repos="`ls .`"
+	for r in $repos; do
+		cd $r
+		test -d ".git" && cat .git/config | grep url | awk -F ' = ' '{print $2}' | sed 's,$,    '"$r"','
+		cd ..
+	done;
+}
+
+test "$1" != "clone-repo" && test "$1" != "clone-wiki" && test "$1" != "update-all" && test "$1" != "list-all" && usage
+
+$1 $2
+
