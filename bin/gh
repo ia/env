@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# directory with cloned/forked repos from github:
+REPO_DIR="~/devel/src/git"
+
 usage()
 {
 	echo " Supported commands:"
@@ -25,7 +28,7 @@ clone-wiki()
 
 update-all()
 {
-	cd ~/devel/src/git
+	cd "${REPO_DIR}"
 	repos="`ls .`"
 	for r in $repos; do
 		cd $r
@@ -36,7 +39,7 @@ update-all()
 
 list-all()
 {
-	cd ~/devel/src/git
+	cd "${REPO_DIR}"
 	repos="`ls .`"
 	for r in $repos; do
 		cd $r
