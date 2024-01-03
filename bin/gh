@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-# directory with cloned/forked repos from github:
-REPO_DIR="~/devel/src/git"
+# directory with cloned/forked repos from git/hub:
+if [ -z "${REPO_DIR}" ]; then
+	REPO_DIR="~/devel/src/git"
+fi;
 
 usage()
 {
