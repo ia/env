@@ -1,6 +1,0 @@
-
-# minmal cgdb custom settings file
-
-:set arrowstyle=long
-:highlight Arrow cterm=normal term=normal ctermbg=white ctermfg=black
-
