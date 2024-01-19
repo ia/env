@@ -18,4 +18,19 @@ TBA
 
 ### Markdown
 
+#### Install
+
 TBA
+
+#### Usage
+
+TBA
+
+#### Configuration
+
+TBA
+
+#### GitHub integration
+
+TBA
+
