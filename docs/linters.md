@@ -22,6 +22,11 @@ TBA
 
 ### Markdown
 
+One of the most popular _markdown_ linters is `NodeJS`-based
+[markdownlint](https://github.com/DavidAnson/markdownlint). It has
+[CLI implementation](https://github.com/igorshubovych/markdownlint-cli) and
+[GitHub Actions runner](https://github.com/nosborn/github-action-markdown-cli).
+
 #### Install
 
 TBA
