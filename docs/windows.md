@@ -1,6 +1,15 @@
 # !!!RAW DRAFT!!!
 
+
 ## Windows 10 (Pro)
+
+link: https://www.microsoft.com/en-us/software-download/windows10ISO
+Select edition: Windows 10 (multi-edition ISO)
+Select the product language: English (United States)
+  name: 
+   md5:
+  sha1:
+sha256:
 
 Dowload official ISO
 Burn ISO on DL DVD-R(W) disc using compatible ROM
