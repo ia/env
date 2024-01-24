@@ -50,7 +50,8 @@ Set 3 pairs of question/answer, `Next`
 `Cortana`: `Not now`
 `Microsoft Edge`: `Maybe later`
 
-14.7 GiB
+after install: 14.7 GB
+after updates: 24.9 GB
 
 Reboot to GNULinux
 if C:\ partition is misaligned, then:
@@ -61,8 +62,12 @@ extend C:\ with alignment by cylinder in gparted
 
 sfc /scannow
 
+4K (for metablock?)
+
 install all updates
 Windows 10 Update Error(0x80070643) is ok
+
+after updates: 24.9 GB
 
 right click on the Search Box. Under Search uncheck Show Search Highlights
 right click on the taskbar. Under News and Interests, check Turn off
@@ -70,4 +75,18 @@ right click on the taskbar. Under News and Interests, check Turn off
 sudo strings /sys/firmware/acpi/tables/MSDM
 
 wmic path SoftwareLicensingService get OA3xOriginalProductKey
+
+if your legal work machine key doesn't work but your organization is a legal corporate client, run cmd.exe as admin:
+
+get & set default windows 10 pro legal activation key:
+C:\Windows\system32>slmgr /ipk AAAAA-BBBBB-CCCCC-DDDDD-EEEEE
+
+get & set your organization legal activation key domain:
+C:\Windows\system32>slmgr /skms  ----.--------.---
+
+set activation process:
+C:\Windows\system32>slmgr /ato
+
+get activation status:
+C:\Windows\system32>slmgr /xpr
 
