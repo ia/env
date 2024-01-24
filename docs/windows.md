@@ -1,6 +1,11 @@
 # !!!RAW DRAFT!!!
 
 
+## Windows 11 (Pro)
+
+link: https://www.microsoft.com/software-download/windows11
+
+
 ## Windows 10 (Pro)
 
 link: https://www.microsoft.com/en-us/software-download/windows10ISO
