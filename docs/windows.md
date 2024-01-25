@@ -11,10 +11,13 @@ link: https://www.microsoft.com/software-download/windows11
 link: https://www.microsoft.com/en-us/software-download/windows10ISO
 Select edition: Windows 10 (multi-edition ISO)
 Select the product language: English (United States)
-  name: 
-   md5:
-  sha1:
-sha256:
+
+ iso name: Win10_22H2_English_x64v1.iso
+ rom name: 
+     size: 6140975104 (5.71 GB)
+      md5: c2b19762870226ca467d6cbd87cd8fab
+     sha1: bbb1b234ea7f5397a1906ee59187087c78374f35
+   sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 
 Dowload official ISO
 Burn ISO on DL DVD-R(W) disc using compatible ROM
