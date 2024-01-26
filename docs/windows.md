@@ -9,7 +9,7 @@ Select edition: Windows 11 (multi-edition ISO for x64 devices)
 Select the product language: English (United States)
 
  iso name: Win11_23H2_English_x64v2.iso
- rom name: 
+ rom name: CCCOMA_X64FRE_EN-US_DV9
      size: 6812706816 (6.34 GB)
       md5: b036c5867361d3ca52db74b16bacd586
      sha1: cd5e995387669b2ff2c58c23894900f1d238a103
@@ -23,7 +23,7 @@ Select edition: Windows 10 (multi-edition ISO)
 Select the product language: English (United States)
 
  iso name: Win10_22H2_English_x64v1.iso
- rom name: 
+ rom name: CCCOMA_X64FRE_EN-US_DV9
      size: 6140975104 (5.71 GB)
       md5: c2b19762870226ca467d6cbd87cd8fab
      sha1: bbb1b234ea7f5397a1906ee59187087c78374f35
