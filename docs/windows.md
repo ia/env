@@ -4,6 +4,16 @@
 ## Windows 11 (Pro)
 
 link: https://www.microsoft.com/software-download/windows11
+Download Windows 11 Disk Image (ISO) for x64 devices
+Select edition: Windows 11 (multi-edition ISO for x64 devices)
+Select the product language: English (United States)
+
+ iso name: Win11_23H2_English_x64v2.iso
+ rom name: 
+     size: 6812706816 (6.34 GB)
+      md5: 
+     sha1: 
+   sha256: 
 
 
 ## Windows 10 (Pro)
