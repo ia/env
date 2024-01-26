@@ -8,12 +8,12 @@ Download Windows 11 Disk Image (ISO) for x64 devices
 Select edition: Windows 11 (multi-edition ISO for x64 devices)
 Select the product language: English (United States)
 
-      iso: Win11_23H2_English_x64v2.iso
-    label: CCCOMA_X64FRE_EN-US_DV9
-     size: 6812706816 (6.34 GB)
-      md5: b036c5867361d3ca52db74b16bacd586
-     sha1: cd5e995387669b2ff2c58c23894900f1d238a103
-   sha256: 36de5ecb7a0daa58dce68c03b9465a543ed0f5498aa8ae60ab45fb7c8c4ae402
+    iso: Win11_23H2_English_x64v2.iso
+  label: CCCOMA_X64FRE_EN-US_DV9
+   size: 6812706816 (6.34 GB)
+    md5: b036c5867361d3ca52db74b16bacd586
+   sha1: cd5e995387669b2ff2c58c23894900f1d238a103
+ sha256: 36de5ecb7a0daa58dce68c03b9465a543ed0f5498aa8ae60ab45fb7c8c4ae402
 
 
 ## Windows 10 (Pro)
@@ -22,12 +22,12 @@ link: https://www.microsoft.com/en-us/software-download/windows10ISO
 Select edition: Windows 10 (multi-edition ISO)
 Select the product language: English (United States)
 
-      iso: Win10_22H2_English_x64v1.iso
-    label: CCCOMA_X64FRE_EN-US_DV9
-     size: 6140975104 (5.71 GB)
-      md5: c2b19762870226ca467d6cbd87cd8fab
-     sha1: bbb1b234ea7f5397a1906ee59187087c78374f35
-   sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
+    iso: Win10_22H2_English_x64v1.iso
+  label: CCCOMA_X64FRE_EN-US_DV9
+   size: 6140975104 (5.71 GB)
+    md5: c2b19762870226ca467d6cbd87cd8fab
+   sha1: bbb1b234ea7f5397a1906ee59187087c78374f35
+ sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 
 Dowload official ISO
 Burn ISO on DL DVD-R(W) disc using compatible ROM
