@@ -8,7 +8,7 @@ Download Windows 11 Disk Image (ISO) for x64 devices
 Select edition: Windows 11 (multi-edition ISO for x64 devices)
 Select the product language: English (United States)
 
- iso name: Win11_23H2_English_x64v2.iso
+      iso: Win11_23H2_English_x64v2.iso
  rom name: CCCOMA_X64FRE_EN-US_DV9
      size: 6812706816 (6.34 GB)
       md5: b036c5867361d3ca52db74b16bacd586
@@ -22,7 +22,7 @@ link: https://www.microsoft.com/en-us/software-download/windows10ISO
 Select edition: Windows 10 (multi-edition ISO)
 Select the product language: English (United States)
 
- iso name: Win10_22H2_English_x64v1.iso
+      iso: Win10_22H2_English_x64v1.iso
  rom name: CCCOMA_X64FRE_EN-US_DV9
      size: 6140975104 (5.71 GB)
       md5: c2b19762870226ca467d6cbd87cd8fab
