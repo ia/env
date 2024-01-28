@@ -33,7 +33,7 @@ TBA
 ## Windows 10 (Pro)
 
 
-### Basic info
+**Basic info**
 
 - [Official download link](https://www.microsoft.com/en-us/software-download/windows10ISO)
   - _Select edition: Windows 10 (multi-edition ISO)_
@@ -49,7 +49,7 @@ sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 ```
 
 
-### HOWTOs
+### Preparations
 
 Dowload official ISO
 Burn ISO on DL DVD-R(W) disc using compatible ROM
@@ -59,6 +59,10 @@ Turn on PC
 Go to BIOS settings
 Enable UEFI
 Reboot
+
+
+### Installation
+
 `Press any key to boot from CD or DVD...`: <press>
 Wait for booting
 `Windows Setup window`: keep/set Language, Time & Keyboard as EN_US, `Next`
@@ -88,6 +92,11 @@ Set 3 pairs of question/answer, `Next`
 after install: 14.7 GB
 after updates: 24.9 GB
 
+
+### Configuration
+
+#### File system
+
 Reboot to GNULinux
 if C:\ partition is misaligned, then:
 boot to windows
@@ -104,8 +113,12 @@ Windows 10 Update Error(0x80070643) is ok
 
 after updates: 24.9 GB
 
+#### Disable online requests
+
 right click on the Search Box. Under Search uncheck Show Search Highlights
 right click on the taskbar. Under News and Interests, check Turn off
+
+#### Activation
 
 sudo strings /sys/firmware/acpi/tables/MSDM
 
