@@ -1,19 +1,26 @@
 # !!!RAW DRAFT!!!
 
 
+
+
 ## Windows 11 (Pro)
 
-link: https://www.microsoft.com/software-download/windows11
-Download Windows 11 Disk Image (ISO) for x64 devices
-Select edition: Windows 11 (multi-edition ISO for x64 devices)
-Select the product language: English (United States)
 
-    iso: Win11_23H2_English_x64v2.iso
-  label: CCCOMA_X64FRE_EN-US_DV9
-   size: 6812706816 (6.34 GB)
-    md5: b036c5867361d3ca52db74b16bacd586
-   sha1: cd5e995387669b2ff2c58c23894900f1d238a103
- sha256: 36de5ecb7a0daa58dce68c03b9465a543ed0f5498aa8ae60ab45fb7c8c4ae402
+### Basic info
+
+- [Official download link](https://www.microsoft.com/software-download/windows11)
+  - Go to _Download Windows 11 Disk Image (ISO) for x64 devices_ section for _iso_ file
+  - _Select edition: Windows 11 (multi-edition ISO for x64 devices)_
+  - _Select the product language: English (United States)_
+- Metadata:
+```
+   iso: Win11_23H2_English_x64v2.iso
+ label: CCCOMA_X64FRE_EN-US_DV9
+  size: 6812706816 (6.34 GB)
+   md5: b036c5867361d3ca52db74b16bacd586
+  sha1: cd5e995387669b2ff2c58c23894900f1d238a103
+sha256: 36de5ecb7a0daa58dce68c03b9465a543ed0f5498aa8ae60ab45fb7c8c4ae402
+```
 
 
 
