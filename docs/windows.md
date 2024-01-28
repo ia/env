@@ -23,6 +23,11 @@ sha256: 36de5ecb7a0daa58dce68c03b9465a543ed0f5498aa8ae60ab45fb7c8c4ae402
 ```
 
 
+### HOWTOs
+
+TBA
+
+
 
 
 ## Windows 10 (Pro)
@@ -42,6 +47,9 @@ sha256: 36de5ecb7a0daa58dce68c03b9465a543ed0f5498aa8ae60ab45fb7c8c4ae402
   sha1: bbb1b234ea7f5397a1906ee59187087c78374f35
 sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 ```
+
+
+### HOWTOs
 
 Dowload official ISO
 Burn ISO on DL DVD-R(W) disc using compatible ROM
