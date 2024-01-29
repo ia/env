@@ -63,34 +63,34 @@ sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 
 ### Installation
 
-`Press any key to boot from CD or DVD...`: <press>
-Wait for booting
-`Windows Setup window`: keep/set Language, Time & Keyboard as EN_US, `Next`
-`Install now` button: click
-`Activate Windows` window: type product key, `Next`
-`License agreement` text: `I accept` checkbox, `Next`
-`Custom` installation option
-Partition disk: `New` button, type _megabytes_ (`1024`-based) using formula: N = xG * 1024 (GiB) + 100 (UEFI) + 16 (MSR) + 522 (MSRECOVERY) + 2 (align), where X is desired amount of C:\ drive in GiB, i.e. to make 64GiB: 64 * 1024 + 100 + 16 + 522 + 2(?) = 66176, `Apply`, `OK`
-Select `Drive 0 Partition 3`, `Next`
-`Installing Windows`: wait
-Wait for reboot
-Wait for reboot again
-`Just a moment...` screen
-`Let's start with region.`: US, `Yes`
-`Keyboard layout`: US, `Yes`
-`Second keyboard layout`: `Skip`
-`I don't have internet`
-`Continue with limited setup`
-Type your new login, `Next`
-Type your password, `Next`
-Re-type your password to confirm, `Next`
-Set 3 pairs of question/answer, `Next`
-`Privacy settings`: all to `No`, `Accept`
-`Cortana`: `Not now`
-`Microsoft Edge`: `Maybe later`
-
-after install: 14.7 GB
-after updates: 24.9 GB
+- wait for `Press any key to boot from CD or DVD...` and press any key
+- wait for booting
+- `Windows Setup` window: keep/set Language, Time & Keyboard as EN_US, `Next`
+- `Install now` button: _click_
+- `Activate Windows` window: type product key, `Next`
+- `License agreement` text: `I accept` checkbox, `Next`
+- `Custom` installation option
+- partition disk: `New` button, type _megabytes_ (`1024`-based) using formula: `N = xG * 1024 (GiB) + 100 (UEFI) + 16 (MSR) + 522 (MSRECOVERY) + 2 (align)`, where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_: `64 * 1024 + 100 + 16 + 522 + 2(?) = 66176`, `Apply`, `OK`
+- select `Drive 0 Partition 3`, `Next`
+- `Installing Windows` window: _wait_
+- wait for reboot
+- wait for reboot again
+- `Just a moment...` screen: _wait_
+- `Let's start with region` window: `US`, `Yes`
+- `Keyboard layout` window: `US`, `Yes`
+- `Second keyboard layout` window: `Skip`
+- `I don't have internet` button: _click_
+- `Continue with limited setup` button: _click_
+- type your new login, `Next`
+- type your password, `Next`
+- re-type your password to confirm, `Next`
+- set 3 pairs of question/answer, `Next`
+- `Privacy settings` window: all to `No`, `Accept`
+- `Cortana` window: `Not now`
+- on desktop `Microsoft Edge` request: `Maybe later`
+- size info:
+ - _after install_: `~14.7 GB`
+ - _after updates_: `~24.9 GB`
 
 
 ### Configuration
