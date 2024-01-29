@@ -71,7 +71,7 @@ sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 - `License agreement` text: `I accept` checkbox, `Next`
 - `Custom` installation option
 - partition disk: `New` button, type _megabytes_ (`1024`-based) using formula:  
-`N = xG * 1024 (GiB) + 100 (UEFI) + 16 (MSR) + 522 (MSRECOVERY) + 2 (align)`
+`N = xG * 1024 (GiB) + 100 (UEFI) + 16 (MSR) + 522 (MSRECOVERY) + 2 (align)`  
 where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:  
 `64 * 1024 + 100 + 16 + 522 + 2(?) = 66176`, `Apply`, `OK`
 - select `Drive 0 Partition 3`, `Next`
