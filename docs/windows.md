@@ -51,14 +51,14 @@ sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 
 ### Preparations
 
-Dowload official ISO
-Burn ISO on DL DVD-R(W) disc using compatible ROM
-Connect DVD-ROM to PC
-Insert Windows DVD
-Turn on PC
-Go to BIOS settings
-Enable UEFI
-Reboot
+- dowload official ISO
+- burn ISO on DL DVD-R(W) disc using compatible ROM drive
+- connect DVD-ROM to PC
+- insert Windows DVD into DVD-ROM
+- turn on PC
+- go to BIOS settings
+- enable UEFI/SB/TPM
+- reboot
 
 
 ### Installation
