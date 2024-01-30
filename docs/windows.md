@@ -91,30 +91,31 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 - `Privacy settings` window: all to `No`, `Accept`
 - `Cortana` window: `Not now`
 - on desktop `Microsoft Edge` request: `Maybe later`
-- size info:
-  - _after install_: `~14.7 GB`
-  - _after updates_: `~24.9 GB`
 
 
 ### Configuration
 
-#### File system
+#### Filesystem
 
-Reboot to GNULinux
-if C:\ partition is misaligned, then:
-boot to windows
-shrink C:\ by 1MB
-boot to GNULinux
-extend C:\ with alignment by cylinder in gparted
+- reboot to _GNULinux_
+- check partitions' alignment by running `$ sudo gdisk -l /dev/sdXN`
+- if C:\ partition is misaligned, then:
+  - boot to _Windows_
+  - shrink `C:\` by _1MB_ using `disk manager`
+  - boot to _GNULinux_
+  - extend `C:\` with _alignment by cylinder_ in `gparted`
+  - boot to _Windows_
+  - check `C:\` through reboot
+  - run in _Windows_ `cmd.exe` with _administrative rights_: `sfc /scannow`
+  - reboot
+- install all updates usinng `Settings`
+- side notes:
+  - `capacity - size = _4K_` (for metablock?)
+  - _Windows 10_ **Update Error(0x80070643)** is fully **OK**
+- size notes:
+  - _after install_: `~14.7 GB`
+  - _after updates_: `~24.9 GB`
 
-sfc /scannow
-
-4K (for metablock?)
-
-install all updates
-Windows 10 Update Error(0x80070643) is ok
-
-after updates: 24.9 GB
 
 #### Disable online requests
 
