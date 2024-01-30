@@ -119,8 +119,9 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 
 #### Disable online requests
 
-right click on the Search Box. Under Search uncheck Show Search Highlights
-right click on the taskbar. Under News and Interests, check Turn off
+- right click on the _Search Box_ and under _Search_ uncheck _Show Search Highlights_
+- right click on the taskbar and under _News and Interests_ check _Turn off_
+
 
 #### Activation
 
