@@ -106,7 +106,7 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
   - extend `C:\` with _alignment by cylinder_ in `gparted`
   - boot to _Windows_
   - check `C:\` through reboot
-  - run in _Windows_ `cmd.exe` with _administrative rights_: `sfc /scannow`
+  - run in _Windows_ `cmd.exe` with _administrative rights_: `sfc  /scannow`
   - reboot
 - install all updates usinng `Settings`
 - side notes:
@@ -125,9 +125,9 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 
 #### Activation
 
-- get legal licence key from a machine:
-  - in GNULinux: `$ sudo strings /sys/firmware/acpi/tables/MSDM`
-  - in Windows: `> wmic path SoftwareLicensingService get OA3xOriginalProductKey`
+- get a legal licence key from a machine:
+  - in GNULinux: `$ sudo  strings  /sys/firmware/acpi/tables/MSDM`
+  - in Windows: `> wmic  path  SoftwareLicensingService  get  OA3xOriginalProductKey`
 
 
 If your legal work machine key doesn't work but your organization is a legal corporate client, run `cmd.exe` as _admin_ and then:
