@@ -125,11 +125,12 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 
 #### Activation
 
-sudo strings /sys/firmware/acpi/tables/MSDM
+- get legal licence key from a machine:
+  - in GNULinux: `$ sudo strings /sys/firmware/acpi/tables/MSDM`
+  - in Windows: `> wmic path SoftwareLicensingService get OA3xOriginalProductKey`
 
-wmic path SoftwareLicensingService get OA3xOriginalProductKey
 
-if your legal work machine key doesn't work but your organization is a legal corporate client, run cmd.exe as admin:
+If your legal work machine key doesn't work but your organization is a legal corporate client, run `cmd.exe` as _admin_ and then:
 
 get & set default windows 10 pro legal activation key:
 C:\Windows\system32>slmgr /ipk AAAAA-BBBBB-CCCCC-DDDDD-EEEEE
@@ -142,4 +143,5 @@ C:\Windows\system32>slmgr /ato
 
 get activation status:
 C:\Windows\system32>slmgr /xpr
+
 
