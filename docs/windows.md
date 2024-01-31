@@ -132,16 +132,16 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 
 If your legal work machine key doesn't work but your organization is a legal corporate client, run `cmd.exe` as _admin_ and then:
 
-get & set default windows 10 pro legal activation key:
-C:\Windows\system32>slmgr /ipk AAAAA-BBBBB-CCCCC-DDDDD-EEEEE
+- get & set default _Windows 10 Pro_ legal activation key:  
+`> slmgr  /ipk  AAAAA-BBBBB-CCCCC-DDDDD-EEEEE`
 
-get & set your organization legal activation key domain:
-C:\Windows\system32>slmgr /skms  ----.--------.---
+- get & set your organization legal activation key domain:  
+`> slmgr  /skms  ----.--------.---`
 
-set activation process:
-C:\Windows\system32>slmgr /ato
+- set activation process:  
+`> slmgr  /ato
 
-get activation status:
-C:\Windows\system32>slmgr /xpr
+- get activation status:  
+`> slmgr /xpr`
 
 
