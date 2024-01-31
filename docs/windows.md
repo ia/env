@@ -51,13 +51,13 @@ sha256: a6f470ca6d331eb353b815c043e327a347f594f37ff525f17764738fe812852e
 
 ### Preparations
 
-- dowload official ISO
-- burn ISO on DL DVD-R(W) disc using compatible ROM drive
-- connect DVD-ROM to PC
-- insert Windows DVD into DVD-ROM
-- turn on PC
-- go to BIOS settings
-- enable UEFI/SB/TPM
+- dowload official _ISO_
+- burn _ISO_ on _DL DVD-R(W) disc_ using compatible _ROM drive_
+- connect _DVD-ROM_ to _PC_
+- insert _Windows DVD_ into _DVD-ROM_
+- turn on _PC_
+- go to _BIOS_ settings
+- enable _UEFI/SB/TPM_
 - reboot
 
 
@@ -99,7 +99,7 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 
 - reboot to _GNULinux_
 - check partitions' alignment by running `$ sudo gdisk -l /dev/sdXN`
-- if C:\ partition is misaligned, then:
+- if `C:\` partition is misaligned, then:
   - boot to _Windows_
   - shrink `C:\` by _1MB_ using `disk manager`
   - boot to _GNULinux_
@@ -126,8 +126,8 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 #### Activation
 
 - get a legal licence key from a machine:
-  - in GNULinux: `$ sudo  strings  /sys/firmware/acpi/tables/MSDM`
-  - in Windows: `> wmic  path  SoftwareLicensingService  get  OA3xOriginalProductKey`
+  - in _GNULinux_: `$ sudo  strings  /sys/firmware/acpi/tables/MSDM`
+  - in _Windows_: `> wmic  path  SoftwareLicensingService  get  OA3xOriginalProductKey`
 
 
 If your legal work machine key doesn't work but your organization is a legal corporate client, run `cmd.exe` as _admin_ and then:
