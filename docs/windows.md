@@ -1,12 +1,26 @@
 # !!!RAW DRAFT!!!
+# Windows notes
+
+This document provides basic info about Windows 10/11 based on my personal experience such as:
+- installing OS
+- configuring (i.e., removing: constant online requests, useless search suggestions, popup windows here and there, etc)
+- adding 3rd party software
+
+Basically, the purpose & the structure of this document for myself is:  
+when I need a fresh install of _Windows_ environment for _RnD_ purposes,  
+I just open this document and unconsciously perform needed steps
+without torturing my brain every time asking myself _"How now to configure X?"_.
+
+
+The document is under constant updating.
 
 
 
 
 ## Windows Software
 
-This section provides the list of _musthave software_ for _Windows_ (x64, 10/11).
-The list has only FLOSS tools **or** proprietary but free-of-charge apps.
+This section provides the list of _musthave software_ for _Windows_ (x64, 10/11).  
+The list has only _FLOSS tools_ **or** proprietary but _free-of-charge_ apps.  
 
 TBA
 
@@ -104,6 +118,7 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
 
 
 ### Configuration
+
 
 #### Filesystem
 
