@@ -3,6 +3,16 @@
 
 
 
+## Windows Software
+
+This section provides the list of _musthave software_ for _Windows_ (x64, 10/11).
+The list has only FLOSS tools **or** proprietary but free-of-charge apps.
+
+TBA
+
+
+
+
 ## Windows 11 (Pro)
 
 
