@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# dmesg drop-in one-liner replacement using journalctl with user permissions
+# since as of 202N dmesg needs root access
+# because not breaking everything is too boring for modern devs
+set -e
+journalctl  --dmesg  --no-hostname  --no-pager  -o short-monotonic  |  sed  -e 's,] kernel: ,] ,;'
