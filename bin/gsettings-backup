@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# simple script to backup dconf/gsettings with user settings into one file
+#set -x
+set -e
+
+LOG="gsettings.all"
+
+if [ -z "${1}" ]; then
+    SET="gsettings.list"
+else
+    SET="${1}"
+fi;
+
+echo -ne "" > "${LOG}"
+for s in `gsettings list-schemas`; do
+    gsettings  list-recursively  "${s}"  >>  "${LOG}"
+done;
+
+cat "${LOG}" | sort | uniq > "${SET}"
+rm "${LOG}"
+
+exit 0
+
+## testing
+#gsettings  get  org.mate.peripherals-touchpad  natural-scroll
+#gsettings  set  org.mate.peripherals-touchpad  natural-scroll  false
+#gsettings  get  org.mate.peripherals-touchpad  natural-scroll
+#gsettings  set  org.mate.peripherals-touchpad  natural-scroll  true
+#gsettings  get  org.mate.peripherals-touchpad  natural-scroll
+

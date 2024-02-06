@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# simple script to restore dconf/gsettings with user settings from one file
+#set -x
+set -e
+
+SET="gsettings.list"
+SH="gsettings.sh"
+
+cp  "${SET}"  "${SH}"
+sed  -i  -e 's, , ",2;  s,$,",;  s,^,gsettings  set  ,;' "${SH}"
+chmod a+x "${SH}"
+exit 0
+
+./"${SH}"
+rm ./"${SH}"
+exit 0
+
