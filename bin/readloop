@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+test -d "${1}"
+#echo "====>>>> starting..."
+while true; do
+	#echo "dumping ls ${1}..."
+	ls  "${1}" > /dev/null 2>&1
+	sleep  10
+done;
