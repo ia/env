@@ -1,0 +1,19 @@
+
+deb https://mirror.transip.net/ubuntu/ubuntu/ jammy main restricted universe multiverse
+deb-src https://mirror.transip.net/ubuntu/ubuntu/ jammy main restricted universe multiverse
+
+deb https://mirror.transip.net/ubuntu/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src https://mirror.transip.net/ubuntu/ubuntu/ jammy-updates main restricted universe multiverse
+
+deb https://mirror.transip.net/ubuntu/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src https://mirror.transip.net/ubuntu/ubuntu/ jammy-backports main restricted universe multiverse
+
+deb https://mirror.transip.net/ubuntu/ubuntu/ jammy-security main restricted universe multiverse
+deb-src https://mirror.transip.net/ubuntu/ubuntu/ jammy-security main restricted universe multiverse
+
+deb https://mirror.transip.net/ubuntu/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src https://mirror.transip.net/ubuntu/ubuntu/ jammy-proposed main restricted universe multiverse
+
+deb http://archive.canonical.com/ubuntu jammy partner
+deb-src http://archive.canonical.com/ubuntu jammy partner
+
