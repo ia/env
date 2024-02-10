@@ -1,0 +1,48 @@
+
+# gdb config file with minimal basic useful settings
+
+# color prompt
+set prompt \ > 
+
+# enable history
+set history filename ~/.gdb/log.commands
+set history save on
+set history size 100000
+set history expansion on
+
+# disable question on b for shared objects
+set breakpoint pending on
+
+# enable logging
+set logging file ~/.gdb/log.output
+set logging overwrite off
+set logging on
+
+# print settings - http://sourceware.org/gdb/onlinedocs/gdb/Print-Settings.html
+set print address on
+set print symbol-filename on
+set print max-symbolic-offset 0
+set print symbol on
+set print symbol-filename on
+set print array on
+set print array-indexes on
+set print elements 0
+set print frame-arguments all
+set print repeats 8
+set print pretty on
+set print union on
+set print demangle on
+set print asm-demangle on
+set demangle-style auto
+set print object on
+set print static-members on
+set print vtbl on
+
+# record settings for reverse execution - http://www.sourceware.org/gdb/wiki/ProcessRecord/Tutorial
+set record insn-number-max 1000000
+set record stop-at-limit on
+
+# screen settings - https://sourceware.org/gdb/onlinedocs/gdb/Screen-Size.html
+set height unlimited
+set width unlimited
+
