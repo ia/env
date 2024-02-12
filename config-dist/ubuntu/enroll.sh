@@ -7,6 +7,7 @@ cp  etc_apt_apt.conf.d_00bloatware  /etc/apt/apt.conf.d/
 
 echo "====>>>> Setting repos for apt..."
 cp  etc_apt_sources.list  /etc/apt/sources.list
+apt update
 
 echo "====>>>> Update grub config..."
 cp  etc_default_grub  /etc/default/grub
