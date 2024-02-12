@@ -11,5 +11,6 @@ apt update
 
 echo "====>>>> Update grub config..."
 cp  etc_default_grub  /etc/default/grub
+update-grub
 
 # TBA
