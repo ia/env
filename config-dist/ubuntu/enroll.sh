@@ -14,3 +14,8 @@ cp  etc_default_grub  /etc/default/grub
 update-grub
 
 # TBA
+
+echo "====>>>> Update packages..."
+apt  -y  dist-upgrade
+apt  -y  autoremove
+
