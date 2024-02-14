@@ -11,6 +11,7 @@ apt  update
 
 echo "====>>>> Setting debug repos for apt..."
 cp  etc_apt_sources.list.d.debug.list  /etc/apt/sources.list.d/debug.list
+apt  install  ubuntu-dbgsym-keyring
 apt  update
 
 echo "====>>>> Update grub config..."
