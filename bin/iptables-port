@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+test "${1}" = "open" || test "${1}" = "close"
+test "${2}" = "tcp"  || test "${2}" = "udp"
+echo "${3}" | grep -E "\b([0-9])+\b" > /dev/null 2>&1
+
+if [ "${1}" = "open" ]; then
+    action=ACCEPT
+elif [ "${1}" = "close" ]; then
+    action=REJECT
+else
+    echo "ERROR: ${1} is not supported!"
+    exit 1
+fi;
+
+sudo  iptables  -I INPUT   -p "${2}"  --dport "${3}"  -j "${action}"
+sudo  iptables  -I OUTPUT  -p "${2}"  --sport "${3}"  -j "${action}"
+
