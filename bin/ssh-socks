@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+
+usage()
+{
+    echo "${0} - script to start direct/reverse SOCKS"
+    echo "Usage: ${0}  direct  PORT  [CLIENT_IP]"
+}
+
+
+direct()
+{
+    port="${1}"
+    echo "* set ip_forward..."
+    echo  1  |  sudo  tee  /proc/sys/net/ipv4/ip_forward > /dev/null 2>&1
+    echo "* set iptables..."
+    if [ -n "${2}" ]; then
+        msg="client IP ${2}"
+        sudo  iptables  -A INPUT  --src ${2}  -p tcp  --dport ${port}  -j ACCEPT
+        sudo  iptables  -A INPUT              -p tcp  --dport ${port}  -j REJECT
+    else
+        msg="client IP"
+        sudo  iptables  -A INPUT              -p tcp  --dport ${port}  -j ACCEPT
+    fi;
+    echo "* set ssh session..."
+    ssh  -f  -N  -D  0.0.0.0:${port}  localhost
+    addr="`curl  -s  ifconfig.me`"
+    echo -ne "Ready! Set web proxy setting in browser/environment on ${msg} as: ${addr}:${port}\n"
+}
+
+
+#### main ####
+
+if [ "${1}" = "direct" ]; then
+echo ${2} "222"
+    test -n "${2}"
+    echo "${2}" | grep -q -E "\b([0-9])+\b"
+    ${1}  ${2}  ${3}
+elif [ "${1}" = "reverse" ]; then
+    echo "Not implemented yet"
+else
+    usage
+    exit 1
+fi;
+
+
