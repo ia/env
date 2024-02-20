@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+usage()
+{
+	echo "Usage: ${0} localhostname username serverhostname [ssh_alias remotehostname]"
+	echo "Info:"
+	echo -e "\tlocalhostname - for convinience purpose in key config"
+	echo -e "\tusername - valid username at remote server"
+	echo -e "\tserverhostname - for convinience purpose in key config"
+	echo -e "\tssh_alias - for convinience purpose in ~/.ssh config"
+	echo -e "\tremotehostname - valid pingable hostname of remote server for ~/.ssh config"
+	echo ""
+	echo "Sample:"
+	echo -e "\t${0} myhomepc git github gh github.com"
+	exit 1
+	return 1
+}
+
+test ${#} -ge 3 || usage
+
+test -n "${1}" || usage
+test -n "${2}" || usage
+test -n "${3}" || usage
+
+host=${1}
+user=${2}
+target=${3}
+
+ssh_dir="${HOME}/.ssh"
+ssh_conf="${ssh_dir}/config"
+ssh_keyfile_full="${ssh_dir}/${host}_${user}@${target}"
+ssh_keyfile_home="~/.ssh/${host}_${user}@${target}"
+
+cmd="ssh-keygen -t ed25519 -C ${host}:${user}@${target} -f ${ssh_keyfile_full}"
+ssh-keygen -t ed25519 -C "${host}:${user}@${target}" -f "${ssh_keyfile_full}"
+
+if [ -n "${4}" ] && [ -n "${5}" ]; then
+test -f "${ssh_conf}" || touch "${ssh_conf}"
+cat <<EOF >> "${ssh_conf}"
+
+# generated at `date +"%Y.%m.%d %H:%M:%S"` using:
+# \$ ${cmd}
+Host ${4}
+	HostName ${5}
+	User ${user}
+	IdentityFile ${ssh_keyfile_home}
+	PubkeyAuthentication yes
+	PasswordAuthentication no
+
+EOF
+fi;
+
