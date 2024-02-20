@@ -6,7 +6,8 @@ set -e
 usage()
 {
     echo "${0} - script to start direct/reverse SOCKS"
-    echo "Usage: ${0}  direct  PORT  [CLIENT_IP]"
+    echo "Usage: ${0}  direct   PORT  [CLIENT_IP]"
+    echo "Usage: ${0}  reverse  ROUTE_PORT  PROXY_PORT  user@host.com"
 }
 
 
@@ -31,15 +32,33 @@ direct()
 }
 
 
+reverse()
+{
+    p_route=${1}
+    p_proxy=${2}
+    user_server=${3}
+    ssh  -f  -R  ${p_route}:localhost:22  ${user_server}
+    echo "Ready! Run ssh session on ${user_server} host:"
+    echo "$ ssh  -p ${p_route}  localhost  -D  ${p_proxy}"
+    echo "Test the connection from ${user_server} host:"
+    echo "$ curl  -s  http://portquiz.net"
+    echo "$ curl  -s  --socks5 localhost:${p_proxy}  http://portquiz.net"
+}
+
+
 #### main ####
 
 if [ "${1}" = "direct" ]; then
-echo ${2} "222"
     test -n "${2}"
     echo "${2}" | grep -q -E "\b([0-9])+\b"
     ${1}  ${2}  ${3}
 elif [ "${1}" = "reverse" ]; then
-    echo "Not implemented yet"
+    test -n "${2}"
+    echo "${2}" | grep -q -E "\b([0-9])+\b"
+    test -n "${3}"
+    echo "${3}" | grep -q -E "\b([0-9])+\b"
+    test -n "${4}"
+    ${1}  ${2}  ${3}  ${4}
 else
     usage
     exit 1
