@@ -1,3 +1,4 @@
+```
 adduser/oldstable,now 3.118+deb11u1 all [installed,automatic]
 adwaita-icon-theme/oldstable,now 3.38.0-1 all [installed,automatic]
 apparmor/oldstable,now 2.13.6-10 amd64 [installed]
@@ -707,3 +708,4 @@ xz-utils/oldstable,oldstable-security,now 5.2.5-2.1~deb11u1 amd64 [installed]
 zip/oldstable,now 3.0-12 amd64 [installed]
 zlib1g-dev/oldstable,oldstable-security,now 1:1.2.11.dfsg-2+deb11u2 amd64 [installed]
 zlib1g/oldstable,oldstable-security,now 1:1.2.11.dfsg-2+deb11u2 amd64 [installed,automatic]
+```
