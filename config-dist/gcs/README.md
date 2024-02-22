@@ -46,6 +46,19 @@ user@cloudshell:~$ cat /proc/cpuinfo
 ```
 
 
+## Limitations
+
+50hrs/week
+unreliable access
+after 20/60 mins (?) of inactivity after closing shell
+reboot every 12hrs
+modification of rootfs
+modification of configs in ~
+https://cloud.google.com/shell/docs/quotas-limits
+&cloudshellsafemode=true
+https://stackoverflow.com/questions/64231409/google-cloud-shell-appears-to-be-hanging-on-provisioning
+
+
 ## Deploying
 
 DRAFT
