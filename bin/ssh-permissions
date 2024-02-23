@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+
+check()
+{
+    echo "====>>>> checking ~"
+    test "`ls -la ~ | grep " \.$" | awk -F ' ' '{print $1}'`" = "drwxr-x---" || echo "!!!!!!!! misconfigured! ^^^^"
+    echo "====>>>> checking ~/.ssh"
+    test "`ls -la ~/.ssh | grep " \.$" | awk -F ' ' '{print $1}'`" = "drwx------" || echo "!!!!!!!! misconfigured! ^^^^"
+    for f in config authorized_keys known_hosts ; do
+        echo "====>>>> checking ~/.ssh/${f}"
+        test "`ls -la ~/.ssh/${f} | awk -F ' ' '{print $1}'`" = "-rw-------" || echo "!!!!!!!! misconfigured! ^^^^"
+    done;
+    for f in `ls ~/.ssh/*.pub` ; do
+        echo "====>>>> checking ${f}"
+        test "`ls -la ${f} | awk -F ' ' '{print $1}'`" = "-rw-r--r--" || echo "!!!!!!!! misconfigured! ^^^^"
+    done;
+    for f in `ls ~/.ssh/*.priv` ; do
+        echo "====>>>> checking ${f}"
+        test "`ls -la ${f} | awk -F ' ' '{print $1}'`" = "-rw-------" || echo "!!!!!!!! misconfigured! ^^^^"
+    done;
+}
+
+
+enforce()
+{
+    echo "NOT IMPLEMENTED"
+}
+
+
+check
+
+
