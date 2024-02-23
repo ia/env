@@ -35,6 +35,7 @@ ssh_keyfile_home="~/.ssh/${host}_${user}@${target}"
 
 cmd="ssh-keygen -t ed25519 -C ${host}:${user}@${target} -f ${ssh_keyfile_full}"
 ssh-keygen -t ed25519 -C "${host}:${user}@${target}" -f "${ssh_keyfile_full}"
+mv "${ssh_keyfile_full}" "${ssh_keyfile_full}".priv
 
 if [ -n "${4}" ] && [ -n "${5}" ]; then
 test -f "${ssh_conf}" || touch "${ssh_conf}"
@@ -45,7 +46,7 @@ cat <<EOF >> "${ssh_conf}"
 Host ${4}
 	HostName ${5}
 	User ${user}
-	IdentityFile ${ssh_keyfile_home}
+	IdentityFile ${ssh_keyfile_home}.priv
 	PubkeyAuthentication yes
 	PasswordAuthentication no
 
