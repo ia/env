@@ -15,6 +15,12 @@ sectors="`hdparm -g "${bdev}" | sed -ne 's/^.*sectors = //; s/,.*$//p'`"
 if [ -z "${sectors}" ]; then exit 1; fi;
 
 nr=0
+if [ -n "${2}" ] && [ "${2}" -gt 0 ]; then
+    nr="${2}"
+else
+    exit 1
+fi;
+
 while [ "${nr}" -lt "${sectors}" ]; do
     echo -ne "SECTOR ${nr}/${sectors}... "
     hdparm --read-sector ${nr} ${bdev} > /dev/null
