@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#set -x
+#set -e
+
+# TL;DR: low-level badblock implementation using hdparm (very slow!)
+# usage: $ sudo badsectors /dev/sdX
+# info: small shell script calling hdparm to read all sectors from 0
+#       to detectable amount of sectors on sdX to check its read-ability
+
+bdev="${1}"
+if [ ! -b "${bdev}" ]; then exit 1; fi;
+
+# https://unix.stackexchange.com/questions/24140/return-only-the-portion-of-a-line-after-a-matching-pattern
+sectors="`hdparm -g "${bdev}" | sed -ne 's/^.*sectors = //; s/,.*$//p'`"
+if [ -z "${sectors}" ]; then exit 1; fi;
+
+nr=0
+while [ "${nr}" -lt "${sectors}" ]; do
+    echo -ne "SECTOR ${nr}/${sectors}... "
+    hdparm --read-sector ${nr} ${bdev} > /dev/null
+    if [ "${?}" -eq 0 ]; then
+        echo "PASSED!"
+    fi;
+    nr=$((nr+1))
+done;
+
