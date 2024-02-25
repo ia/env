@@ -7,9 +7,11 @@ usage()
     echo "Script for low-level badblock implementation using hdparm (very slow!)"
     echo "Script calls hdparm to read all sectors from 0"
     echo "(by default, start_sector otherwise)"
-    echo "to detectable amount of sectors on sdX to check its read-ability."
+    echo "to detectable amount of sectors on sdX"
+    echo "(by default, count otherwise)"
+    echo "to check its read-ability."
     echo ""
-    echo "Usage: ${0} /dev/sdX [start_sector]"
+    echo "Usage: ${0} /dev/sdX [start_sector [count]]"
     echo ""
     exit 1
 }
@@ -21,11 +23,29 @@ if [ ! -b "${bdev}" ]; then usage; fi;
 sectors="`hdparm -g "${bdev}" | sed -ne 's/^.*sectors = //; s/,.*$//p'`"
 if [ -z "${sectors}" ]; then usage; fi;
 
-nr=0
-if [ -n "${2}" ] && [ "${2}" -gt 0 ]; then
-    nr="${2}"
-else
-    usage
+start=0
+count=0
+if [ -n "${2}" ]; then
+    if [ "${2}" -gt 0 ]; then
+        start="${2}"
+    else
+        usage
+    fi;
+    if [ -n "${3}" ]; then
+        if [ "${3}" -gt 0 ]; then
+            count="${3}"
+        fi;
+    else
+        usage
+    fi;
+fi;
+
+if [ "${count}" -gt 0 ]; then
+    if [ "$((start+count))" -lt "${sectors}" ]; then
+        sectors=$((start+count))
+    else
+        usage
+    fi;
 fi;
 
 while [ "${nr}" -lt "${sectors}" ]; do
