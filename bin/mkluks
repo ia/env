@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+usage()
+{
+	echo "Usage: ${0}  block_device  open_name  [cryptsetup luksFormat options]"
+	exit 1
+}
+
+bdev="${1}"
+test -b "${bdev}" || usage
+shift
+
+name="${1}"
+test -n "${name}" || usage
+shift
+
+cryptsetup  luksFormat  --type luks  -c aes-xts-essiv:sha256  --hash=sha512  --key-size=512  -v  ${@}  "${bdev}"
+cryptsetup  luksOpen  -v  "${bdev}"  "${name}"
+
