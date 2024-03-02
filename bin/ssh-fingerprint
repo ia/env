@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#set -x
+set -e
+
+test  -n "${1}"
+test  1 -eq "${#}"
+
+ssh-keyscan  -H  ${1}  2>&1  |  grep  -v  "^#"
+
