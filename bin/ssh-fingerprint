@@ -2,8 +2,16 @@
 #set -x
 set -e
 
+conf="~/.ssh/known_hosts"
+
 test  -n "${1}"
 test  1 -eq "${#}"
 
-ssh-keyscan  -H  ${1}  2>&1  |  grep  -v  "^#"
+host="${1}"
+addr="`ping -c 1 ${host} | head -1 | sed -e 's/[()]//g' | awk '{print $3}'`"
+
+ssh-keyscan  -H  ${host}  2>&1  |  grep  -v  "^#"
+if [ "${host}" != "${addr}" ]; then
+	ssh-keyscan  -H  ${addr}  2>&1  |  grep  -v  "^#"
+fi;
 
