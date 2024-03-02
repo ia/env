@@ -1,27 +1,35 @@
 #!/usr/bin/env bash
-#set -x
-set -e
+#set  -x
+set  -e
 
 dir="html"
 file="test"
 size=1GB
 port=8080
 
-eval "${@}"
+eval  "${@}"
 
 tfile="${dir}"/"${file}"
 mkdir  -p  "${dir}"
 touch  "${tfile}"
 truncate  -s ${size}  "${tfile}"
 
-echo ""
-echo "To stop server press ^C here."
-echo "To test speed, run on client:"
-echo ""
-echo "curl  -o /dev/null  http://`hostname`:8080/${file}"
-echo ""
+host="`hostname`"
+echo  "${host}"  |  grep  -q  -e "\."
+if [ "${?}" -ne 0 ]; then
+	host="${host}".local
+else
+	true
+fi;
 
-set +e
+echo  ""
+echo  "To stop server press ^C here."
+echo  "To test speed, run on client:"
+echo  ""
+echo  "curl  -o /dev/null  http://`hostname`:8080/${file}"
+echo  ""
+
+set  +e
 
 python3.8  -m http.server  ${port}  -d "${dir}"
 rm  -rf  "${dir}"
