@@ -116,3 +116,10 @@ make mkovpn script
 client:
 sudo apt install openvpn-systemd-resolved
 
+
+# LINKS
+
+## main
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04
+
+
