@@ -122,4 +122,7 @@ sudo apt install openvpn-systemd-resolved
 ## main
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04
 
+## gw
+https://forums.openvpn.net/viewtopic.php?t=27421
+https://astojanov.github.io/blog/2013/03/31/openvpn-routes.html
 
