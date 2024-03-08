@@ -1,0 +1,72 @@
+src: https://forums.openvpn.net/viewtopic.php?t=27421
+
+0. Prerequisites
+OpenVPN network: 192.168.100.0/24
+OpenVPN server: 192.168.100.1/32
+OpenVPN client 1: 192.168.100.200
+OpenVPN client 2: 192.168.100.254
+
+The public ip addresses don't matter.
+
+The openvpn server is used as the default gateway for the clients as usual.
+
+The openvpn server is NOT using "client-to-client".
+
+Client 1 should uses client 2 as default gateway.
+
+1. Setup kernel routing table(s) on the server side
+a) echo "200 vpnclient" > > /etc/iproute2/rt_tables
+b) ip route add 192.168.100.0/24 dev tun0 src 192.168.100.1 table vpnclient
+c) ip route add default via 192.168.100.254 dev tun0 table vpnclient
+d) ip rule add from 192.168.100.200/32 table vpnclient
+e) ip rule add to 192.168.100.200/32 table vpnclient
+f) ip route flush cache
+
+"b" to "f" have to been executed on every start of the system, "a" only once.
+
+2. Use individual client configurations (client-config-dir)
+a) Client 1
+/etc/openvpn/ccd/client1
+push "topology subnet"
+
+# Set a static ip address for this client
+ifconfig-push 192.168.100.200 255.255.255.0
+
+b) Client 2
+/etc/openvpn/ccd/client2
+
+# Don't set the default route to the openvpn server
+# (this client should act as a gateway for another openvpn client)
+push-reset
+
+push "topology subnet"
+
+# Set a static ip address for this client
+ifconfig-push 192.168.100.254 255.255.255.0
+
+iroute 0.0.0.0 0.0.0.0
+
+That's it. Of course, there are other things that have to be configured i. e.
+- IP forwarding has to be enabled on Client 2 (and on the openvpn server, too)
+- Client 2 needs an additional iptables rule like "iptables -t nat -A PREROUTING -o eth+ -s 192.168.100.200 -j MASQUERADE" because the client will send out the traffic to the internet.
+- ...
+
+Hope this helps.
+Top
+
+User avatar
+openvpn_inc	
+    OpenVPN Inc.	
+    Posts: 1325	
+    Joined: Tue Feb 16, 2021 10:41 am	
+
+Re: Can an OpenVPN client be used as a default gateway for another OpenVPN client?
+
+Post by openvpn_inc » Thu Oct 27, 2022 11:36 am
+openvpn(8) is by deliberate design forgiving of syntax errors. --topology is a server mode setting, so --push makes no sense here. Only push actual client settings.
+
+Other issue: source NAT on client 2 (the MASQUERADE rule) should not be necessary, if routing rules on the server and clients and clients' gateways are correct. The NAT should be done at the Internet router (default gateway) for client 2.
+
+This is just to set the record straight, as this post was referred to for another question.
+
+straightly, rob0
