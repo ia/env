@@ -1,0 +1,22 @@
+src: https://astojanov.github.io/blog/2013/03/31/openvpn-routes.html
+
+In order to make mk-gateway route any specific traffic, we use the iroute directive. Ideally we would like to route 0/1 to the client and set something like:
+
+iroute 0.0.0.0 128.0.0.0
+
+However, THIS DOES NOT WORK in OpenVPN. Good news is that instead of using one general route, we can set routes from 1.0.0.0 to 255.0.0.0 using netmask 255.0.0.0 which will do exactly the same. We also like a static IP for the mk-gateway:
+
+ifconfig-push 192.168.2.250 192.168.2.249
+iroute 1.0.0.0 255.0.0.0
+iroute 2.0.0.0 255.0.0.0
+iroute 3.0.0.0 255.0.0.0
+. . . . . . 
+
+iroute 254.0.0.0 255.0.0.0
+iroute 255.0.0.0 255.0.0.0
+
+///
+
+iptables -I FORWARD 1 --source 192.168.2.0/24 -j ACCEPT
+iptables -I FORWARD -i br0 -o tun0 -j ACCEPT
+iptables -I FORWARD -i tun0 -o br0 -j ACCEPT
