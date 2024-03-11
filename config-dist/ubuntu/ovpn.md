@@ -117,6 +117,14 @@ client:
 sudo apt install openvpn-systemd-resolved
 
 
+# Server configuration
+
+TBA:
+ufw/iptables
+sysctl/ipv4
+sudo service openvpn@server restart
+
+
 # LINKS
 
 ## main
@@ -126,7 +134,3 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server
 https://forums.openvpn.net/viewtopic.php?t=27421
 https://astojanov.github.io/blog/2013/03/31/openvpn-routes.html
 
-TBA:
-sudo service openvpn@server restart
-ufw!
-fwd/ipv4
