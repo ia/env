@@ -119,6 +119,20 @@ sudo apt install openvpn-systemd-resolved
 
 # Server configuration
 
+## Packet forwarding for IPv4
+
+- temporal (until next boot):
+```
+$ echo  1  |  sudo  tee  /proc/sys/net/ipv4/ip_forward
+```
+- permanent:
+  - manually:
+    - edit and add/uncomment line `net.ipv4.ip_forward=1` in file `/etc/sysctl.conf`
+    - apply new setting: `sudo  sysctl  -p`
+  - automatically with one-liner:
+TBA
+
+### 
 TBA:
 ufw/iptables
 sysctl/ipv4
