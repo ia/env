@@ -125,6 +125,12 @@ sysctl/ipv4
 sudo service openvpn@server restart
 
 
+# Client configuration
+
+TBA:
+ovpn file
+
+
 # LINKS
 
 ## main
