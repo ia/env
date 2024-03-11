@@ -131,6 +131,14 @@ TBA:
 ovpn file
 
 
+# Gateway configuration
+
+TBA:
+ufw/iptables
+sysctl/ipv4
+routes/route.sh
+
+
 # LINKS
 
 ## main
