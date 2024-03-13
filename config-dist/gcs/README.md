@@ -110,3 +110,6 @@ $ sudo  apt  update
 $ sudo  apt  install  google-cloud-cli
 ```
 
+### Configuration
+
+TBA
