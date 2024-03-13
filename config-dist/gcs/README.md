@@ -85,6 +85,10 @@ config
 
 ### Installation
 
+- upgrade all available packages:
+```
+$ sudo  apt  update  &&  sudo  apt  dist-upgrade  -y  &&  sudo  apt  autoremove
+```
 - install required packages:
 ```
 $ sudo  apt  install  apt-transport-https  ca-certificates  gnupg  curl
