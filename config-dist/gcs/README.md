@@ -81,3 +81,7 @@ setup ssh keys
 config
 
 
+## CLI setup
+
+TBA
+
