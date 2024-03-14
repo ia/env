@@ -112,4 +112,12 @@ $ sudo  apt  install  google-cloud-cli
 
 ### Configuration
 
-TBA
+- add login credentials for your account:
+```
+$ gcloud  auth  login
+```
+- make initial start of instance for your account to test the setup and to get the shell:
+```
+$ gcloud  --account=USERNAME@gmail.com  cloud-shell  ssh
+```
+
