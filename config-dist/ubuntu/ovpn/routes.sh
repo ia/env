@@ -2,8 +2,8 @@
 set -x
 set -e
 
-CLIENT="10.8.0.4"
-IFACE="tun1"
+CLIENT="10.8.0.11"
+IFACE="tun0"
 TABLE=vpnclient
 
 ip  route  add  10.8.0.0/24               dev  ${IFACE}  src  10.8.0.1  table  vpnclient
