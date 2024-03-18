@@ -141,6 +141,7 @@ ufw/iptables
 sysctl/ipv4
 sudo service openvpn@server restart
 revoke
+revoke one sample @ creation to move db
 
 
 # Client configuration
