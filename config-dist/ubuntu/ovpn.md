@@ -140,6 +140,7 @@ TBA:
 ufw/iptables
 sysctl/ipv4
 sudo service openvpn@server restart
+revoke
 
 
 # Client configuration
