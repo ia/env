@@ -1,7 +1,9 @@
 # Google Cloud Shell
 
 
-## Basic info
+## Instance information
+
+### Basic environment
 
  - [direct link to the service](https://shell.cloud.google.com/?show=terminal)
  - VM specifications:
@@ -44,6 +46,8 @@ user@cloudshell:~$ tmux version
 
 user@cloudshell:~$ cat /proc/cpuinfo
 ```
+
+
 
 
 ## Limitations
