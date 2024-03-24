@@ -130,4 +130,8 @@ $ gcloud  auth  login
 ```
 $ gcloud  --account=USERNAME@gmail.com  cloud-shell  ssh
 ```
+- location of directory with related configuration files & credentials:
+```
+~/.config/gcloud
+```
 
