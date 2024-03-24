@@ -48,6 +48,12 @@ user@cloudshell:~$ cat /proc/cpuinfo
 ```
 
 
+### Additional details
+
+ - to get external IP address: `$ curl  -s  ifconfig.me`
+ - to connect using _ssh_ client: `$ ssh  -p 6000  USERNAME@IP`
+
+
 
 
 ## Limitations
