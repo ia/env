@@ -93,6 +93,12 @@ cp  /tmp/client1.crt  client-configs/keys/
 cp  easyrsa-ov/ta.key  client-configs/keys/
 sudo  cp  /etc/openvpn/ca.crt  client-configs/keys/
 
+
+# TODO: TBA: rearrange
+
+
+
+
 ### openvpn server config
 
 sudo  cp  /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz  /etc/openvpn/

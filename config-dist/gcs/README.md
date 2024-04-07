@@ -1,7 +1,9 @@
 # Google Cloud Shell
 
 
-## Basic info
+## Instance information
+
+### Basic environment
 
  - [direct link to the service](https://shell.cloud.google.com/?show=terminal)
  - VM specifications:
@@ -44,6 +46,14 @@ user@cloudshell:~$ tmux version
 
 user@cloudshell:~$ cat /proc/cpuinfo
 ```
+
+
+### Additional details
+
+ - to get external IP address: `$ curl  -s  ifconfig.me`
+ - to connect using _ssh_ client: `$ ssh  -p 6000  USERNAME@IP`
+
+
 
 
 ## Limitations
@@ -121,5 +131,9 @@ $ gcloud  auth  login
 - make initial start of instance for your account to test the setup and to get the shell:
 ```
 $ gcloud  --account=USERNAME@gmail.com  cloud-shell  ssh
+```
+- location of directory with related configuration files & credentials:
+```
+~/.config/gcloud
 ```
 
