@@ -58,15 +58,34 @@ fi;
 # GNU Global doesn't support command-line options to provide tags from separate files,
 #   only env variables :(
 
+# if efm-compatible output from clang-format presented, then use it
+clang_format_log="check-style.log"
+if [ -f "${clang_format_log}" ]; then
+	v_ex_makeprg="-c ':set makeprg=cat\ ${clang_format_log}'  -c ':MkBar'"
+fi;
+
+# if efm-compatible output from clang-format presented, then use it
+markdown_linter_log="mdl.log"
+if [ -f "${markdown_linter_log}" ]; then
+	v_ex_makeprg="-c ':set makeprg=cat\ ${markdown_linter_log}'  -c ':MkBar'"
+fi;
+
 # generate resulting cmd line and feed it to shell for fire-up & running:
 #GVIM_CMDS="${v_ex_tags}  ${v_ex_cscope}  -c ':'"
-GVIM_CMDS="${v_ex_tags}  ${v_ex_cscope}"
+GVIM_CMDS="${v_ex_tags}  ${v_ex_cscope}  ${v_ex_makeprg}"
 
 #echo  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  $@
-eval  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  $@
+echo "eval  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  ${*}"
+
+IFS= ; for f in ${*}; do
+	files="${files} \"${f}\""
+done;
+
+eval  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  ${files}
 
 # usual defaults inside vim in INPUT mode:
-# * Ctrl ]     - GNU Global
-# * Ctrl Enter - cscope
-# * Ctrl Space - omni
+#   [ hotkey ]  -  [ component ]  -  [ function ]
+# * Ctrl ]      -   GNU Global    -    jump to definition/declaration
+# * Ctrl Enter  -   cscope        -    show all usages of function/method
+# * Ctrl Space  -   omni          -    autocomplete (functions/methods/classes signatures)
 
