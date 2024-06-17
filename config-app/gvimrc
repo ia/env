@@ -1,0 +1,975 @@
+"=========================================
+
+""" - section/comment
+"" - commented option
+" - one of possible option
+
+""" Appearance
+
+set nocompatible
+
+"""GUI settings
+set guioptions+=mrb
+""square non-blinking cursor in normal mode / square blinking cursor in insert mode / otherwise - by default
+set guicursor=n-v-c:block-Cursor-blinkwait0,ve:ver35-Cursor,o:hor50-Cursor,i-ci:ver25-block-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+
+"""don't show panel
+set guioptions-=T
+
+"""don't show menubar
+set guioptions-=m
+
+
+"""show syntax filetypes in menu
+"let do_syntax_sel_menu = 1|runtime! synmenu.vim|aunmenu &Syntax.Show\ filetypes\ in\ menu
+
+"""don't show message
+set shortmess+=I
+
+"""color palette
+set t_Co=256
+
+"""line numbering
+""set lines=50
+
+""hi Hack         gui=NONE guifg=White guibg=Yellow2
+
+""hi link Bug bugbug
+""syn keyword Bug  BUG
+""syn keyword Hack HACK
+""exe 
+
+""syn keyword Myfunctions HACK
+""hi Myfunctions gui=NONE guifg=White guibg=Yellow2
+
+"""color theme
+colorscheme carbon
+""colorscheme molokai
+
+"delek
+"evening
+"koehler
+"morning
+"shine
+
+""autocmd VimEnter * :%left 5
+
+"""font
+set guifont=Ubuntu\ Mono\ 9
+""set guifont=Bitstream\ Vera\ Sans\ Mono\ 7.9
+
+"??? set guifont=Menlo\ 7.5
+
+""set guifont=Ubuntu\ Mono\ Regular\ 9
+
+""set guifont=Monaco\ 8
+""set guifont=DejaVu\ Sans\ Mono\ 7.9
+""set guifont=DejaVu\ Sans\ Mono\ Book\ 7.5
+
+"""show current mode
+set showmode
+
+"""show status line
+set laststatus=2
+
+"""show running commands in status bar
+set showcmd
+
+"""number lines of command field
+set ch=3
+
+"""history of commands
+set history=1000
+
+""" undone levels
+set undolevels=1000
+
+""" custom status line - orig
+""set statusline=%F\%=%m%R\ %3p%%,\ %L\ lines,\ 0x%2B,\ [%l:%c]
+""git branch version
+
+""set statusline=%F\%=%{GitBranchInfoStringCurrentBranch()}\ %m%R\ %3p%%,\ %L\ lines,\ 0x%2B,\ [%l:%c]
+let g:git_branch_status_head_current=1
+let g:git_branch_status_text=" * "
+let g:git_branch_status_nogit=""
+let g:git_branch_status_around=""
+set statusline=%F\%=%{GitBranchInfoString()}\ %m%R\ %3p%%,\ %L\ lines,\ 0x%2B,\ [%l:%c]
+
+""set statusline=%F%{GitBranchInfoStringCurrentBranch()}\%=%m%R\ %3p%%,\ %L\ lines,\ 0x%2B,\ [%l:%c]
+""git branch version + host
+""set statusline=%F\%=\ %{hostname()}%{GitBranchInfoStringCurrentBranch()}\ %m%R\ %3p%%,\ %L\ lines,\ 0x%2B,\ [%l:%c]
+
+"""show encoding and file time of last changing
+"set statusline=%t\ %y%m%r[%{&fileencoding}]%<[%{strftime(\"%d.%m.%y\",getftime(expand(\"%:p\")))}]%k%=%-14.(%l,%c%V%)\ %P
+
+"""highlight brackets
+"set mps-=(:)
+
+"""color of brackets highlight
+"hi MatchParen ctermfg=red ctermbg=NONE
+
+"""set dark color of terminal
+"set background=dark
+
+"""color of comments
+"highlight Comment ctermfg=darkgrey
+
+"""blinking instead belling for errors
+"set visualbell
+
+"""GUI menu customization
+set wildmenu
+set wcm=<Tab>
+amenu Format.Replace\ 4\ spaces\ by\ tabs	:!sc src -s 4 %<CR>:e! %<CR>a
+amenu Format.Replace\ tabs\ by\ 4\ spaces	:!sc src -t 4 %<CR>:e! %<CR>a
+
+set wildmenu
+set wcm=<Tab>
+amenu Tags.Rescan			:ls<CR>
+amenu Tags.Include\ Python\ 2\.5\ tags	:set tags+=~/.vim/tags/python2.5.tags<CR>
+amenu Tags.Include\ C++\ tags		:set tags+=~/.vim/tags/cpp.tags<CR>
+amenu Tags.Include\ GLib\ tags		:set tags+=~/.vim/tags/glib.tags<CR>
+amenu Tags.Include\ GTK+\ tags		:set tags+=~/.vim/tags/gtk.tags<CR>
+amenu Tags.Include\ GLibmm\ tags	:set tags+=~/.vim/tags/glibmm.tags<CR>
+amenu Tags.Include\ GTKmm\ tags		:set tags+=~/.vim/tags/gtkmm.tags<CR>
+amenu Tags.Include\ QT3\ tags		:set tags+=~/.vim/tags/qt3.tags<CR>
+amenu Tags.Include\ QT4\ tags		:set tags+=~/.vim/tags/qt4.tags<CR>
+
+set wildmenu
+set wcm=<Tab>
+amenu Project.Open\ in\ browser			:!epiphany-browser -n % &<CR>a
+amenu Project.Build				:ls<CR>
+amenu Project.Build\ with\ dbg			:ls<CR>
+amenu Project.Build\ All			:ls<CR>
+amenu Project.Build\ All\ with\ dbg		:ls<CR>
+amenu Project.Make\ makefile			:ls<CR>
+amenu Project.Make\ makefile\ with\ dbg		:ls<CR>
+amenu Project.Make\ project			:ls<CR>
+amenu Project.Make\ project\ with\ dbg		:ls<CR>
+amenu Project.Make\ autopackage			:ls<CR>
+amenu Project.Make				:ls<CR>
+amenu Project.Run				:ls<CR>
+
+set wildmenu
+set wcm=<Tab>
+amenu View.Fonts.Bit\ Stream\ Vera\ Sans\ Mono		:set guifont=Bit\ Stream\ Vera\ Sans\ Mono\ 8<CR>
+amenu View.Fonts.Bit\ Stream\ Vera\ Sans\ Mono\ Big	:set guifont=Bitstream\ Vera\ Sans\ Mono\ 8.6<CR>
+amenu View.Fonts.DejaVu\ Sans\ Mono			:set guifont=DejaVu\ Sans\ Mono\ 8<CR>
+amenu View.Fonts.DejaVu\ Sans\ Mono\ Big		:set guifont=DejaVu\ Sans\ Mono\ 8.6<CR>
+amenu View.Fonts.Monaco					:set guifont=Monaco\ 8<CR>
+amenu View.Fonts.Monaco\ Big				:set guifont=Monaco\ 8.6<CR>
+
+amenu View.Themes.Carbon				:colorscheme carbon<CR>
+amenu View.Themes.Dark\ Carbon				:colorscheme carbon-black<CR>
+
+"==================================================
+
+""" Files
+
+"""sets C-file type for h files
+let c_syntax_for_h=""
+
+"""do not create backups
+set nobackup
+
+"""do not create swaps
+set noswapfile
+
+"""switch curr dir in file's dir
+set acd
+
+"""list of file encodings for auto detection
+set fileencodings=utf-8,cp1251,koi8-r,cp866
+
+"""set encoding of terminal
+set termencoding=utf-8
+
+"""set default encoding
+set encoding=utf8
+
+"==================================================
+
+""" Text
+
+set co=80
+
+"""date autocomplete
+iab itime <C-R>=strftime("%T")<CR>
+iab idate <C-R>=strftime("%d.%m.%y")<CR>
+iab idate_rfc <C-R>=strftime("%a, %d %b %Y %H:%M:%S %z")<CR>
+
+"""syntax auto settings
+filetype on
+filetype plugin on
+filetype plugin indent on
+set ofu=syntaxcomplete#Complete
+
+"""change colors in misc modes - move to carbon color scheme
+""set cursorline
+""au InsertEnter * set cursorline
+""au InsertEnter * hi CursorLine guibg=#CDCDCD
+""au InsertEnter * hi StatusLine gui=NONE guifg=White guibg=#606060
+""au InsertEnter * hi CursorColumn guibg=#E6E6E6
+""au InsertLeave * set cursorline
+""au InsertLeave * hi CursorLine guibg=#BBC6DE
+""au InsertLeave * hi StatusLine gui=NONE guifg=White guibg=#4D6C70
+""au InsertLeave * hi CursorColumn guibg=#D3D6DE
+
+"""save cursor position in file after exit
+:autocmd BufRead * '"
+
+"""search highlighted text
+vmap / y<ESC>/<S-Ins><CR>
+
+"""highlight searching
+set hlsearch
+
+"""ignore case within searching
+set ignorecase
+
+"""turn on increment search
+set incsearch
+
+"""""""""""""""""""""""" Tab options
+
+"" 8spaces tab - Linux Kernel style
+""set tabstop=8      "number of spaces in tabs
+""set shiftwidth=8   "spaces for <<>> commands
+""set softtabstop=8  " http://tedlogan.com/techblog3.html
+""set noexpandtab    "don't replace tabs by spaces
+
+"" 4spaces tab style
+""set tabstop=4 "number of spaces in tabs
+""set shiftwidth=4 "spaces for <<>> commands
+""set softtabstop=4  " http://tedlogan.com/techblog3.html
+""set expandtab "expand tabs to spaces
+
+"""" global and generic
+
+"set auto indention
+set autoindent
+
+"turn on smarttabs - ??? TODO: FIXME for Tab2?
+set smarttab
+
+"smart indents - ex, after {<ENTER>
+set smartindent
+
+command Tab2 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+command Tab4 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+command Tab8 set tabstop=8 shiftwidth=8 softtabstop=8 noexpandtab
+
+
+""""""""""""""""""""""""
+
+"""allow to use backspace instead of "x"
+set backspace=indent,eol,start whichwrap+=<,>,[,]
+
+""" autowrap (\n)
+"set textwidth=78
+set textwidth=0
+
+""" set visual vertical line
+"set colorcolumn=80
+
+"""don't wraping line
+set nowrap
+
+"""side scroll for long lines
+set sidescroll=5
+
+"""show text on side
+set sidescrolloff=5
+
+"""hide mouse pointer within typing
+set mousehide
+
+"""show cursor all the time
+set ruler
+
+"""stop searching in the end of file
+"set wrapscan
+
+"""autoinserting of brackets
+inoremap ' ''<esc>i
+inoremap " ""<esc>i
+inoremap ( ()<esc>i
+inoremap [ []<esc>i
+inoremap { {}<esc>i
+
+"""type of fold column
+"set foldcolumn=2
+
+"==================================================
+
+""" Key Bindings
+
+"""run file
+au FileType html,php,js imap <C-E><C-R> <C-S><esc>:!epiphany-browser -n % &<CR>a
+
+"""show to do/fixme window
+imap <C-E><C-D> :vimgrep /fixme\\|todo/j %<CR>:cw<CR>
+
+"""run script 
+""au FileType rb,ruby,pl,perl,sh,shell,py,python 
+""nmap <C-R> :w<CR>:!chmod a+x % && ./%<CR>
+""imap <C-R> <esc>:w<CR>:!chmod a+x % && ./%<CR>
+
+"""tab navigation
+nmap <C-T> :tabnew<cr>
+imap <C-T> <esc>:tabnew<cr>
+map <C-left> :tabp<cr>
+map <C-right> :tabn<cr>
+
+"""close window without saving
+nmap <C-W><C-C> :close!<CR>
+
+""nmap <C-C> v<end>h"+ya<esc>
+"""make last word in capital letters
+imap <C-F> <esc>bv$UA
+
+"""opens function undor cursor in new tab
+map <C-w>] <c-w>]:tab split<cr>gT:q<cr>gt
+""#_
+"""creates :Man call - opens man page
+command! -nargs=* M normal HdL<CR>-!man <args> | ul -i
+"""opens man page under cursor in new tab
+""map <C-w>m "+yw:tabnew<CR>p<home>:Man "<cword>"<CR>
+""map <S-M> :tabnew<CR>:Man
+"""opens man page under cursor in new window
+imap <C-W><C-M> <esc>"+yw<C-w>np<home>:Man "<cword>"<CR>
+""map <C-w>m "+yw<C-w>np<home>:Man "<cword>"<CR>
+imap <C-E> <C-w>n:Man 
+
+"""open file under cursor in new tab
+map <C-w>e <c-w>gf
+
+"imap <unique> <C-j> <Plug>Jumper
+"smap <unique> <C-j> i<BS><C-j>
+
+"""auto compete shortcuts
+imap <A-k> <C-N>
+imap <A-j> <C-P>
+
+"""quit without saving
+map <C-Q> :q!
+
+"""quit with saving
+""imap <C-W> <esc>:wq<C-M>
+
+"""some rebindings
+imap <C-B> <BS>
+imap <C-D> <del>
+
+"""clear searching text
+nmap cls<C-M> :nohlsearch<C-M>
+
+imap 'c<Tab> ©<space>
+
+"""delete selected and stay in visual mode
+vmap zc d<esc>v
+
+"""classic navigate keybindings for input mode with ctrl key
+imap <C-H> <left>
+imap <C-J> <down>
+imap <C-K> <up>
+imap <C-L> <right>
+
+"""keybindings for selecting text with shift
+imap <S-home> <esc>v<home>
+imap <S-end> <esc>v<end>h
+nmap <S-home> v<home>
+nmap <S-end> v<end>h
+""
+imap <S-right> <esc>v<right>
+imap <S-left> <esc>v<left>
+""
+nmap <S-right> v<right>
+nmap <S-left> v<left>
+
+"""bind Backspace
+"nmap <BS> X
+
+"""move cursor in end/begin of file
+imap <M-end> <esc>$GA
+imap <M-home> <esc>1Gi
+
+"""select all
+imap <C-A> <esc>1G<home>v<end>$G<end>
+nmap <C-A> 1G<home>v<end>$G<end>
+
+"""run shell
+""nmap <C-X> :sh<C-M>
+
+"""input shell command
+nmap ; :!
+
+"""move current window in opposite position
+nmap <C-E> <C-W>r
+
+"""set normal mode
+imap <C-O> <esc>
+vmap <C-O> <esc>
+
+"unmap  <M-o>
+"nunmap <M-o>
+"vunmap <M-o>
+"sunmap <M-o>
+"xunmap <M-o>
+"ounmap <M-o>
+"unmap! <M-o>
+"iunmap <M-o>
+"lunmap <M-o>
+"cunmap <M-o>
+"tunmap <M-o>
+
+" Global mapping: <Alt + o> = <ESC>
+map  <M-o> <esc>
+nmap <M-o> <esc>
+vmap <M-o> <esc>
+smap <M-o> <esc>
+xmap <M-o> <esc>
+omap <M-o> <esc>
+map! <M-o> <esc>
+imap <M-o> <esc>
+lmap <M-o> <esc>
+cmap <M-o> <esc>
+tmap <M-o> <esc>
+
+"""save changes
+imap <C-s> <esc>:w<C-M>a
+
+"""switch current window to next
+nmap <Tab> <C-W>w
+
+"""classic copy-paste
+vmap <C-C> "+yi
+imap <C-V> <esc>"+gpa
+
+"""show matching brackets
+nmap <C-[> %
+
+"""keep cursor on the same line within PgUp/PgDwn keys
+nmap <PageUp> <C-U><C-U>
+imap <PageUp> <C-O><C-U><C-O><C-U>
+nmap <PageDown> <C-D><C-D>
+imap <PageDown> <C-O><C-D><C-O><C-D>
+
+"""seek cursor to the next/prev line in end of line
+set whichwrap=b,s,<,>,[,],l,h
+
+"""open fold
+""nmap <C-G> zo
+"""close fold
+""nmap <C-F> zc
+"""toggle fold state
+nmap <space> za
+
+"""window moving
+map <C-H> <C-W>h
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+
+nmap <M-left>  <C-W>h
+nmap <M-down>  <C-W>j
+nmap <M-up>    <C-W>k
+nmap <M-right> <C-W>l
+
+imap <M-left>  <esc><C-W>hi
+imap <M-down>  <esc><C-W>ji
+imap <M-up>    <esc><C-W>ki
+imap <M-right> <esc><C-W>li
+
+"""langmap for commands in koi8 layout
+""set langmap=ж;;
+""set langmap=ё`,йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,э',яz,чx,сc,мv,иb,тn,ьm,б\,,ю.,Ё~,ЙQ,ЦW,УE,КR,ЕT,HY,ГU,ШI,ЩO,ЗP,Х{,Ъ},ФA,ЫS,ВD,АF,ПG,РH,ОJ,ЛK,ДL,Ж:,Э\",ЯZ,ЧX,СC,МV,ИB,ТN,ЬM,Б<,Ю>
+""set langmap=ж:,йq,цw,уe,кr,еt,нy,гu,шi,щo,зp,х[,ъ],фa,ыs,вd,аf,пg,рh,оj,лk,дl,э',яz,чx,сc,мv,иb,тn,ьm,б\,,ю.,ё`
+
+"==================================================
+
+""" Programming
+
+"cscope
+set csre
+set cscopequickfix=s-,g-,c-,d-,i-,t-,e-,a-,f-
+
+" use cscope by default before anything else ??
+set cst
+
+" search tag file before cscope
+set csto=0
+
+" number of elements in file path to show
+set cspc=4
+
+"ctags settings
+
+set autochdir
+"set tags=tags
+""set tags=.tags/tags
+
+""set tags=.tags,.tags/tags,tags;
+
+
+"set tags=/.../fork/source/tags
+":cscope  add  /.../fork/source/.tags/cscope.out  /.../fork/source
+
+
+
+
+""au FileType git-status set filetype=git
+
+"""OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+"automatically open and close the popup menu / preview window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+set completeopt=menuone,menu,longest
+
+"""opens all folds on load file
+"set foldlevel=0
+set foldlevelstart=99
+
+""" highlight all available words in python file
+let python_highlight_all = 1
+
+"""higlight special chars
+set list
+"""set of special chars
+set listchars=tab:•\ ,trail:·
+"setlocal listchars=tab:·\ ,trail:·
+"setlocal listchars=tab:•\ ,trail:·
+"setlocal listchars=tab:→\ ,trail:•
+
+"""add comment in begin of line depends on language
+au FileType c,cpp,h,hpp nmap <F4> <Home>i//<esc>
+au FileType c,cpp,h,hpp imap <F4> <Home>//<esc>i
+
+au FileType sh,bash,zsh,rb,py nmap <F4> <Home>i#<esc>
+au FileType sh,bash,zsh,rb,py imap <F4> <Home>#<esc>i
+
+au FileType c,cpp,h,hpp nmap <F3> <Home>i<del><del><esc>
+au FileType c,cpp,h,hpp imap <F3> <Home><del><del><esc>i
+
+au FileType sh,bash,zsh,rb,py nmap <F3> <Home>i<del><esc>
+au FileType sh,bash,zsh,rb,py imap <F3> <Home><del><esc>i
+
+au FileType lsp,lisp nmap <F4> <Home>i;<esc>
+au FileType pro,prl,prg nmap <F4> <Home>i%<esc>
+
+"""search for tags
+au FileType c,cpp,h,hpp nmap tg :tag
+
+"""remapping auto complete shortcut
+"imap <C-Space> <C-N> " <<< disable this to avoid overlapping of hotkeys
+au FileType python,javascript,html,css,xml,php,c,cpp,h,hpp imap <C-Space> <C-X><C-O>
+
+"""show line numbers
+set nu
+
+"""line number columnt width
+set numberwidth=5
+
+"""show folds
+set foldcolumn=5
+set cursorcolumn
+
+"""syntax highlighting
+syntax on
+
+"""show brackets match
+set showmatch
+
+"""disable preview window for omni complete
+"set completeopt-=preview
+
+"""syntax folding
+set foldmethod=syntax
+
+"""auto complete for file types
+autocmd  FileType  python      set  omnifunc=pythoncomplete#Complete
+autocmd  FileType  javascript  set  omnifunc=javascriptcomplete#CompleteJS
+autocmd  FileType  html        set  omnifunc=htmlcomplete#CompleteTags
+autocmd  FileType  css         set  omnifunc=csscomplete#CompleteCSS
+autocmd  FileType  xml         set  omnifunc=xmlcomplete#CompleteTags
+autocmd  FileType  php         set  omnifunc=phpcomplete#CompletePHP
+autocmd  FileType  c           set  omnifunc=ccomplete#Complete
+autocmd  FileType  h           set  omnifunc=ccomplete#Complete
+autocmd  FileType  cpp         set  omnifunc=ccomplete#Complete
+autocmd  FileType  hpp         set  omnifunc=ccomplete#Complete
+
+"=========================================
+
+"""C
+""au FileType c imap <C-E><C-H> <esc>:!if [ ! -f %<.h ]; then touch %<.h; fi;<CR>:e %<.h<CR>
+""au FileType h imap <C-E><C-H> <esc>:!if [ ! -f %<.c ]; then touch %<.c; fi;<CR>:e %<.c<CR>
+""au FileType c imap <C-E><C-H> <esc>:e %<.h<CR>a
+""au FileType h imap <C-E><C-H> <esc>:e %<.c<CR>a
+
+"""specific keywords:
+syn keyword cType uint ubyte ulong uint64_t uint32_t uint16_t uint8_t boolean_t int64_t int32_t int16_t int8_t u_int64_t u_int32_t u_int16_t u_int8_t
+syn keyword cOperator likely unlikely
+
+"""highlight any leading spaces
+syn match ErrorLeadSpace /^ \+/
+"""highlight any trailing spaces
+syn match ErrorTailSpace / \+$/
+
+"blocks of comments
+set formatoptions=tcqlron
+
+"indent setup - see :h cinoptions-values for more info
+set cinoptions=:0,l1,t0,g0
+
+""QtCpp autoindent function
+function! QtCppIndent()
+  " Patterns used to recognise labels and search for the start
+  " of declarations
+  let labelpat='signals:\|slots:\|public:\|protected:\|private:\|Q_OBJECT'
+  let declpat='\(;\|{\|}\)\_s*.'
+  " If the line is a label, it's a no brainer
+  if match(getline(v:lnum),labelpat) != -1
+    return 0
+  endif
+  " If the line starts with a closing brace, it's also easy: use cindent
+  if match(getline(v:lnum),'^\s*}') != -1
+    return cindent(v:lnum)
+  endif
+  " Save cursor position and move to the line we're indenting
+  let pos=getpos('.')
+  call setpos('.',[0,v:lnum,1,0])
+  " Find the beginning of the previous declaration (this is what
+  " cindent will mimic)
+  call search(declpat,'beW',v:lnum>10?v:lnum-10:0)
+  let prevlnum = line('.')
+  " Find the beginning of the next declaration after that (this may
+  " just get us back where we started)
+  call search(declpat,'eW',v:lnum<=line('$')-10?v:lnum+10:0)
+  let nextlnum = line('.')
+  " Restore the cursor position
+  call setpos('.',pos)
+  " If we're not after a label, cindent will do the right thing
+  if match(getline(prevlnum),labelpat)==-1
+    return cindent(v:lnum)
+  " It will also do the right thing if we're in the middle of a
+  " declaration; this occurs when we are neither at the beginning of
+  " the next declaration after the label, nor on the (non-blank) line
+  " directly following the label
+  elseif nextlnum != v:lnum && prevlnum != prevnonblank(v:lnum-1)
+    return cindent(v:lnum)
+  endif
+  " Otherwise we adjust so the beginning of the declaration is one
+  " shiftwidth in
+  return &shiftwidth
+endfunc
+set indentexpr=QtCppIndent()
+
+
+""" Python
+autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
+autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+
+"""indent folding for python
+autocmd FileType python set foldmethod=indent
+
+""" Function section
+
+""" show name and number in tab title -->
+function MyTabLine()
+	let tabline = ''
+
+	" create tabline for each tab -->
+	for i in range(tabpagenr('$'))
+		" highlight current selected tab
+		if i + 1 == tabpagenr()
+			let tabline .= '%#TabLineSel#'
+		else
+			let tabline .= '%#TabLine#'
+		endif
+		" set tab number
+		let tabline .= '%' . (i + 1) . 'T'
+		" get tab title
+		let tabline .= ' %{MyTabLabel(' . (i + 1) . ')} |'
+	endfor
+	" create tabline for each tab <--
+
+	" fill empty space
+	let tabline .= '%#TabLineFill#%T'
+
+	" close tab button at right align
+	if tabpagenr('$') > 1
+		let tabline .= '%=%#TabLine#%999XX'
+	endif
+
+	return tabline
+endfunction
+
+function MyTabLabel(n)
+	let label = ''
+	let buflist = tabpagebuflist(a:n)
+
+	" file name and tab number -->
+	let label = substitute(bufname(buflist[tabpagewinnr(a:n) - 1]), '.*/', '', '')
+	if label == ''
+		let label = '[No Name]'
+	endif
+	let label .= ' (' . a:n . ')'
+	" file name and tab number <--
+
+	" detect changes in buffers -->
+	for i in range(len(buflist))
+		if getbufvar(buflist[i], "&modified")
+			let label = '[+] ' . label
+			break
+		endif
+	endfor
+	" detect changes in buffers <--
+
+	return label
+endfunction
+
+function MyGuiTabLabel()
+	return '%{MyTabLabel(' . tabpagenr() . ')}'
+endfunction
+
+set tabline=%!MyTabLine()
+set guitablabel=%!MyGuiTabLabel()
+""" show name and number in tab title <--
+
+" limit of max tabs to open
+set tabpagemax=100
+
+""" show spending time in vim -->
+augroup TimeSpentEditing
+au!
+au VimEnter,BufRead,BufNew * call setbufvar(str2nr(expand('<abuf>')),
+                    \ 'timestartediting', strftime('%s'))
+augroup END
+
+func! TimeSpentEditing()
+      let timenow=strftime('%s')
+      let timespent=timenow-b:timestartediting
+      let hours=timespent/3600
+      let minutes=(timespent-hours*3600)/60
+      let seconds=(timespent-hours*3600-minutes*60)
+      return printf("%02d:%02d:%02d",hours,minutes,seconds)
+endfunc
+
+com! TimeSpentEditing echo TimeSpentEditing()
+""" show spending time in vim -->
+
+
+""let g:clang_auto_select=1
+""let g:clang_complete_auto=0
+""let g:clang_complete_copen=1
+""let g:clang_hl_errors=1
+""let g:clang_periodic_quickfix=0
+""let g:clang_snippets=1
+""let g:clang_snippets_engine="clang_complete"
+""let g:clang_conceal_snippets=1
+""let g:clang_exec="clang"
+""let g:clang_user_options=""
+""let g:clang_auto_user_options="path, .clang_complete"
+""let g:clang_use_library=1
+""let g:clang_library_path="/usr/lib"
+""let g:clang_sort_algo="priority"
+""let g:clang_complete_macros=1
+""let g:clang_complete_patterns=0
+""nnoremap <Leader>q :call g:ClangUpdateQuickFix()<CR>
+
+""let g:clic_filename="/.../index.db"
+""nnoremap <Leader>r :call ClangGetReferences()<CR>
+""nnoremap <Leader>d :call ClangGetDeclarations()<CR>
+""nnoremap <Leader>s :call ClangGetSubclasses()<CR>
+
+" load the types.vim highlighting file, if it exists
+""autocmd BufRead,BufNewFile *.[ch] let fname = expand('<afile>:p:h') . '~/.vim/types/current.vim'
+""autocmd BufRead,BufNewFile *.[ch] if filereadable(fname)
+""autocmd BufRead,BufNewFile *.[ch]   exe 'so ' . fname
+""autocmd BufRead,BufNewFile *.[ch] endif
+
+""autocmd BufRead,BufNewFile *.[ch]   exe 'so ' . '~/.vim/types/current.vim'
+""autocmd BufRead,BufNewFile *.[ch]   exe 'so ' . '~/.vim/types/usr_include.vim'
+""autocmd BufRead,BufNewFile *.[ch]   exe 'so ' . '~/.vim/types/usr_include_sys.vim'
+""autocmd BufRead,BufNewFile *.[ch]   exe 'so ' . '~/.vim/types/usr_include_cpu_sys.vim'
+
+
+"""""""" gtags for GNU Global
+:map <C-]> :Gtags<CR><CR>
+:map <C-\> :Gtags -r<CR><CR>
+:map <F10> :cclose<CR>
+
+"":map <F11> :cp<CR>
+:map <F12> :cn<CR>
+
+"":nmap <C-k> :cp<CR>
+"":nmap <C-j> :cn<CR>
+
+"":nmap <C-l> :Gtags<CR><CR>
+"":nmap <C-h> :Gtags -r<CR><CR>
+
+"" QuickFix defaults
+:autocmd FileType qf res 8
+:autocmd FileType qf wincmd K
+:vertical topleft cwindow
+
+"""""""" QuickFix window place fix
+" place QuickFix window on top
+" call manually when it popups at the first time
+" use for tags
+function! _qfbar()
+	"":wincmd k
+	:split
+	:b 2
+	:wincmd j
+	:wincmd j
+	:q
+	:wincmd k
+	:res 8
+	:wincmd j
+	:vsplit
+	:wincmd h
+endfunc
+command QfBar call _qfbar()
+
+function! _mkbar()
+	:make
+	:cw
+	:wincmd j
+	:q
+	:vsplit
+	:cn
+endfunc
+command MkBar call _mkbar()
+
+" navigate in quickfix window(?)
+nmap <M-k> :cp<CR>
+nmap <M-j> :cn<CR>
+
+function! _qftagLegacy()
+	"":wincmd k
+	:split
+	:b 2
+	:wincmd j
+	:wincmd j
+	:q
+	:wincmd k
+	:res 4
+	:wincmd j
+endfunc
+"command QfTag call _qftag()
+
+
+"""""""" QuickFix window place fix
+" place QuickFix window on top
+" call manually when it popups at the first time
+" use for :make errors
+function! _qferr()
+	:cw
+	:file QFL
+	:wincmd k
+	:split
+	:b QFL
+	:wincmd j
+	:wincmd j
+	:q
+	:wincmd k
+	:res 8
+	:wincmd j
+endfunc
+command QfErr call _qferr()
+
+"""""""" DimInactive plugin background inactive window color setting
+"":hi ColorColumn ctermbg=0 guibg=#eee8d5
+"":hi ColorColumn ctermbg=0 guibg=#f3efe3
+
+:hi ColorColumn ctermbg=0 guibg=#dddddd
+
+
+"""""""" Scroll set - centered current line by default: 999
+" http://vim.wikia.com/wiki/Make_search_results_appear_in_the_middle_of_the_screen
+" http://vim.wikia.com/wiki/VimTip182
+:set scrolloff=20
+
+
+function! _scr_ldown()
+	:exe "normal j"
+	:exe "normal zz"
+endfunc
+command ScrollLineDown call _scr_ldown()
+:nmap <C-M> :ScrollLineDown<CR>
+
+
+function! _scr_lup()
+	:exe "normal k"
+	:exe "normal zz"
+endfunc
+command ScrollLineUp call _scr_lup()
+:nmap <C-N> :ScrollLineUp<CR>
+
+"":let g:dump_file_name = /.../nav.txt ???
+function! _dump_location()
+	:redir >> ~/code_marks.txt
+	"":echo  g:dump_file_name
+	"":redir >> &g:dump_file_name
+	:let _line_number = line('.')
+	:echo expand('%:p') _line_number
+	:redir END
+	"":!echo -n '%:p' >> ~/bug.txt
+endfunc
+command DumpLocation call _dump_location()
+:nmap <C-E> :DumpLocation<CR>
+
+
+function! _jump_to_result()
+	:let _l_n = getline('.')
+	:cc line('.')
+endfunc
+command JumpResult call _jump_to_result()
+""autocmd FileType qf nmap <C-m> :JumpResult<CR>
+autocmd FileType qf nmap <C-p> :execute ":cc" line('.')<CR>
+"autocmd FileType qf hi ColorColumn ctermbg=0 guibg=#aaaaaa
+
+""autocmd BufEnter,FileType qf hi ColorColumn ctermbg=0 guibg=#dddddd
+""autocmd BufEnter,FileType * hi ColorColumn ctermbg=0 guibg=#aaaaaa
+""autocmd BufLeave,FileType qf hi ColorColumn ctermbg=0 guibg=#aaaaaa
+
+"":autocmd BufEnter,FileType *
+""\  if &ft ==# 'qf' | hi ColorColumn ctermbg=0 guibg=#dddddd |
+""\  else | hi ColorColumn ctermbg=0 guibg=#aaaaaa |
+""\  endif
+
+
+function! _get_st_field()
+	:exe "normal b"
+	:exe "normal B"
+	:exe "normal yw"
+	:exe "normal gd"
+	:exe "normal ^"
+	:exe "normal w"
+	:Gtags
+""	:exe normal /<C-R>0
+endfunc
+command GetStField call _get_st_field()
+:nmap <C-x> :GetStField<CR><CR>
+
+
+function! _load_tags()
+	:set tags=/.../fork/source/tags
+endfunc
+command T call _load_tags()
+
+
+"vdyn_file="~/.gvimrc.dyn"
+""if filereadable(expand('~/.gvimrc.dyn')) |
+
+""source ~/.gvimrc.dyn
+
