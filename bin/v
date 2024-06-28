@@ -64,11 +64,12 @@ if [ -f "${clang_format_log}" ]; then
 	v_ex_makeprg="-c ':set makeprg=cat\ ${clang_format_log}'  -c ':MkBar'"
 fi;
 
-# if efm-compatible output from clang-format presented, then use it
-markdown_linter_log="mdl.log"
-if [ -f "${markdown_linter_log}" ]; then
-	v_ex_makeprg="-c ':set makeprg=cat\ ${markdown_linter_log}'  -c ':MkBar'"
-fi;
+# if efm-compatible output from markdown linter presented, then use it
+#   (disabled for now until tested)
+#markdown_linter_log="mdl.log"
+#if [ -f "${markdown_linter_log}" ]; then
+#	v_ex_makeprg="-c ':set makeprg=cat\ ${markdown_linter_log}'  -c ':MkBar'"
+#fi;
 
 # generate resulting cmd line and feed it to shell for fire-up & running:
 #GVIM_CMDS="${v_ex_tags}  ${v_ex_cscope}  -c ':'"
