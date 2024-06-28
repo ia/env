@@ -72,7 +72,6 @@ fi;
 #fi;
 
 # generate resulting cmd line and feed it to shell for fire-up & running:
-#GVIM_CMDS="${v_ex_tags}  ${v_ex_cscope}  -c ':'"
 GVIM_CMDS="${v_ex_tags}  ${v_ex_cscope}  ${v_ex_makeprg}"
 
 #echo  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  $@
