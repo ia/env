@@ -48,3 +48,11 @@ export GTAGSROOT="${SDIR}"
 export GTAGSDBPATH="${TDIR}"
 
 echo "OK"
+
+# usual defaults inside (g)vim:
+#   [ hotkey ]    -  [ component ]  -  [ function ]
+#     Ctrl ]      -   GNU Global    -    jump
+#     Ctrl Enter  -   cscope        -    show all usages of function/method
+#     Ctrl Space  -   omni          -    autocomplete (functions/methods/classes signatures)
+#     Ctrl o      -   (g)vim        -    "go back" (as in a browser's back button)
+
