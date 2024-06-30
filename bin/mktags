@@ -34,7 +34,7 @@ mkdir "${TDIR}"
 ctags  --tag-relative=yes  -R  --c++-kinds=+p  --fields=+iaS  --extra=+q  -f "${TDIR}"/tags  "${SDIR}"
 
 # cscope
-find  "${SDIR}"  -type f  |  grep -v  "/\."  >  "${TDIR}"/cscope.files
+find  "${SDIR}"  -type f  |  grep -v  "/\."  |  sed 's,^,",; s,$,",;' >  "${TDIR}"/cscope.files
 cscope  -i  "${TDIR}"/cscope.files  -R  -b  -q  -f "${TDIR}"/cscope.out
 
 # gtags
