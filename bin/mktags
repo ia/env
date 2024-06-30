@@ -38,7 +38,7 @@ find  "${SDIR}"  -type f  |  grep -v  "/\."  |  sed 's,^,",; s,$,",;' >  "${TDIR
 cscope  -i  "${TDIR}"/cscope.files  -R  -b  -q  -f "${TDIR}"/cscope.out
 
 # gtags
-find  "${SDIR}"  |  grep -v  "/\."  |  gtags  -q  "${TDIR}"  -
+find  "${SDIR}"  |  grep -v  "/\."  |  sed 's,^,",; s,$,",;'  |  gtags  -q  "${TDIR}"  -
 
 # set gtags opts
 export GPATH="${TDIR}"/GPATH
