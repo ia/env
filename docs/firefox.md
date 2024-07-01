@@ -1,0 +1,2 @@
+# Firefox configuraton notes
+
