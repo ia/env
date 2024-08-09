@@ -6,7 +6,7 @@
 
 ### Standalone prebuilt toolchains
 
-https://github.com/xpack-dev-tools
+- [project page](https://github.com/xpack-dev-tools) on GitHub
 
 Latest current stable releases:
 MacOS/x64:
