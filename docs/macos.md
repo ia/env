@@ -4,6 +4,7 @@
 ## Editors
 
 - MacVim
+- Sublime Text 2
 
 
 
