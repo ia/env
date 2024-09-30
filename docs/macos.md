@@ -14,6 +14,7 @@
 - VLC
 - foobar2000
 - Pine Player
+- XLD
 
 
 
