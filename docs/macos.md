@@ -12,6 +12,7 @@
 ## Media
 
 - VLC
+- foobar2000
 
 
 
