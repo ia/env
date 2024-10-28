@@ -97,6 +97,7 @@ config
 ## CLI setup
 
 ### Installation
+This section based on [the official documentation](https://cloud.google.com/sdk/docs/install#deb).
 
 - upgrade all available packages:
 ```
