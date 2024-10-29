@@ -125,6 +125,11 @@ $ sudo  apt  install  google-cloud-cli
 ```
 
 ### Configuration
+This section based on the official documentation about:
+- [initializing](https://cloud.google.com/sdk/docs/initializing);
+- [authorizing](https://cloud.google.com/sdk/docs/authorizing);
+- [managing configurations](https://cloud.google.com/sdk/docs/configurations).
+
 
 - add login credentials for your account:
 ```
