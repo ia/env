@@ -72,6 +72,8 @@ Related links:
  - https://stackoverflow.com/questions/64231409/google-cloud-shell-appears-to-be-hanging-on-provisioning
 
 
+
+
 ## Deploying
 
 DRAFT
@@ -94,10 +96,14 @@ setup ssh keys
 config
 
 
+
+
 ## CLI setup
+
 
 ### Installation
 This section based on [the official documentation with installation instructions](https://cloud.google.com/sdk/docs/install#deb).
+
 
 - upgrade all available packages:
 ```
@@ -123,6 +129,7 @@ $ sudo  apt  update
 ```
 $ sudo  apt  install  google-cloud-cli
 ```
+
 
 ### Configuration
 This section based on the official documentation about:
