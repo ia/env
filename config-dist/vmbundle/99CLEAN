@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rm  -f  ~/logs.*
+rm  -f  ~/tmux-client-*.log
+rm  -f  ~/.LOGIN
+
