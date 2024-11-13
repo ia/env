@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo  service  ssh  restart  >  ~/logs.ssh.txt  2>&1
+
