@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+rund="${HOME}/.local/bin"
+
+# ${rund}/USER_SCRIPT_NAME
+
+#${rund}/restart-ssh
+#${rund}/mkdata
+#${rund}/update-noip
+#${rund}/socks
+
+touch  "${HOME}/.LOGIN"
+
