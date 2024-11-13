@@ -1,0 +1,10 @@
+# ~/.profile: executed by the command interpreter for login shells.
+# ...
+# [SKIP]
+# ...
+
+if [ ! -f "${HOME}/.LOGIN" ]; then
+	"$HOME/.local/bin/00LOGIN"
+	touch "${HOME}/.LOGIN"
+fi;
+
