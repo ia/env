@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+mpoint="${HOME}/data"
+
+sudo  mkdir       /data
+sudo  chmod  0777 /data
+
+mkdir  -p  "${mpoint}"
+mount  --bind  /data  "${mpoint}"
+
