@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+test ${#} -eq 1
+test -n "${1}"
+
+pubkeyline="${1}"
+
+tdir="${HOME}/.ssh"
+akey="${HOME}/.ssh/authorized_keys"
+
+mkdir -p   "${tdir}"
+chmod 0700 "${tdir}"
+
+# rm -f "${akey}"
+
+echo "${pubkeyline}" | base64 -d >> "${akey}"
+
+chmod 0644 "${akey}"
+
