@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
+set -e
 
-port=3333
+# default port
+PORT=8080
+
+if [ "${#}" -eq 0 ]; then
+	port=${PORT}
+elif [ "${#}" -eq 1 ]; then
+	port="${1}"
+else
+	echo "Usage: ${0} [port]"
+	exit 1
+fi;
 
 ssh  -o UserKnownHostsFile=/dev/null  -f  -N  -D  0.0.0.0:${port}  localhost
 
