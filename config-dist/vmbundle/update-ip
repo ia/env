@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ "${#}" -eq 0 ]; then
+	source "$(HOME)"/.local/etc/creds || echo "Config error" && exit 1;
+	if [ -z "${usr}" ] || [ -z "${pas}" ] || [ -z "${hst}" ]; then
+		echo "Config args error"
+		exit 1
+	fi;
+elif [ "${#}" -eq 3 ]; then
+	usr="${1}"
+	pas="${2}"
+	hst="${3}"
+else
+	echo "Args error"
+	exit 1
+fi;
+
+ip="`curl -s  ifconfig.me`"
+
+curl  -o ~/logs.noip.txt  -s  --user-agent "user update script/0.0.1 user@example.com"  https://`echo -n ${usr} | base64 -d`:"`echo -n ${pas} | base64 -d`"@dynupdate.no-ip.com/nic/update?hostname=${hst}&myip=${ip}
+
