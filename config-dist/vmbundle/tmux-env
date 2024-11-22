@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+tmux  set  -g  status  on
+
+sleep 1
+tmux  split-window  -h
+
+sleep 1
+tmux  split-window  -v  -d htop
+
