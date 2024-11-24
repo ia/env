@@ -1,4 +1,4 @@
-# This directory contains system config files
+# GNU/Linux Ubuntu post-installation todo
 
 # UNDER DEVELOPMENT
 
