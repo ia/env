@@ -12,6 +12,14 @@
 
 #### configuration
 
+- disable suggested and recommended packages to reduce download/storage size on installation:
+```
+$ sudo  vim  /etc/apt/apt.conf.d/00bloatware
+$ cat /etc/apt/apt.conf.d/00bloatware
+APT::Install-Recommends "0";
+APT::Install-Suggests "0";
+```
+
 
 
 
