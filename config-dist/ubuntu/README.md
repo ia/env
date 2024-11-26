@@ -22,6 +22,29 @@ APT::Install-Suggests "0";
 
 #### sources.list
 
+- get codename for the distro: `$ lsb_release  -c`
+- get hostname with _https_ support [here](https://launchpad.net/ubuntu/+archivemirrors)
+- edit and put this file instead of original `/etc/apt/sources.list` accordingly:
+```
+deb     HOSTNAME/  CODENAME            main restricted universe multiverse
+deb-src HOSTNAME/  CODENAME            main restricted universe multiverse
+
+deb     HOSTNAME/  CODENAME-updates    main restricted universe multiverse
+deb-src HOSTNAME/  CODENAME-updates    main restricted universe multiverse
+
+deb     HOSTNAME/  CODENAME-backports  main restricted universe multiverse
+deb-src HOSTNAME/  CODENAME-backports  main restricted universe multiverse
+
+deb     HOSTNAME/  CODENAME-security   main restricted universe multiverse
+deb-src HOSTNAME/  CODENAME-security   main restricted universe multiverse
+
+deb     HOSTNAME/  CODENAME-proposed   main restricted universe multiverse
+deb-src HOSTNAME/  CODENAME-proposed   main restricted universe multiverse
+
+deb     http://archive.canonical.com/ubuntu CODENAME partner
+deb-src http://archive.canonical.com/ubuntu CODENAME partner
+```
+
 
 TBA
 
