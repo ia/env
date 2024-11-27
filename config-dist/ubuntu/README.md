@@ -48,6 +48,18 @@ deb-src http://archive.canonical.com/ubuntu CODENAME partner
 
 #### debug symbols
 
+- edit and put this file as `/etc/apt/sources.list.d/dbgsyms.list`:
+```
+deb     http://ddebs.ubuntu.com  CODENAME           main restricted universe multiverse
+deb-src http://ddebs.ubuntu.com  CODENAME           main restricted universe multiverse
+
+deb     http://ddebs.ubuntu.com  CODENAME-updates   main restricted universe multiverse
+deb-src http://ddebs.ubuntu.com  CODENAME-updates   main restricted universe multiverse
+
+deb     http://ddebs.ubuntu.com  CODENAME-proposed  main restricted universe multiverse
+deb-src http://ddebs.ubuntu.com  CODENAME-proposed  main restricted universe multiverse
+```
+
 
 TBA
 
