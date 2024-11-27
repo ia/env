@@ -46,5 +46,8 @@ deb-src http://archive.canonical.com/ubuntu CODENAME partner
 ```
 
 
+#### debug symbols
+
+
 TBA
 
