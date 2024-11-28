@@ -70,5 +70,7 @@ TBA
 
 ## System configuration
 
+### grub
+
 TBA
 
