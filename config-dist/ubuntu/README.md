@@ -72,5 +72,39 @@ TBA
 
 ### grub
 
+- edit and put this content as `/etc/default/grub`:
+```
+# default entry
+GRUB_DEFAULT=0
+
+# autoboot timeout
+GRUB_TIMEOUT=4
+
+# distro name generator
+GRUB_DISTRIBUTOR=`echo GNU/Linux Ubuntu`
+
+# default cmd line
+GRUB_CMDLINE_LINUX=""
+
+# no quite autoboot timeout
+GRUB_HIDDEN_TIMEOUT_QUIET=false
+
+# verbose boot
+# based on https://wiki.archlinux.org/index.php/Boot_debugging#Insane_Debug
+GRUB_CMDLINE_LINUX_DEFAULT="ignore_loglevel no_console_suspend verbose=1 udev.log_priority=8 loglevel=9 earlyprintk=vga,keep log_buf_len=10M print_fatal_signals=1 pause_on_oops=2 panic=5 sysrq_always_enabled"
+
+# disable submenus
+GRUB_DISABLE_SUBMENU="y"
+
+# enable luks support for rootfs partition
+GRUB_ENABLE_CRYPTODISK="y"
+GRUB_CRYPTODISK_ENABLE="y"
+
+# boot the previous boot item
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+```
+
+
 TBA
 
