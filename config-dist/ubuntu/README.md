@@ -64,6 +64,10 @@ deb-src http://ddebs.ubuntu.com  CODENAME-proposed  main restricted universe mul
 ### multiarch
 
 TBA
+```
+dpkg --add-architecture i386
+dpkg --print-foreign-architecture
+```
 
 
 ### packages
