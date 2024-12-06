@@ -29,7 +29,7 @@
 
 ## Utilities
 
-- Suspicious Package
+- [Suspicious Package](https://mothersruin.com/software/SuspiciousPackage)
 - Mist
 
 
