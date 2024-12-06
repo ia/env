@@ -29,7 +29,7 @@
 
 ## Utilities
 
-- [Suspicious Package](https://mothersruin.com/software/SuspiciousPackage)
+- [Suspicious Package](https://mothersruin.com/software/SuspiciousPackage): tool to inspect `pkg` files
 - Mist
 
 
