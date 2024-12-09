@@ -19,6 +19,8 @@ The document is under constant updating.
 
 ## HOWTOs
 
+This section is for basic & short HOWTOs.
+
 TBA
 
 
