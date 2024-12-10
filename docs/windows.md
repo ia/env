@@ -24,7 +24,10 @@ This section is for basic & short HOWTOs.
 
 ### Checksum
 
-TBA
+To get checksum of a file, use built-in `certutil` tool:
+```
+> certutil  -hashfile  PATH_TO_FILE  HASH_TYPE
+```
 
 
 
