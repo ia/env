@@ -28,6 +28,10 @@ To get checksum of a file, use built-in `certutil` tool:
 ```
 > certutil  -hashfile  PATH_TO_FILE  HASH_TYPE
 ```
+For example, to get _md5_:
+```
+> certutil  -hashfile  PATH_TO_FILE  MD5
+```
 
 
 
