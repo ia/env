@@ -21,6 +21,9 @@ The document is under constant updating.
 
 This section is for basic & short HOWTOs.
 
+
+### Checksum
+
 TBA
 
 
