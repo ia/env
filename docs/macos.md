@@ -21,7 +21,7 @@
 
 ## Network
 
-- [Wireshark](https://www.wireshark.org/#downloadLink)
+- [Wireshark](https://www.wireshark.org/#downloadLink): network sniffer & protocol analyzer
 - WiFi Explorer
 
 
