@@ -26,8 +26,10 @@ TDIR="${SDIR}"/"${TDIR_NAME}"
 
 ### main
 
+# delete previous .tags
+find  ./  -type d  -name "${TDIR_NAME}"  -exec rm -rf '{}' \;  -prune
+
 # prep dir
-rm -rf "${TDIR}"
 mkdir "${TDIR}"
 
 # ctags
