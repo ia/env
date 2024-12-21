@@ -973,3 +973,6 @@ command T call _load_tags()
 
 ""source ~/.gvimrc.dyn
 
+" to write new empty line:
+"   :!echo >> ~/.vimtrace
+
