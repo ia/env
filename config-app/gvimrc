@@ -976,4 +976,6 @@ command T call _load_tags()
 " Writing meta info of a current open file into custom file:
 " - write new empty line:
 "   :!echo >> ~/.vimtrace
+" - write current line number:
+"   :execute ":!echo -n \"" . line('.') . "\">>~/.vimtrace
 
