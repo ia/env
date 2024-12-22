@@ -980,4 +980,6 @@ command T call _load_tags()
 "   :execute ":!echo -n \"" . line('.') . "\">>~/.vimtrace
 " - write current full file name path:
 "   :!echo -n %:p >> ~/.vimtrace
+" - write the current line text:
+"   :. !tee -a ~/.vimtrace
 
