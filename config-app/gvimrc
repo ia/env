@@ -983,3 +983,6 @@ command T call _load_tags()
 " - write the current line text:
 "   :. !tee -a ~/.vimtrace
 
+" Alt + s: /path/to/file#L<LINENO> \n source_code_line() \n to ~/.vimtrace
+:nmap <M-s> :!echo >> ~/.vimtrace <CR>:!echo -n %:p >> ~/.vimtrace<CR>:execute ":!echo -n \"\\#L" . line('.') . "\" >> ~/.vimtrace"<CR>:execute ":!echo >> ~/.vimtrace"<CR>:. !tee -a ~/.vimtrace<CR>:execute ":!echo >> ~/.vimtrace"<CR>:undo<CR><CR>
+
