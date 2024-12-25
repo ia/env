@@ -986,3 +986,6 @@ command T call _load_tags()
 " Alt + s: /path/to/file#L<LINENO> \n source_code_line() \n to ~/.vimtrace
 :nmap <M-s> :!echo >> ~/.vimtrace <CR>:!echo -n %:p >> ~/.vimtrace<CR>:execute ":!echo -n \"\\#L" . line('.') . "\" >> ~/.vimtrace"<CR>:execute ":!echo >> ~/.vimtrace"<CR>:. !tee -a ~/.vimtrace<CR>:execute ":!echo >> ~/.vimtrace"<CR>:undo<CR><CR>
 
+" Alt + Shift + s: open current line in the firefox tab on github:
+:nmap <M-S> :!echo >> ~/.vimtrace <CR>:!echo -n %:p >> ~/.vimtrace<CR>:execute ":!echo -n \"\\#L" . line('.') . "\" >> ~/.vimtrace"<CR>:execute ":!echo >> ~/.vimtrace"<CR>:. !tee -a ~/.vimtrace<CR>:execute ":!echo >> ~/.vimtrace"<CR>:undo<CR>:!git-hub-code-link-open<CR><CR>
+
