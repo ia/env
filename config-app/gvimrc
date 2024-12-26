@@ -989,3 +989,17 @@ command T call _load_tags()
 " Alt + Shift + s: open current line in the firefox tab on github:
 :nmap <M-S> :!echo >> ~/.vimtrace <CR>:!echo -n %:p >> ~/.vimtrace<CR>:execute ":!echo -n \"\\#L" . line('.') . "\" >> ~/.vimtrace"<CR>:execute ":!echo >> ~/.vimtrace"<CR>:. !tee -a ~/.vimtrace<CR>:execute ":!echo >> ~/.vimtrace"<CR>:undo<CR>:!git-hub-code-link-open<CR><CR>
 
+" Minimal ample of git-hub-code-link-open:
+"  $ cat  git-hub-code-link-open
+"  #!/usr/bin/env bash
+"  set -e
+"  NAME="name of github user or organization"
+"  REPO="name of remote repo"
+"  BRANCH="name of remote branch"
+"  gh="https://github.com/NAME/REPO/blob/BRANCH"
+"  lc="/path/to/local/sources"
+"  sed -i 's,^'"${lc}"','"${gh}"',' ~/.vimtrace
+"  pagelink="`tail -4 ~/.vimtrace | grep "^https://"`"
+"  firefox  --new-tab  "${pagelink}"
+"  
+
