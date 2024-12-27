@@ -183,4 +183,6 @@ where X is desired amount of `C:\` drive in _GiB_, i.e. to make _64 GiB_:
   - get activation status:  
 `> slmgr /xpr`
 
+taskkill /f /im explorer.exe
+start explorer.exe
 
