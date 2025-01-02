@@ -12,7 +12,7 @@
 ## Media
 
 - [VLC](https://www.videolan.org/vlc)
-- foobar2000
+- [foobar2000](https://www.foobar2000.org/mac)
 - Pine Player
 - XLD
 
