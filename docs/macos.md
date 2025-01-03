@@ -14,7 +14,7 @@
 - [VLC](https://www.videolan.org/vlc)
 - [foobar2000](https://www.foobar2000.org/mac)
 - [Pine Player](https://www.pine-player.com)
-- XLD
+- [XLD](https://tmkk.undo.jp/xld/index_e.html)
 
 
 
