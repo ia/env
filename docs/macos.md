@@ -22,7 +22,7 @@
 ## Network
 
 - [Wireshark](https://www.wireshark.org/#downloadLink): network sniffer & protocol analyzer
-- WiFi Explorer
+- [WiFi Explorer](https://www.intuitibits.com/products/wifiexplorer)
 
 
 
