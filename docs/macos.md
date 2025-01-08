@@ -37,7 +37,7 @@
 
 ## Documentation
 
-- [Mactracker](http://mactracker.ca)
+- [Mactracker](http://mactracker.ca): mac hardware offline database provider
 
 
 
