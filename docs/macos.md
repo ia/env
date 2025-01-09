@@ -31,7 +31,7 @@
 
 - [Suspicious Package](https://mothersruin.com/software/SuspiciousPackage): tool to inspect `pkg` files
 - [Mist](https://github.com/ninxsoft/Mist): tool to download macOS firmware/installers
-- [picocom](https://github.com/npat-efault/picocom)
+- [picocom](https://github.com/npat-efault/picocom): minimal yet convenient console-based tty/com terminal emulator
 
 
 
