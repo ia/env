@@ -2,5 +2,6 @@
 #set -x
 set -e
 
+# delete all .tags directories with its content recursively starting from the current directory
 find  ./  -type d  -name ".tags"  -exec rm -rf '{}' \;  -prune
 
