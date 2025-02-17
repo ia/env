@@ -64,8 +64,8 @@ if [ -f "${clang_format_log}" ]; then
 	v_ex_makeprg="-c ':set makeprg=cat\ ${clang_format_log}'  -c ':MkBar'"
 fi;
 
+## Disabled for now until tested!
 # if efm-compatible output from markdown linter presented, then use it
-#   (disabled for now until tested)
 #markdown_linter_log="mdl.log"
 #if [ -f "${markdown_linter_log}" ]; then
 #	v_ex_makeprg="-c ':set makeprg=cat\ ${markdown_linter_log}'  -c ':MkBar'"
@@ -88,4 +88,8 @@ eval  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  ${files}
 # * Ctrl ]      -   GNU Global    -    jump to definition/declaration
 # * Ctrl Enter  -   cscope        -    show all usages of function/method
 # * Ctrl Space  -   omni          -    autocomplete (functions/methods/classes signatures)
+
+# TODO:
+# - implement `v file:line' to open a `file` on the line number `line'
+# - implement `echo file1 file2 ... fileN | v -input' to open list of files from stdin
 
