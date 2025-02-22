@@ -92,5 +92,5 @@ eval  ${v_ex_gtags}  vim.gtk  ${GVIM_CMDS}  ${GVIM_ARGS}  ${files}
 # TODO:
 # - implement `echo file1 file2 ... fileN | v -input' to open list of files from stdin
 # - implement `v file:line' to open a `file` on the line number `line':
-# vim.gtk -g -c ":tabnew file.txt|:2|:tabnew source.c|:3|"
+# $ vim.gtk -g -c ":tabnew file.txt|:2|:tabnew source.c|:3|:tabclose 1|"
 
