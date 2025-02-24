@@ -17,8 +17,6 @@ fi;
 # timestat + verbose + progress output to stdout
 fsck.ext4  -t -t  -v  -C 0  ${opts}  "${1}"
 
-exit 0
-
 if [ "${?}" -eq 4 ] && [ "${opts}" == "-p" ]; then
 	echo -ne "!!!! ERRORS detected, rerunning fsck with force...\n\n"
 	fsck.ext4  -t -t  -v  -C 0  -f  -y  "${1}"
