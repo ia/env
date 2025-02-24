@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
+# helper to get external IP address via ifconfig.me service using curl
 echo `curl  -s  ifconfig.me`
+
