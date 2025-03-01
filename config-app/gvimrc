@@ -1003,3 +1003,6 @@ command T call _load_tags()
 "  firefox  --new-tab  "${pagelink}"
 "  
 
+" Font size management
+" TBA
+
