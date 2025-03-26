@@ -2,3 +2,5 @@
 #set -e
 #set -x
 
+pandoc  -t beamer  --latex-engine=xelatex  -V mainfont="DejaVuSans"  "${1}"  -o "${1}".pdf
+
