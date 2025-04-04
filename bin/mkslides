@@ -6,3 +6,6 @@ md="${1}"
 
 pandoc  -t beamer  --latex-engine=xelatex  -V mainfont="DejaVuSans"  "${md}"  -o "${md}".pdf
 
+# Read for more details:
+#    https://github.com/ia/mkslides
+
