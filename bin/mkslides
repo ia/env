@@ -8,4 +8,5 @@ pandoc  -t beamer  --latex-engine=xelatex  -V mainfont="DejaVuSans"  "${md}"  -o
 
 # Read for more details:
 #    https://github.com/ia/mkslides
+#    https://github.com/alexeygumirov/pandoc-beamer-how-to
 
